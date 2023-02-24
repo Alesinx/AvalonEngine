@@ -1,0 +1,14 @@
+# Directories
+.vs/
+Bin/
+Intermediate/
+
+# Files
+*.user
+imgui.ini
+
+# Visual Studio files and folder
+**.sln
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user
