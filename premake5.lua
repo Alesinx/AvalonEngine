@@ -26,8 +26,8 @@ project "Avalon" ---------------------------------------------------------------
     targetdir ("Bin/" .. outputdir .. "/%{prj.name}")
     objdir ("Intermediate/" .. outputdir .. "/%{prj.name}")
 
-    -- pchheader "Avalon.h"
-    -- pchsource "Avalon/Source/Avalon.cpp"
+    pchheader "AvalonPch.h"
+    pchsource "Avalon/Source/AvalonPch.cpp"
 
     files
     {

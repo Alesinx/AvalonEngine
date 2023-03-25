@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <format>
 
 #define AVALON_LOG_INFO(str, ...) Avalon::Logging::Log(Avalon::Logging::LogLevel::Info, "", std::format(str, ##__VA_ARGS__))
 #define AVALON_LOG_TRACE(str, ...) Avalon::Logging::Log(Avalon::Logging::LogLevel::Trace, __FUNCTION__, std::format(str, ##__VA_ARGS__))

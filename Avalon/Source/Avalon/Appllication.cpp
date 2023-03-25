@@ -1,3 +1,4 @@
+#include "AvalonPch.h"
 #include "Application.h"
 
 namespace Avalon 

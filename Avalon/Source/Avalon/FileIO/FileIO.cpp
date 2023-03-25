@@ -1,8 +1,6 @@
+#include "AvalonPch.h"
 #include "FileIO.h"
 #include "Avalon/Log/Log.h"
-
-#include <fstream>
-#include <sstream>
 
 namespace Avalon::FileIO
 {

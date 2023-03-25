@@ -1,6 +1,5 @@
+#include "AvalonPch.h"
 #include "Log.h"
-#include <iostream>
-
 
 void Avalon::Logging::Log(LogLevel LogLevel, const std::string& location, const std::string& message)
 {
