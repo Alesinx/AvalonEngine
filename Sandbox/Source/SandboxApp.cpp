@@ -11,11 +11,11 @@ Avalon::Application* Avalon::CreateApplication()
 {
 	AVALON_LOG_INFO("Creating application...");
 
-	//int n = 42;
-	//AVALON_LOG_INFO("Example info log.");
-	//AVALON_LOG_TRACE("Example trace log with a paramter: {}", n);
-	//AVALON_LOG_WARNING("Example warning log with a parameter: {}", n);
-	//AVALON_LOG_ERROR("Example error log with a parameter: {}", n);
+	int n = 42;
+	AVALON_LOG_INFO("Example info log.");
+	AVALON_LOG_TRACE("Example trace log with a paramter: {}", n);
+	AVALON_LOG_WARNING("Example warning log with a parameter: {}", n);
+	AVALON_LOG_ERROR("Example error log with a parameter: {}", n);
 
 	const std::string path = "C:/dev/AvalonEngine/";
 	const std::string fileName = "Example.txt";

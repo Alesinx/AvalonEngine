@@ -11,12 +11,13 @@ workspace "Avalon"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
--- group "Dependencies"
---     include "Avalon/thirdParty/GLFW"
---     include "Avalon/thirdParty/Glad"
---     include "Avalon/thirdParty/ImGui"
+group "Dependencies"
+    include "Avalon/thirdParty/GLFW"
+    -- include "Avalon/thirdParty/Glad"
+    -- include "Avalon/thirdParty/ImGui"
+group ""
 
-project "Avalon" ----------------------------------------------------------------------
+project "Avalon" -------------------------------------------------------------------------
     location "Avalon"
     kind "StaticLib"
     language "C++"
@@ -39,21 +40,20 @@ project "Avalon" ---------------------------------------------------------------
 
     includedirs
     {
-        "Avalon/Source"
-        -- "%{prj.name}/thirdParty/spdlog/include",
-        -- "%{prj.name}/thirdParty/GLFW/include",
+        "Avalon/Source",
+        "%{prj.name}/thirdParty/GLFW/include",
         -- "%{prj.name}/thirdParty/Glad/include",
         -- "%{prj.name}/thirdParty/ImGui",
         -- "%{prj.name}/thirdParty/glm"
     }
 
-    -- links
-    -- {
-    --     "GLFW",
-    --     "Glad",
-    --     "ImGui",
-    --     "opengl32.lib"
-    -- }
+    links
+    {
+        "GLFW"
+        -- "Glad",
+        -- "ImGui",
+        -- "opengl32.lib"
+    }
 
     filter "system:windows"
         staticruntime "On"
@@ -62,8 +62,8 @@ project "Avalon" ---------------------------------------------------------------
         defines
         {
             "AVALON_PLATFORM_WINDOWS",
-            "AVALON_BUILD_DLL"
-            -- "GLFW_INCLUDE_NONE"
+            "AVALON_BUILD_DLL",
+            "GLFW_INCLUDE_NONE"
         }
 
     filter "configurations:Debug"

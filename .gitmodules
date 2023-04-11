@@ -1,0 +1,3 @@
+[submodule "Avalon/ThirdParty/GLFW"]
+	path = Avalon/ThirdParty/GLFW
+	url = https://github.com/Alesinx/GLFW
