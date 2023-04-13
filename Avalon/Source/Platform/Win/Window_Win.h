@@ -11,11 +11,14 @@ namespace Avalon
 		Window_Win(const WindowProperties& properties);
 		virtual ~Window_Win();
 
+		void OnUpdate() override;
+
 		void* GetNativeWindow() const override { return m_window; };
 		unsigned int GetWidth() const override;
 		unsigned int GetHeight() const override;
 
-		void OnUpdate() override;
+		void SetVSync(bool enabled) override;
+		bool IsVSyncEnabled() const override;
 
 	private:
 		void Init(const WindowProperties& properties);

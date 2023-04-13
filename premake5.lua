@@ -11,20 +11,20 @@ workspace "Avalon"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-group "Dependencies"
-    include "Avalon/thirdParty/GLFW"
-    -- include "Avalon/thirdParty/Glad"
-    -- include "Avalon/thirdParty/ImGui"
-group ""
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "Avalon/ThirdParty/GLFW/include"
+
+include "Avalon/ThirdParty/GLFW"
 
 project "Avalon" -------------------------------------------------------------------------
     location "Avalon"
     kind "StaticLib"
     language "C++"
     cppdialect "C++20"
-    staticruntime "on"
+    staticruntime "On"
 
-    targetdir ("Bin/" .. outputdir .. "/%{prj.name}")
+    targetdir ("Binaries/" .. outputdir .. "/%{prj.name}")
     objdir ("Intermediate/" .. outputdir .. "/%{prj.name}")
 
     pchheader "AvalonPch.h"
@@ -33,26 +33,19 @@ project "Avalon" ---------------------------------------------------------------
     files
     {
         "%{prj.name}/Source/**.h",
-        "%{prj.name}/Source/**.cpp",
-        -- "%{prj.name}/thirdParty/glm/glm/**.hpp",
-        -- "%{prj.name}/thirdParty/glm/glm/**.inl"
+        "%{prj.name}/Source/**.cpp"
     }
 
     includedirs
     {
         "Avalon/Source",
-        "%{prj.name}/thirdParty/GLFW/include",
-        -- "%{prj.name}/thirdParty/Glad/include",
-        -- "%{prj.name}/thirdParty/ImGui",
-        -- "%{prj.name}/thirdParty/glm"
+        "%{IncludeDir.GLFW}"
     }
 
     links
     {
-        "GLFW"
-        -- "Glad",
-        -- "ImGui",
-        -- "opengl32.lib"
+        "GLFW",
+        "opengl32.lib"
     }
 
     filter "system:windows"
@@ -62,33 +55,32 @@ project "Avalon" ---------------------------------------------------------------
         defines
         {
             "AVALON_PLATFORM_WINDOWS",
-            "AVALON_BUILD_DLL",
-            "GLFW_INCLUDE_NONE"
+            "AVALON_BUILD_DLL"
         }
 
     filter "configurations:Debug"
         defines "AVALON_DEBUG"
         runtime "Debug"
-        symbols "on"
+        symbols "On"
 
     filter "configurations:Release"
         defines "AVALON_RELEASE"
         runtime "Release"
-        optimize "on"
+        optimize "On"
 
     filter "configurations:Dist"
         defines "AVALON_DIST"
         runtime "Release"
-        optimize "on"
+        optimize "On"
 
 project "Sandbox" ------------------------------------------------------------------------
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
     cppdialect "C++20"
-	staticruntime "on"
+	staticruntime "On"
 
-    targetdir ("Bin/" .. outputdir .. "/%{prj.name}")
+    targetdir ("Binaries/" .. outputdir .. "/%{prj.name}")
     objdir ("Intermediate/" .. outputdir .. "/%{prj.name}")
 
     files
@@ -100,15 +92,11 @@ project "Sandbox" --------------------------------------------------------------
     includedirs
     {
         "Avalon/Source",
-        "Avalon/thirdParty/spdlog/include",
-        "Avalon/thirdParty/glm",
-        "Avalon/thirdParty/ImGui"
     }
 
     links
     {
         "Avalon"
-        -- "ImGui"
     }
 
     filter "system:windows"
@@ -122,14 +110,14 @@ project "Sandbox" --------------------------------------------------------------
     filter "configurations:Debug"
         defines "AVALON_DEBUG"
         runtime "Debug"
-        symbols "on"
+        symbols "On"
 
     filter "configurations:Release"
         defines "AVALON_RELEASE"
         runtime "Release"
-        optimize "on"
+        optimize "On"
 
     filter "configurations:Dist"
         defines "AVALON_DIST"
         runtime "Release"
-        symbols "on"
+        symbols "On"

@@ -5,6 +5,7 @@ namespace Avalon
 {
 	Application::Application()
 	{
+		m_window = std::unique_ptr<Window>(Window::Create());
 	}
 
 	Application::~Application()
@@ -13,6 +14,9 @@ namespace Avalon
 
 	void Application::Run()
 	{
-		while (true);
+		while (m_running)
+		{
+			//m_window->OnUpdate();
+		}
 	}
 }

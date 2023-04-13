@@ -2,10 +2,15 @@
 
 #include <string>
 
-#define AVALON_LOG_INFO(str, ...) Avalon::Logging::Log(Avalon::Logging::LogLevel::Info, "", std::format(str, ##__VA_ARGS__))
-#define AVALON_LOG_TRACE(str, ...) Avalon::Logging::Log(Avalon::Logging::LogLevel::Trace, __FUNCTION__, std::format(str, ##__VA_ARGS__))
-#define AVALON_LOG_WARNING(str, ...) Avalon::Logging::Log(Avalon::Logging::LogLevel::Warning, __FUNCTION__, std::format(str, ##__VA_ARGS__))
-#define AVALON_LOG_ERROR(str, ...) Avalon::Logging::Log(Avalon::Logging::LogLevel::Error, __FUNCTION__,  std::format(str, ##__VA_ARGS__))
+#define AVALON_CORE_INFO(str, ...) Avalon::Logging::Log(Avalon::Logging::LogLevel::Info, "", std::format(str, ##__VA_ARGS__))
+#define AVALON_CORE_TRACE(str, ...) Avalon::Logging::Log(Avalon::Logging::LogLevel::Trace, __FUNCTION__, std::format(str, ##__VA_ARGS__))
+#define AVALON_CORE_WARNING(str, ...) Avalon::Logging::Log(Avalon::Logging::LogLevel::Warning, __FUNCTION__, std::format(str, ##__VA_ARGS__))
+#define AVALON_CORE_ERROR(str, ...) Avalon::Logging::Log(Avalon::Logging::LogLevel::Error, __FUNCTION__,  std::format(str, ##__VA_ARGS__))
+
+#define AVALON_INFO(str, ...) Avalon::Logging::Log(Avalon::Logging::LogLevel::Info, "", std::format(str, ##__VA_ARGS__))
+#define AVALON_TRACE(str, ...) Avalon::Logging::Log(Avalon::Logging::LogLevel::Trace, __FUNCTION__, std::format(str, ##__VA_ARGS__))
+#define AVALON_WARNING(str, ...) Avalon::Logging::Log(Avalon::Logging::LogLevel::Warning, __FUNCTION__, std::format(str, ##__VA_ARGS__))
+#define AVALON_ERROR(str, ...) Avalon::Logging::Log(Avalon::Logging::LogLevel::Error, __FUNCTION__,  std::format(str, ##__VA_ARGS__))
 
 namespace Avalon::Logging
 {
