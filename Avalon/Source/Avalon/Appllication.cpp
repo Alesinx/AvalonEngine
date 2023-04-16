@@ -1,5 +1,6 @@
 #include "AvalonPch.h"
 #include "Application.h"
+#include "Avalon/Event/ApplicationEvents.h"
 
 namespace Avalon 
 {
@@ -16,7 +17,7 @@ namespace Avalon
 	{
 		while (m_running)
 		{
-			//m_window->OnUpdate();
+			m_window->OnUpdate();
 		}
 	}
 }

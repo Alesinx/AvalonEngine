@@ -16,3 +16,5 @@
 	#define AVALON_ASSERT(x, ...)
 	#define AVALON_CORE_ASSERT(x, ...)
 #endif
+
+#define BIT(x) (1 << x)
