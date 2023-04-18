@@ -14,7 +14,7 @@ namespace Avalon
 		void Run();
 
 	private:
-		std::unique_ptr<Window> m_window;
+		std::unique_ptr<Window> mWindow;
 		bool m_running = true;
 	};
 

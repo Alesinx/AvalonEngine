@@ -5,15 +5,15 @@
 
 namespace Avalon
 {
-	class Window_Win : public Window
+	class WindowWin : public Window
 	{
 	public:
-		Window_Win(const WindowProperties& properties);
-		virtual ~Window_Win();
+		WindowWin(const WindowProperties& properties);
+		virtual ~WindowWin();
 
 		void OnUpdate() override;
 
-		void* GetNativeWindow() const override { return m_window; };
+		void* GetNativeWindow() const override { return mWindow; };
 		unsigned int GetWidth() const override;
 		unsigned int GetHeight() const override;
 
@@ -25,7 +25,7 @@ namespace Avalon
 		void Shutdown();
 
 	private:
-		GLFWwindow* m_window;
-		WindowProperties m_windowProperties;
+		GLFWwindow* mWindow;
+		WindowProperties mWindowProperties;
 	};
 }
