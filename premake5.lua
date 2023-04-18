@@ -14,8 +14,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Avalon/ThirdParty/GLFW/include"
+IncludeDir["Glad"] = "Avalon/ThirdParty/Glad/include"
 
 include "Avalon/ThirdParty/GLFW"
+include "Avalon/ThirdParty/Glad"
 
 project "Avalon" -------------------------------------------------------------------------
     location "Avalon"
@@ -39,12 +41,14 @@ project "Avalon" ---------------------------------------------------------------
     includedirs
     {
         "Avalon/Source",
-        "%{IncludeDir.GLFW}"
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.Glad}",
     }
 
     links
     {
         "GLFW",
+        "Glad",
         "opengl32.lib"
     }
 
@@ -55,7 +59,8 @@ project "Avalon" ---------------------------------------------------------------
         defines
         {
             "AVALON_PLATFORM_WINDOWS",
-            "AVALON_BUILD_DLL"
+            "AVALON_BUILD_DLL",
+            "GLFW_INCLUDE_NONE"
         }
 
     filter "configurations:Debug"

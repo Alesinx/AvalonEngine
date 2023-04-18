@@ -1,6 +1,7 @@
 #include "AvalonPch.h"
 #include "Application.h"
 #include "Avalon/Event/ApplicationEvents.h"
+#include <glad/glad.h>
 
 namespace Avalon 
 {

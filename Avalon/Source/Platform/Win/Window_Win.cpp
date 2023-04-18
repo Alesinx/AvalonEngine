@@ -2,6 +2,7 @@
 #include "Window_Win.h"
 #include "Avalon/Core.h"
 #include "Avalon/Log/Log.h"
+#include <glad/glad.h>
 
 namespace Avalon
 {
@@ -36,6 +37,10 @@ namespace Avalon
 
 		m_window = glfwCreateWindow((int)properties.width, properties.height, properties.title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_window);
+
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		AVALON_CORE_ASSERT(status, "Failed to initialize Glad");
+
 		glfwSetWindowUserPointer(m_window, &m_windowProperties);
 		
 	}
