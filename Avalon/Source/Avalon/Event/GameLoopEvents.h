@@ -9,8 +9,8 @@ namespace Avalon
 	public:
 		TickEvent() {}
 
-		EVENT_CLASS_TYPE(Tick)
-		EVENT_CLASS_CATEGORY(GameLoop)
+		EVENT_CLASS_TYPE(EventType_Tick)
+		EVENT_CLASS_CATEGORY(EventCategory_Gameloop)
 	};
 
 	class UpdateEvent : public Event
@@ -18,8 +18,8 @@ namespace Avalon
 	public:
 		UpdateEvent() {}
 
-		EVENT_CLASS_TYPE(Update)
-		EVENT_CLASS_CATEGORY(GameLoop)
+		EVENT_CLASS_TYPE(EventType_Update)
+		EVENT_CLASS_CATEGORY(EventCategory_Gameloop)
 	};
 
 	class RenderEvent : public Event
@@ -27,7 +27,7 @@ namespace Avalon
 	public:
 		RenderEvent() {}
 
-		EVENT_CLASS_TYPE(Render)
-		EVENT_CLASS_CATEGORY(GameLoop)
+		EVENT_CLASS_TYPE(EventType_Render)
+		EVENT_CLASS_CATEGORY(EventCategory_Gameloop)
 	};
 }

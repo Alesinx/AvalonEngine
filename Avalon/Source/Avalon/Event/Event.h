@@ -7,33 +7,33 @@ namespace Avalon
 {
 	enum class EventType
 	{
-		None = 0,
+		EventCategory_None = 0,
 
-		WindowClose,
-		WindowResize,
-		WindowFocus,
-		WindowLostFocus,
-		WindowMoved,
+		EventType_WindowClose,
+		EventType_WindowResize,
+		EventType_WindowFocus,
+		EventType_LostFocus,
+		EventType_WindowMoved,
 
-		Tick,
-		Update,
-		Render,
+		EventType_Tick,
+		EventType_Update,
+		EventType_Render,
 
-		KeyPressed,
-		KeyReleased,
+		EventType_KeyPressed,
+		EventType_KeyReleased,
 
-		MouseButtonPressed,
-		MouseButtonReleased,
-		MouseMoved,
-		MouseScrolled
+		EventType_MouseButtonPressed,
+		EventType_MouseButtonReleased,
+		EventType_MouseMoved,
+		EventType_MouseScrolled
 	};
 
 	enum EventCategory
 	{
-		None = 0,
-		Application = BIT(0),
-		Input = BIT(1),
-		GameLoop = BIT(2)
+		EventCategory_None = 0,
+		EventCategory_Application = BIT(0),
+		EventCateogry_Input = BIT(1),
+		EventCategory_Gameloop = BIT(2)
 	};
 
 #define EVENT_CLASS_TYPE(type) \

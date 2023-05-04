@@ -11,8 +11,8 @@ namespace Avalon
 			mWidth(width), mHeight(height) 
 		{}
 
-		EVENT_CLASS_TYPE(WindowResize)
-		EVENT_CLASS_CATEGORY(Application)
+		EVENT_CLASS_TYPE(EventType_WindowResize)
+		EVENT_CLASS_CATEGORY(EventCategory_Application)
 
 		inline unsigned int GetWidth() const { return mWidth; }
 		inline unsigned int GetHeight() const { return mHeight; }
@@ -34,7 +34,7 @@ namespace Avalon
 	public:
 		WindowCloseEvent() {}
 
-		EVENT_CLASS_TYPE(WindowClose)
-		EVENT_CLASS_CATEGORY(Application)
+		EVENT_CLASS_TYPE(EventType_WindowClose)
+		EVENT_CLASS_CATEGORY(EventCategory_Application)
 	};
 }

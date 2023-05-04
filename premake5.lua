@@ -15,9 +15,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Avalon/ThirdParty/GLFW/include"
 IncludeDir["Glad"] = "Avalon/ThirdParty/Glad/include"
+IncludeDir["ImGui"] = "Avalon/ThirdParty/ImGui"
 
 include "Avalon/ThirdParty/GLFW"
 include "Avalon/ThirdParty/Glad"
+include "Avalon/ThirdParty/ImGui"
 
 project "Avalon" -------------------------------------------------------------------------
     location "Avalon"
@@ -43,12 +45,14 @@ project "Avalon" ---------------------------------------------------------------
         "Avalon/Source",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
+        "%{IncludeDir.ImGui}"
     }
 
     links
     {
         "GLFW",
         "Glad",
+        "ImGui",
         "opengl32.lib"
     }
 

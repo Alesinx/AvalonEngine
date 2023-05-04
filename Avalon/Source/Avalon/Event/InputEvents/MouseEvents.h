@@ -10,8 +10,8 @@ namespace Avalon
 		MouseMovedEvent(float x, float y) : mMouseX(x), mMouseY(y)
 		{}
 
-		EVENT_CLASS_TYPE(MouseMoved);
-		EVENT_CLASS_CATEGORY(Input);
+		EVENT_CLASS_TYPE(EventType_MouseMoved);
+		EVENT_CLASS_CATEGORY(EventCateogry_Input);
 
 		inline float GetX() const { return mMouseX; }
 		inline float GetY() const { return mMouseY; }
@@ -34,8 +34,8 @@ namespace Avalon
 		MouseScrolledEvent(float xOffset, float yOffset) : mXOffset(xOffset), mYOffset(yOffset)
 		{}
 
-		EVENT_CLASS_TYPE(MouseScrolled);
-		EVENT_CLASS_CATEGORY(Input);
+		EVENT_CLASS_TYPE(EventType_MouseScrolled);
+		EVENT_CLASS_CATEGORY(EventCateogry_Input);
 
 		inline float GetXOffset() const { return mXOffset; }
 		inline float GetYOffset() const { return mYOffset; }
@@ -55,7 +55,7 @@ namespace Avalon
 	class MouseButtonEvent : public Event
 	{
 	public:
-		EVENT_CLASS_CATEGORY(Input)
+		EVENT_CLASS_CATEGORY(EventCateogry_Input)
 
 			inline int GetMouseButton() const { return mButton; }
 
@@ -73,7 +73,7 @@ namespace Avalon
 			: MouseButtonEvent(button)
 		{}
 
-		EVENT_CLASS_TYPE(MouseButtonPressed)
+		EVENT_CLASS_TYPE(EventType_MouseButtonPressed)
 
 			std::string ToString() const override
 		{
@@ -89,7 +89,7 @@ namespace Avalon
 		MouseButtonReleasedEvent(int button) : MouseButtonEvent(button)
 		{}
 
-		EVENT_CLASS_TYPE(MouseButtonReleased)
+		EVENT_CLASS_TYPE(EventType_MouseButtonReleased)
 
 			std::string ToString() const override
 		{

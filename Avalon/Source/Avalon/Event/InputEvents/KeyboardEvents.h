@@ -7,7 +7,7 @@ namespace Avalon
 	class KeyEvent : public Event
 	{
 	public:
-		EVENT_CLASS_CATEGORY(Input)
+		EVENT_CLASS_CATEGORY(EventCateogry_Input)
 
 		inline int GetKeyCode() const { return mKeyCode; }
 
@@ -24,7 +24,7 @@ namespace Avalon
 		KeyPressedEvent(int keycode, int repeatCount) : KeyEvent(keycode), mRepeatCount(repeatCount)
 		{}
 
-		EVENT_CLASS_TYPE(KeyPressed)
+		EVENT_CLASS_TYPE(EventType_KeyPressed)
 
 		inline int GetRepeatCount() const { return mRepeatCount; }
 
@@ -52,6 +52,6 @@ namespace Avalon
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(KeyReleased)
+		EVENT_CLASS_TYPE(EventType_KeyReleased)
 	};
 }
