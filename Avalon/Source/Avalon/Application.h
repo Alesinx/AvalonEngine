@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Core.h"
-#include "Window.h"
 
-class ImguiOverlay;
+#include "Window.h"
+#include "Imgui/ImguiOverlay.h"
 
 namespace Avalon
 {

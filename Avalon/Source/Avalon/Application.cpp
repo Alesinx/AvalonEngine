@@ -2,9 +2,6 @@
 #include "Application.h"
 #include "Avalon/Event/ApplicationEvents.h"
 
-#include "Window.h"
-#include "Avalon/Imgui/ImguiOverlay.h"
-
 #include <glad/glad.h>
 
 namespace Avalon 
