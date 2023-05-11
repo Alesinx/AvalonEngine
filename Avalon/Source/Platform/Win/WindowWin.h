@@ -17,6 +17,7 @@ namespace Avalon
 		unsigned int GetWidth() const override;
 		unsigned int GetHeight() const override;
 
+		inline void SetEventCallback(const std::function<void(Event&)>& callback) override { }
 		void SetVSync(bool enabled) override;
 		bool IsVSyncEnabled() const override;
 

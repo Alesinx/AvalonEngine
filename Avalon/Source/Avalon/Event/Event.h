@@ -21,6 +21,7 @@ namespace Avalon
 
 		EventType_KeyPressed,
 		EventType_KeyReleased,
+		EventType_KeyTyped,
 
 		EventType_MouseButtonPressed,
 		EventType_MouseButtonReleased,
@@ -47,6 +48,7 @@ namespace Avalon
 	class Event
 	{
 	public:
+		bool Handled = false;
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
@@ -57,33 +59,20 @@ namespace Avalon
 			return GetCategoryFlags() & category;
 		}
 
-	private:
-		bool Handled = false;
+		template<typename T>
+		bool Dispatch(std::function<bool(T&)> func)
+		{
+			if (GetEventType() == T::GetStaticType())
+			{
+				Handled = func(*(T*)this);
+				return true;
+			}
+			return false;
+		}
 	};
 
 	inline std::ostream& operator<<(std::ostream& os, const Event& e)
 	{
 		return os << e.ToString();
 	}
-
-	static class EventDispatcher
-	{
-		template<typename T>
-		using EventFn = std::function<bool(T&)>;
-
-	public:
-		template<typename T>
-		static bool Dispatch(Event event, std::function<bool(T&)> Function)
-		{
-			if (event.GetEventType() == T::GetStaticType())
-			{
-				if (event.GetEventType() == T::GetStaticType())
-				{
-					event.Handled = Function(*(T*)&event);
-					return true;
-				}
-				return false;
-			}
-		}
-	};
 }
