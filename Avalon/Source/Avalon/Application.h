@@ -18,15 +18,21 @@ namespace Avalon
 
 		void Run();
 
+		void OnEvent(Event& e);
+
 		inline Window& GetWindow() { return *mWindow; }
 
 	private:
 		static Application* sInstance;
 
 	private:
-		bool m_running = true;
+		bool mRunning = true;
 		std::unique_ptr<Window> mWindow;
 		std::unique_ptr<ImguiOverlay> mImguiOverlay;
+
+	private:
+		bool OnWindowClose(WindowCloseEvent& e);
+
 	};
 
 	Application* CreateApplication();

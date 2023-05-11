@@ -2,6 +2,7 @@
 
 #include "AvalonPch.h"
 #include "Avalon/Core.h"
+#include "Avalon/Event/Event.h"
 
 namespace Avalon
 {
@@ -11,6 +12,7 @@ namespace Avalon
 		unsigned int width = 1280;
 		unsigned int height = 720;
 		bool bVSync = false;
+		std::function<void(Event&)> callback;
 
 		WindowProperties(const std::string& title = "Avalon", unsigned int width = 1280, unsigned int height = 720, bool bVSync = false) :
 			title(title), width(width), height(height), bVSync(bVSync)
@@ -28,6 +30,7 @@ namespace Avalon
 		virtual unsigned int GetWidth() const = 0;
 		virtual unsigned int GetHeight() const = 0;
 
+		virtual inline void SetEventCallback(const std::function<void(Event&)>& callback) = 0;
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSyncEnabled() const = 0;
 
