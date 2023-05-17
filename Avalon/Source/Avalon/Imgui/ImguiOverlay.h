@@ -10,6 +10,7 @@ namespace Avalon
 {
 	class ImguiOverlay
 	{
+	public:
 
 	public:
 		ImguiOverlay() {}
@@ -31,6 +32,7 @@ namespace Avalon
 		bool OnKeyPressedEvent(KeyPressedEvent& e);
 		bool OnKeyReleasedEvent(KeyReleasedEvent& e);
 		bool OnKeyTypedEvent(KeyTypedEvent& e);
+
 	private:
 		float mTime = 0.f;
 	};	

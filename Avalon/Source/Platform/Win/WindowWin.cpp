@@ -39,26 +39,26 @@ namespace Avalon
 			sGLFWInitialized = true;
 		}
 
-		mWindow = glfwCreateWindow((int)properties.width, properties.height, properties.title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(mWindow);
+		mGLFWWindow = glfwCreateWindow((int)properties.width, properties.height, properties.title.c_str(), nullptr, nullptr);
+		glfwMakeContextCurrent(mGLFWWindow);
 
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		AVALON_CORE_ASSERT(status, "Failed to initialize Glad");
 
-		glfwSetWindowUserPointer(mWindow, &mWindowProperties);
+		glfwSetWindowUserPointer(mGLFWWindow, &mWindowProperties);
 		SetGLFWCallbacks();
 		SetVSync(true);
 	}
 
 	void Avalon::WindowWin::Shutdown()
 	{
-		glfwDestroyWindow(mWindow);
+		glfwDestroyWindow(mGLFWWindow);
 	}
 
 	void Avalon::WindowWin::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(mWindow);
+		glfwSwapBuffers(mGLFWWindow);
 	}
 
 	void WindowWin::SetVSync(bool enabled)
@@ -73,7 +73,7 @@ namespace Avalon
 
 	void WindowWin::SetGLFWCallbacks()
 	{
-		glfwSetWindowSizeCallback(mWindow, [](GLFWwindow* window, int width, int height)
+		glfwSetWindowSizeCallback(mGLFWWindow, [](GLFWwindow* window, int width, int height)
 			{
 				WindowProperties& props = *(WindowProperties*)glfwGetWindowUserPointer(window);
 				props.width = width;
@@ -83,14 +83,14 @@ namespace Avalon
 				props.eventCallback(event);
 			});
 
-		glfwSetWindowCloseCallback(mWindow, [](GLFWwindow* window)
+		glfwSetWindowCloseCallback(mGLFWWindow, [](GLFWwindow* window)
 			{
 				WindowProperties& props = *(WindowProperties*)glfwGetWindowUserPointer(window);
 				WindowCloseEvent event;
 				props.eventCallback(event);
 			});
 
-		glfwSetKeyCallback(mWindow, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+		glfwSetKeyCallback(mGLFWWindow, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 			{
 				WindowProperties& props = *(WindowProperties*)glfwGetWindowUserPointer(window);
 
@@ -117,7 +117,7 @@ namespace Avalon
 				}
 			});
 
-		glfwSetCharCallback(mWindow, [](GLFWwindow* window, unsigned int keycode)
+		glfwSetCharCallback(mGLFWWindow, [](GLFWwindow* window, unsigned int keycode)
 			{
 				WindowProperties& props = *(WindowProperties*)glfwGetWindowUserPointer(window);
 
@@ -125,7 +125,7 @@ namespace Avalon
 				props.eventCallback(event);
 			});
 
-		glfwSetMouseButtonCallback(mWindow, [](GLFWwindow* window, int button, int action, int mods)
+		glfwSetMouseButtonCallback(mGLFWWindow, [](GLFWwindow* window, int button, int action, int mods)
 			{
 				WindowProperties& props = *(WindowProperties*)glfwGetWindowUserPointer(window);
 
@@ -146,7 +146,7 @@ namespace Avalon
 				}
 			});
 
-		glfwSetScrollCallback(mWindow, [](GLFWwindow* window, double xOffset, double yOffset)
+		glfwSetScrollCallback(mGLFWWindow, [](GLFWwindow* window, double xOffset, double yOffset)
 			{
 				WindowProperties& props = *(WindowProperties*)glfwGetWindowUserPointer(window);
 
@@ -154,7 +154,7 @@ namespace Avalon
 				props.eventCallback(event);
 			});
 
-		glfwSetCursorPosCallback(mWindow, [](GLFWwindow* window, double xPos, double yPos)
+		glfwSetCursorPosCallback(mGLFWWindow, [](GLFWwindow* window, double xPos, double yPos)
 			{
 				WindowProperties& props = *(WindowProperties*)glfwGetWindowUserPointer(window);
 

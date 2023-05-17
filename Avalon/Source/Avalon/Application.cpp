@@ -29,9 +29,10 @@ namespace Avalon
 	{
 		while (mRunning)
 		{
-			mWindow->OnUpdate();
+			glClear(GL_COLOR_BUFFER_BIT);
 			mImguiOverlay->Update();
-		}	
+			mWindow->OnUpdate();
+		}
 	}
 
 	void Application::OnEvent(Event& e)

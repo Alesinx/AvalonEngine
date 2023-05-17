@@ -13,7 +13,7 @@ namespace Avalon
 
 		void OnUpdate() override;
 
-		void* GetNativeWindow() const override { return mWindow; };
+		void* GetNativeWindow() const override { return mGLFWWindow; };
 		unsigned int GetWidth() const override { return mWindowProperties.width; }
 		unsigned int GetHeight() const override { return mWindowProperties.height; }
 
@@ -27,7 +27,7 @@ namespace Avalon
 		void SetGLFWCallbacks();
 
 	private:
-		GLFWwindow* mWindow;
+		GLFWwindow* mGLFWWindow;
 		WindowProperties mWindowProperties;
 	};
 }

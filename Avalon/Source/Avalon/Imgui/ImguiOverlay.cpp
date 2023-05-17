@@ -142,9 +142,9 @@ namespace Avalon
 		Application& app = Application::GetInstance();
 		io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
 
-		float time = (float)glfwGetTime();
-		io.DeltaTime = mTime > 0.0f ? (time - mTime) : (1.0f / 60.0f);
-		mTime = time;
+		//float time = (float)glfwGetTime();
+		//io.DeltaTime = mTime > 0.0f ? (time - mTime) : (1.0f / 60.0f);
+		//mTime = time;
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui::NewFrame();
