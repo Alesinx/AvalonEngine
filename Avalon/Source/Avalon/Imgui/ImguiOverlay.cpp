@@ -159,17 +159,26 @@ namespace Avalon
 	void ImguiOverlay::OnEvent(Event& event)
 	{
 		// Application events
-		if (event.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(ImguiOverlay::OnWindowResizeEvent))) return;
+		if (event.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(ImguiOverlay::OnWindowResizeEvent))) 
+            return;
 
 		// Input events
-		if (event.Dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(ImguiOverlay::OnMouseButtonPressedEvent))) return;
-		if (event.Dispatch<MouseButtonReleasedEvent>(BIND_EVENT_FN(ImguiOverlay::OnMouseButtonReleasedEvent))) return;
-		if (event.Dispatch<MouseMovedEvent>(BIND_EVENT_FN(ImguiOverlay::OnMouseMovedEvent))) return;
-		if (event.Dispatch<MouseScrolledEvent>(BIND_EVENT_FN(ImguiOverlay::OnMouseScrolledEvent))) return;
-		if (event.Dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(ImguiOverlay::OnMouseButtonPressedEvent))) return;
-		if (event.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(ImguiOverlay::OnKeyPressedEvent))) return;
-		if (event.Dispatch<KeyReleasedEvent>(BIND_EVENT_FN(ImguiOverlay::OnKeyReleasedEvent))) return;
-		if (event.Dispatch<KeyTypedEvent>(BIND_EVENT_FN(ImguiOverlay::OnKeyTypedEvent))) return;
+		if (event.Dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(ImguiOverlay::OnMouseButtonPressedEvent))) 
+            return;
+		if (event.Dispatch<MouseButtonReleasedEvent>(BIND_EVENT_FN(ImguiOverlay::OnMouseButtonReleasedEvent))) 
+            return;
+		if (event.Dispatch<MouseMovedEvent>(BIND_EVENT_FN(ImguiOverlay::OnMouseMovedEvent))) 
+            return;
+		if (event.Dispatch<MouseScrolledEvent>(BIND_EVENT_FN(ImguiOverlay::OnMouseScrolledEvent))) 
+            return;
+		if (event.Dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(ImguiOverlay::OnMouseButtonPressedEvent))) 
+            return;
+		if (event.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(ImguiOverlay::OnKeyPressedEvent))) 
+            return;
+		if (event.Dispatch<KeyReleasedEvent>(BIND_EVENT_FN(ImguiOverlay::OnKeyReleasedEvent))) 
+            return;
+		if (event.Dispatch<KeyTypedEvent>(BIND_EVENT_FN(ImguiOverlay::OnKeyTypedEvent))) 
+            return;
 	}
 
 	bool ImguiOverlay::OnWindowResizeEvent(WindowResizeEvent& e)
@@ -184,16 +193,14 @@ namespace Avalon
 	bool ImguiOverlay::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e)
 	{
         ImGuiIO& io = ImGui::GetIO();
-        ImGuiKey imgui_key = ImGui_ImplGlfw_KeyToImGuiKey(e.GetMouseButton());
-        io.AddKeyEvent(imgui_key, true);
+        io.AddMouseButtonEvent(e.GetMouseButton(), GLFW_PRESS);
         return false;
 	}
 
 	bool ImguiOverlay::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e)
 	{
         ImGuiIO& io = ImGui::GetIO();
-        ImGuiKey imgui_key = ImGui_ImplGlfw_KeyToImGuiKey(e.GetMouseButton());
-        io.AddKeyEvent(imgui_key, false);
+        io.AddMouseButtonEvent(e.GetMouseButton(), GLFW_RELEASE);
         return false;
 	}
 
@@ -216,7 +223,7 @@ namespace Avalon
 	{
         ImGuiIO& io = ImGui::GetIO();
         ImGuiKey imgui_key = ImGui_ImplGlfw_KeyToImGuiKey(e.GetKeyCode());
-        io.AddKeyEvent(imgui_key, true);
+        io.AddKeyEvent(imgui_key, GLFW_PRESS);
         return false;
 	}
 
@@ -224,7 +231,7 @@ namespace Avalon
 	{
         ImGuiIO& io = ImGui::GetIO();
         ImGuiKey imgui_key = ImGui_ImplGlfw_KeyToImGuiKey(e.GetKeyCode());
-        io.AddKeyEvent(imgui_key, false);
+        io.AddKeyEvent(imgui_key, GLFW_RELEASE);
         return false;
 	}
 

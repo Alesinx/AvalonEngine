@@ -12,7 +12,7 @@ namespace Avalon
 		unsigned int width = 1280;
 		unsigned int height = 720;
 		bool bVSync = false;
-		std::function<void(Event&)> callback;
+		std::function<void(Event&)> eventCallback;
 
 		WindowProperties(const std::string& title = "Avalon", unsigned int width = 1280, unsigned int height = 720, bool bVSync = false) :
 			title(title), width(width), height(height), bVSync(bVSync)
