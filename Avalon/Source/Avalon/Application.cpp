@@ -17,7 +17,7 @@ namespace Avalon
 		mWindow = std::unique_ptr<Window>(Window::Create());
 		mWindow->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
-		mImguiOverlay = std::unique_ptr<ImguiOverlay>(new ImguiOverlay());
+		mImguiOverlay = std::make_unique<ImguiOverlay>();
 		mImguiOverlay->Initialize();
 	}
 
@@ -29,6 +29,7 @@ namespace Avalon
 	{
 		while (mRunning)
 		{
+			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			mImguiOverlay->Update();
