@@ -17,7 +17,7 @@ namespace Avalon
 		virtual ~ImguiOverlay() {}
 
 		void Initialize();
-		void Update();
+		void Render();
 		void OnEvent(Event& event);
 
 	public:
