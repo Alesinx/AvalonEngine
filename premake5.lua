@@ -17,9 +17,11 @@ IncludeDir["GLFW"] = "Avalon/ThirdParty/GLFW/include"
 IncludeDir["Glad"] = "Avalon/ThirdParty/Glad/include"
 IncludeDir["ImGui"] = "Avalon/ThirdParty/ImGui"
 
-include "Avalon/ThirdParty/GLFW"
-include "Avalon/ThirdParty/Glad"
-include "Avalon/ThirdParty/ImGui"
+group "Dependencies"
+    include "Avalon/ThirdParty/GLFW"
+    include "Avalon/ThirdParty/Glad"
+    include "Avalon/ThirdParty/ImGui"
+group ""
 
 project "Avalon" -------------------------------------------------------------------------
     location "Avalon"
