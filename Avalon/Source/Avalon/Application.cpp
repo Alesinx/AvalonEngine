@@ -29,7 +29,8 @@ namespace Avalon
 	{
 		while (mRunning)
 		{
-			glClear(GL_COLOR_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 			mImguiOverlay->Update();
 			mWindow->OnUpdate();
 		}
