@@ -16,18 +16,24 @@ namespace Avalon
 		virtual ~Application();
 
 		void Run();
-		void OnEvent(Event& e);
 
 		inline const Window& GetWindow() { return *mWindow; }
+		virtual void ProcessEvent(Event& e);
+
+	protected:
+		virtual void ProcessInput();
+		virtual void Update();
+		virtual void Render();
 
 	private:
 		static Application* sInstance;
 
-		bool mRunning = true;
 		std::unique_ptr<Window> mWindow;
 		std::unique_ptr<ImguiOverlay> mImguiOverlay;
+		bool mRunning = true;
 
 	private:
+		void Gameloop();
 		bool OnWindowClose(WindowCloseEvent& e);
 
 	};

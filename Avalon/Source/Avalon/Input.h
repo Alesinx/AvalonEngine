@@ -8,8 +8,8 @@ namespace Avalon
 	{
 	public:
 		inline static std::pair<float, float> GetMousePosition() { return sInstance->GetMousePositionImpl(); }
-		inline static bool IsMouseButtonPressed(int button) { return sInstance->IsMouseButtonPressed(button); }
-		inline static bool IsKeyPressed(int keycode) { return sInstance->IsKeyPressed(keycode); }
+		inline static bool IsMouseButtonPressed(int button) { return sInstance->IsMouseButtonPressedImpl(button); }
+		inline static bool IsKeyPressed(int keycode) { return sInstance->IsKeyPressedImpl(keycode); }
 		inline static float GetMouseX() { return sInstance->GetMouseXImpl(); }
 		inline static float GetMouseY() { return sInstance->GetMouseYImpl(); }
 

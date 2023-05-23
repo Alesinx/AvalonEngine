@@ -5,6 +5,32 @@ class Sandbox : public Avalon::Application
 public:
 	Sandbox() { }
 	~Sandbox() { }
+
+	void ProcessEvent(Avalon::Event& event) override
+	{
+		Application::ProcessEvent(event);
+
+		if (event.GetEventType() == Avalon::EventType::EventType_KeyPressed)
+		{
+			Avalon::KeyPressedEvent& e = static_cast<Avalon::KeyPressedEvent&>(event);
+			if(e.GetKeyCode() == AVALON_KEY_TAB)
+			{
+				AVALON_TRACE("Tab key is pressed (event)");
+			}
+			int keycode = e.GetKeyCode();
+			AVALON_TRACE("keycode {0} : {0}", static_cast<char>(keycode));
+		}
+	}
+
+	void Update() override
+	{
+		Application::Update();
+
+		//if(Avalon::Input::IsKeyPressed(AVALON_KEY_TAB))
+		//{
+		//	AVALON_TRACE("Tab key is pressed (polling)");
+		//}
+	}
 };
 
 Avalon::Application* Avalon::CreateApplication()

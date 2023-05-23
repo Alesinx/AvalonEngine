@@ -6,3 +6,5 @@
 #include "Avalon/Log/Log.h"
 #include "Avalon/FileIO/FileIO.h"
 #include "Avalon/EntryPoint.h"
+#include "Avalon/Input.h"
+#include "Avalon/InputKeys.h"
