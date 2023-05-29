@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Avalon/Window.h"
+#include "Avalon/Renderer/GraphicsContext.h"
 #include <GLFW/glfw3.h>
 
 namespace Avalon
@@ -28,6 +29,7 @@ namespace Avalon
 
 	private:
 		GLFWwindow* mGLFWWindow;
+		GraphicsContext* mContext;
 		WindowProperties mWindowProperties;
 	};
 }

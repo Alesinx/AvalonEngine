@@ -5,6 +5,7 @@
 #include "Avalon/Event/ApplicationEvents.h"
 #include "Avalon/Event/InputEvents/KeyboardEvents.h"
 #include "Avalon/Event/InputEvents/MouseEvents.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 #include <glad/glad.h>
 
@@ -40,10 +41,9 @@ namespace Avalon
 		}
 
 		mGLFWWindow = glfwCreateWindow((int)properties.width, properties.height, properties.title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(mGLFWWindow);
 
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		AVALON_CORE_ASSERT(status, "Failed to initialize Glad");
+		mContext = new OpenGLContext(mGLFWWindow);
+		mContext->Init();
 
 		glfwSetWindowUserPointer(mGLFWWindow, &mWindowProperties);
 		SetGLFWCallbacks();
@@ -58,7 +58,7 @@ namespace Avalon
 	void Avalon::WindowWin::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(mGLFWWindow);
+		mContext->SwapBuffers();
 	}
 
 	void WindowWin::SetVSync(bool enabled)

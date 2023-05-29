@@ -35,7 +35,6 @@ namespace Avalon
 	private:
 		void Gameloop();
 		bool OnWindowClose(WindowCloseEvent& e);
-
 	};
 
 	Application* CreateApplication();
