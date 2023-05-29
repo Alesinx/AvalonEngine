@@ -28,9 +28,12 @@ namespace Avalon
 	private:
 		static Application* sInstance;
 
+		bool mRunning = true;
 		std::unique_ptr<Window> mWindow;
 		std::unique_ptr<ImguiOverlay> mImguiOverlay;
-		bool mRunning = true;
+		unsigned int mVertexArray;
+		unsigned int mVertexBuffer;
+		unsigned int mIndexBuffer;
 
 	private:
 		void Gameloop();

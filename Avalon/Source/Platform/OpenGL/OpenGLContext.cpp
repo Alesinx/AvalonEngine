@@ -18,6 +18,11 @@ namespace Avalon
 		glfwMakeContextCurrent(mWindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		AVALON_CORE_ASSERT(status, "Failed to initialize Glad");
+
+		AVALON_CORE_INFO("OpenGL Info:");
+		AVALON_CORE_INFO(" - Vendor: {0}", (const char*)glGetString(GL_VENDOR));
+		AVALON_CORE_INFO(" - Renderer: {0}", (const char*)glGetString(GL_RENDERER));
+		AVALON_CORE_INFO(" - Version: {0}", (const char*)glGetString(GL_VERSION));
 	}
 
 	void OpenGLContext::SwapBuffers()
