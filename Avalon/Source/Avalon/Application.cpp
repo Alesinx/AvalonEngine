@@ -44,23 +44,23 @@ namespace Avalon
 		std::string vertexSrc = R"(
 			#version 330 core
 			
-			layout(location = 0) in vec3 a_Position;
-			out vec3 v_Position;
+			layout(location = 0) in vec2 a_Position;
+			out vec2 v_Position;
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = vec4(a_Position, 1.0);	
+				gl_Position = vec4(a_Position, 1.0, 1.0);
 			}
 		)";
 
 		std::string fragmentSrc = R"(
 			#version 330 core
 
-			in vec3 v_Position;
+			in vec2 v_Position;
 			layout(location = 0) out vec4 color;
 			void main()
 			{
-				color = vec4(v_Position * 0.5 + 0.5, 1.0);
+				color = vec4(v_Position * 0.5 + 0.5, 1.0, 1.0);
 			}
 		)";
 
