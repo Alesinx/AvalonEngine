@@ -2,8 +2,9 @@
 
 #include "Core.h"
 
-#include "Window.h"
-#include "Imgui/ImguiOverlay.h"
+#include "Avalon/Window.h"
+#include "Avalon/Renderer/Shader.h"
+#include "Avalon/Imgui/ImguiOverlay.h"
 
 namespace Avalon
 {
@@ -34,6 +35,7 @@ namespace Avalon
 		unsigned int mVertexArray;
 		unsigned int mVertexBuffer;
 		unsigned int mIndexBuffer;
+		std::unique_ptr<Shader> mShader;
 
 	private:
 		void Gameloop();

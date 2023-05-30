@@ -20,7 +20,6 @@ namespace Avalon
 		mImguiOverlay = std::make_unique<ImguiOverlay>();
 		mImguiOverlay->Initialize();
 
-
 		//glGenVertexArrays(1, &mVertexArray);
 		//glBindVertexArray(mVertexArray);
 
@@ -41,6 +40,31 @@ namespace Avalon
 
 		//unsigned int indices[3] = { 0, 1, 2 };
 		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+		std::string vertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			out vec3 v_Position;
+			void main()
+			{
+				v_Position = a_Position;
+				gl_Position = vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string fragmentSrc = R"(
+			#version 330 core
+
+			in vec3 v_Position;
+			layout(location = 0) out vec4 color;
+			void main()
+			{
+				color = vec4(v_Position * 0.5 + 0.5, 1.0);
+			}
+		)";
+
+		mShader = std::unique_ptr<Shader>(new Shader(vertexSrc, fragmentSrc));
 	}
 
 	Application::~Application()
@@ -77,6 +101,7 @@ namespace Avalon
 		glClearColor(0.1f, 0.1f, 0.1f, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		mShader->Bind();
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		//glBindVertexArray(mVertexArray);
 		//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
