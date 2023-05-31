@@ -3,8 +3,9 @@
 #include "Core.h"
 
 #include "Avalon/Window.h"
-#include "Avalon/Renderer/Shader.h"
 #include "Avalon/Imgui/ImguiOverlay.h"
+#include "Avalon/Renderer/Shader.h"
+#include "Avalon/Renderer/RenderBuffer.h"
 
 namespace Avalon
 {
@@ -33,8 +34,8 @@ namespace Avalon
 		std::unique_ptr<Window> mWindow;
 		std::unique_ptr<ImguiOverlay> mImguiOverlay;
 		unsigned int mVertexArray;
-		unsigned int mVertexBuffer;
-		unsigned int mIndexBuffer;
+		std::unique_ptr<VertexBuffer> mVertexBuffer;
+		std::unique_ptr<IndexBuffer> mIndexBuffer;
 		std::unique_ptr<Shader> mShader;
 
 	private:
