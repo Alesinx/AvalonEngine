@@ -5,12 +5,11 @@
 
 namespace Avalon
 {
-
 /////////////////////////////////////////////////////////////////////////////
 // VertexBuffer /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(const float* const vertices, const uint32_t size)
 	{
 		glCreateBuffers(1, &mRendererId);
 		glBindBuffer(GL_ARRAY_BUFFER, mRendererId);
@@ -36,7 +35,7 @@ namespace Avalon
 // IndexBuffer //////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count) : 
+	OpenGLIndexBuffer::OpenGLIndexBuffer(const uint32_t* const indices, const uint32_t count) : 
 		mCount(count)
 	{
 		glCreateBuffers(1, &mRendererId);
@@ -58,8 +57,4 @@ namespace Avalon
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
-
 }
-
-
-
