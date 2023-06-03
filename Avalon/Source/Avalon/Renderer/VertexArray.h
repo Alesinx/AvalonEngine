@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Avalon/Renderer/RenderBuffer.h"
+#include "Avalon/Renderer/Buffer.h"
 
 namespace Avalon
 {

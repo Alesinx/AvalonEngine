@@ -22,7 +22,7 @@ namespace Avalon
 	class Window
 	{
 	public:
-		virtual ~Window() {};
+		virtual ~Window() = default;
 
 		virtual void OnUpdate() = 0;
 

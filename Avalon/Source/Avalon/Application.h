@@ -4,7 +4,7 @@
 #include "Avalon/Window.h"
 #include "Avalon/Imgui/ImguiOverlay.h"
 #include "Avalon/Renderer/Shader.h"
-#include "Avalon/Renderer/RenderBuffer.h"
+#include "Avalon/Renderer/Buffer.h"
 #include "Avalon/Renderer/VertexArray.h"
 
 namespace Avalon
@@ -15,7 +15,7 @@ namespace Avalon
 		static inline Application& GetInstance() { return *sInstance; }
 
 		Application();
-		virtual ~Application();
+		virtual ~Application() = default;
 
 		void Run();
 

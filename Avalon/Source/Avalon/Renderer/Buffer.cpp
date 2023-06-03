@@ -1,5 +1,5 @@
 #include "AvalonPch.h"
-#include "RenderBuffer.h"
+#include "Buffer.h"
 #include "Avalon/Renderer/Renderer.h"
 
 #include "Platform/OpenGL/OpenGLBuffer.h"

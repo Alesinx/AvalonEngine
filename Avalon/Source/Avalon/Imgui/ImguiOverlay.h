@@ -13,8 +13,8 @@ namespace Avalon
 	public:
 
 	public:
-		ImguiOverlay() {}
-		virtual ~ImguiOverlay() {}
+		ImguiOverlay() = default;
+		virtual ~ImguiOverlay() = default;
 
 		void Initialize();
 		void Render();

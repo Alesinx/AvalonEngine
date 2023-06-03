@@ -133,10 +133,6 @@ namespace Avalon
 		mBlueShader = std::shared_ptr<Shader>(new Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
 	}
 
-	Application::~Application()
-	{
-	}
-
 	void Application::Run()
 	{
 		while (mRunning)
