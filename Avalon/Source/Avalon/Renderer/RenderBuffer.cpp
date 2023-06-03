@@ -39,13 +39,12 @@ namespace Avalon
 	void BufferLayout::CalculateOffsetAndStride()
 	{
 		uint32_t offset = 0;
-		mStride = 0;
 		for (BufferElement& element : mElements)
 		{
 			element.offset = offset;
 			offset += element.size;
-			mStride += element.size;
 		}
+		mStride = offset;
 	}
 
 	uint32_t BufferElement::GetComponentCount() const

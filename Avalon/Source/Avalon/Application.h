@@ -40,9 +40,6 @@ namespace Avalon
 		std::shared_ptr<Shader> mBlueShader;
 		std::shared_ptr<VertexArray> mSquareVA;
 
-		//unsigned int mVertexArray;
-		//std::unique_ptr<VertexBuffer> mVertexBuffer;
-		//std::unique_ptr<IndexBuffer> mIndexBuffer;
 	private:
 		void Gameloop();
 		bool OnWindowClose(WindowCloseEvent& e);

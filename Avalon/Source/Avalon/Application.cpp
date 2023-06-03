@@ -86,17 +86,17 @@ namespace Avalon
 
 		mSquareVA = std::shared_ptr<VertexArray>(VertexArray::Create());
 
-		float squareVertices[3 * 4] = {
-			-0.75f, -0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-			-0.75f,  0.75f, 0.0f
+		float squareVertices[2 * 4] = {
+			-0.75f, -0.75f,
+			 0.75f, -0.75f,
+			 0.75f,  0.75f,
+			-0.75f,  0.75f
 		};
 
 		std::shared_ptr<VertexBuffer> squareVA = std::shared_ptr<VertexBuffer>(VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		squareVA->SetLayout(
 			{
-				{ ShaderDataType::Float3, "a_position" }
+				{ ShaderDataType::Float2, "a_position" }
 			}
 		);
 		mSquareVA->AddVertexBuffer(squareVA);
@@ -108,14 +108,14 @@ namespace Avalon
 		std::string blueShaderVertexSrc = R"(
 			#version 330 core
 			
-			layout(location = 0) in vec3 a_position;
+			layout(location = 0) in vec2 a_position;
 
-			out vec3 v_position;
+			out vec2 v_position;
 
 			void main()
 			{
 				v_position = a_position;
-				gl_Position = vec4(a_position, 1.0);	
+				gl_Position = vec4(a_position, 1.0, 1.0);
 			}
 		)";
 
@@ -123,8 +123,6 @@ namespace Avalon
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
-
-			in vec3 v_position;
 
 			void main()
 			{
