@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Core.h"
-
+#include "Avalon/Core.h"
 #include "Avalon/Window.h"
 #include "Avalon/Imgui/ImguiOverlay.h"
 #include "Avalon/Renderer/Shader.h"
 #include "Avalon/Renderer/RenderBuffer.h"
+#include "Avalon/Renderer/VertexArray.h"
 
 namespace Avalon
 {
@@ -32,12 +32,17 @@ namespace Avalon
 
 		bool mRunning = true;
 		std::unique_ptr<Window> mWindow;
-		std::unique_ptr<ImguiOverlay> mImguiOverlay;
-		unsigned int mVertexArray;
-		std::unique_ptr<VertexBuffer> mVertexBuffer;
-		std::unique_ptr<IndexBuffer> mIndexBuffer;
-		std::unique_ptr<Shader> mShader;
 
+		std::unique_ptr<ImguiOverlay> mImguiOverlay;
+
+		std::shared_ptr<Shader> mShader;
+		std::shared_ptr<VertexArray> mVertexArray;
+		std::shared_ptr<Shader> mBlueShader;
+		std::shared_ptr<VertexArray> mSquareVA;
+
+		//unsigned int mVertexArray;
+		//std::unique_ptr<VertexBuffer> mVertexBuffer;
+		//std::unique_ptr<IndexBuffer> mIndexBuffer;
 	private:
 		void Gameloop();
 		bool OnWindowClose(WindowCloseEvent& e);

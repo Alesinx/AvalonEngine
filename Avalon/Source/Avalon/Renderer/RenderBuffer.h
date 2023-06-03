@@ -54,37 +54,7 @@ namespace Avalon
 		{
 		}
 
-		uint32_t GetComponentCount() const
-		{
-			switch (type)
-			{
-			case ShaderDataType::Float:
-				return 4;
-			case ShaderDataType::Float2:
-				return 2;
-			case ShaderDataType::Float3:
-				return 3;
-			case ShaderDataType::Float4:
-				return 4;
-			case ShaderDataType::Mat3:
-				return 3 * 3;
-			case ShaderDataType::Mat4:
-				return 4 * 4;
-			case ShaderDataType::Int:
-				return 1;
-			case ShaderDataType::Int2:
-				return 2;
-			case ShaderDataType::Int3:
-				return 3;
-			case ShaderDataType::Int4:
-				return 4;
-			case ShaderDataType::Bool:
-				return 1;
-			}
-
-			AVALON_CORE_ASSERT(false, "Unknown ShaderDataType");
-			return 0;
-		}
+		uint32_t GetComponentCount() const;
 	};
 
 	class BufferLayout
@@ -110,17 +80,7 @@ namespace Avalon
 		uint32_t mStride = 0;
 
 	private:
-		void CalculateOffsetAndStride()
-		{
-			uint32_t offset = 0;
-			mStride = 0;
-			for (BufferElement& element : mElements)
-			{
-				element.offset = offset;
-				offset += element.size;
-				mStride += element.size;
-			}
-		}
+		void CalculateOffsetAndStride();
 	};
 
 	class VertexBuffer
@@ -140,13 +100,13 @@ namespace Avalon
 	class IndexBuffer
 	{
 	public:
+		static IndexBuffer* Create(const uint32_t* const indices, const uint32_t count);
+
 		virtual ~IndexBuffer() {}
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 
 		virtual uint32_t GetCount() const = 0;
-
-		static IndexBuffer* Create(const uint32_t* const indices, const uint32_t size);
 	};
 }

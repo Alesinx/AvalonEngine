@@ -8,38 +8,6 @@ namespace Avalon
 {
 	Application* Application::sInstance = nullptr;
 
-	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
-	{
-		switch (type)
-		{
-		case Avalon::ShaderDataType::Float:
-			return GL_FLOAT;
-		case Avalon::ShaderDataType::Float2:
-			return GL_FLOAT;
-		case Avalon::ShaderDataType::Float3:
-			return GL_FLOAT;
-		case Avalon::ShaderDataType::Float4:
-			return GL_FLOAT;
-		case Avalon::ShaderDataType::Mat3:
-			return GL_FLOAT;
-		case Avalon::ShaderDataType::Mat4:
-			return GL_FLOAT;
-		case Avalon::ShaderDataType::Int:
-			return GL_INT;
-		case Avalon::ShaderDataType::Int2:
-			return GL_INT;
-		case Avalon::ShaderDataType::Int3:
-			return GL_INT;
-		case Avalon::ShaderDataType::Int4:
-			return GL_INT;
-		case Avalon::ShaderDataType::Bool:
-			return GL_BOOL;
-		}
-
-		AVALON_CORE_ASSERT(false, "Unknown ShaderDataType!");
-		return 0;
-	}
-
 	Application::Application()
 	{
 		AVALON_CORE_ASSERT(!sInstance, "Application already exists");
@@ -52,40 +20,31 @@ namespace Avalon
 		mImguiOverlay = std::make_unique<ImguiOverlay>();
 		mImguiOverlay->Initialize();
 
+		/////////////////////////////////////////////////////////////////////////////
+		// mVertexArray /////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////
+
+		mVertexArray = std::shared_ptr<VertexArray>(VertexArray::Create());
+
 		const float vertices[3 * 7] = {
+			// Position  | Color
 			-0.5f, -0.5f, 0.8f, 0.2f, 0.8f, 1.0f,
 			 0.5f, -0.5f, 0.2f, 0.3f, 0.8f, 1.0f,
 			 0.0f,  0.5f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		glGenVertexArrays(1, &mVertexArray);
-		glBindVertexArray(mVertexArray);
-
-		mVertexBuffer = std::unique_ptr<VertexBuffer>(VertexBuffer::Create(vertices, sizeof(vertices)));
-
-		mVertexBuffer->SetLayout(
+		std::shared_ptr<VertexBuffer> vertexBuffer = std::shared_ptr<VertexBuffer>(VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer->SetLayout(
 			{
 				{ ShaderDataType::Float2, "a_position" },
 				{ ShaderDataType::Float4, "a_color"}
 			}
 		);
-
-		uint32_t index = 0;
-		const BufferLayout& layout = mVertexBuffer->GetLayout();
-		for (const BufferElement& element : layout)
-		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index, 
-				element.GetComponentCount(), 
-				ShaderDataTypeToOpenGLBaseType(element.type), 
-				element.normalized ? GL_TRUE : GL_FALSE, 
-				layout.GetStride(), 
-				(const void*)element.offset);
-			index++;
-		}
+		mVertexArray->AddVertexBuffer(vertexBuffer);
 		
 		const uint32_t indices[3] = { 0, 1, 2 };
-		mIndexBuffer = std::unique_ptr<IndexBuffer>(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		std::shared_ptr<IndexBuffer> indexBuffer = std::shared_ptr<IndexBuffer>(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		mVertexArray->SetIndexBuffer(indexBuffer);
 
 		std::string vertexSrc = R"(
 			#version 330 core
@@ -119,7 +78,61 @@ namespace Avalon
 			}
 		)";
 
-		mShader = std::unique_ptr<Shader>(new Shader(vertexSrc, fragmentSrc));
+		mShader = std::shared_ptr<Shader>(new Shader(vertexSrc, fragmentSrc));
+
+		/////////////////////////////////////////////////////////////////////////////
+		// mSquareVA ////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////
+
+		mSquareVA = std::shared_ptr<VertexArray>(VertexArray::Create());
+
+		float squareVertices[3 * 4] = {
+			-0.75f, -0.75f, 0.0f,
+			 0.75f, -0.75f, 0.0f,
+			 0.75f,  0.75f, 0.0f,
+			-0.75f,  0.75f, 0.0f
+		};
+
+		std::shared_ptr<VertexBuffer> squareVA = std::shared_ptr<VertexBuffer>(VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		squareVA->SetLayout(
+			{
+				{ ShaderDataType::Float3, "a_position" }
+			}
+		);
+		mSquareVA->AddVertexBuffer(squareVA);
+
+		const uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
+		std::shared_ptr<IndexBuffer> squareIB = std::shared_ptr<IndexBuffer>(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		mSquareVA->SetIndexBuffer(squareIB);
+
+		std::string blueShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_position;
+
+			out vec3 v_position;
+
+			void main()
+			{
+				v_position = a_position;
+				gl_Position = vec4(a_position, 1.0);	
+			}
+		)";
+
+		std::string blueShaderFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			in vec3 v_position;
+
+			void main()
+			{
+				color = vec4(0.2, 0.3, 0.8, 1.0);
+			}
+		)";
+
+		mBlueShader = std::shared_ptr<Shader>(new Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
 	}
 
 	Application::~Application()
@@ -156,9 +169,13 @@ namespace Avalon
 		glClearColor(0.1f, 0.1f, 0.1f, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		mBlueShader->Bind();
+		mSquareVA->Bind();
+		glDrawElements(GL_TRIANGLES, mSquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
 		mShader->Bind();
-		glBindVertexArray(mVertexArray);
-		glDrawElements(GL_TRIANGLES, mIndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+		mVertexArray->Bind();
+		glDrawElements(GL_TRIANGLES, mVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 		mImguiOverlay->Render();
 	}
