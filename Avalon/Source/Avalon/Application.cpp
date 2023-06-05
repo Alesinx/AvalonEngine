@@ -1,6 +1,7 @@
 #include "AvalonPch.h"
 #include "Application.h"
 #include "Avalon/Event/ApplicationEvents.h"
+#include "Avalon/Renderer/Renderer.h"
 
 #include <glad/glad.h>
 
@@ -160,16 +161,29 @@ namespace Avalon
 
 	void Application::Render()
 	{
-		glClearColor(0.1f, 0.1f, 0.1f, 1);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//glClearColor(0.1f, 0.1f, 0.1f, 1);
+		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		//mBlueShader->Bind();
+		//mSquareVA->Bind();
+		//glDrawElements(GL_TRIANGLES, mSquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+		//mShader->Bind();
+		//mVertexArray->Bind();
+		//glDrawElements(GL_TRIANGLES, mVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+		RenderCommand::SetClearColor();
+		RenderCommand::Clear();
+
+		Renderer::BeginScene();
 
 		mBlueShader->Bind();
-		mSquareVA->Bind();
-		glDrawElements(GL_TRIANGLES, mSquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		Renderer::Submit(mSquareVA);
 
 		mShader->Bind();
-		mVertexArray->Bind();
-		glDrawElements(GL_TRIANGLES, mVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		Renderer::Submit(mVertexArray);
+
+		Renderer::EndScene();
 
 		mImguiOverlay->Render();
 	}

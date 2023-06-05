@@ -1,6 +1,7 @@
 #include "AvalonPch.h"
 #include "Buffer.h"
 #include "Avalon/Renderer/Renderer.h"
+#include "Avalon/Renderer/RendererAPI.h"
 
 #include "Platform/OpenGL/OpenGLBuffer.h"
 
@@ -10,10 +11,10 @@ namespace Avalon
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 			AVALON_CORE_ASSERT(false, "RendererAPI::None is currently not supported") 
 			return nullptr;
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return new OpenGLVertexBuffer(vertices, size);
 		}
 
@@ -25,10 +26,10 @@ namespace Avalon
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 			AVALON_CORE_ASSERT(false, "RendererAPI::None is currently not supported")
 				return nullptr;
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return new OpenGLIndexBuffer(indices, count);
 		}
 

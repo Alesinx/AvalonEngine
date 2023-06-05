@@ -2,6 +2,7 @@
 #include "VertexArray.h"
 
 #include "Avalon/Renderer/Renderer.h"
+#include "Avalon/Renderer/RendererAPI.h"
 #include "Platform/OpenGL/OpenGLVertexArray.h"
 
 namespace Avalon
@@ -10,10 +11,10 @@ namespace Avalon
 	{
 		switch(Renderer::GetAPI())
 		{
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 			AVALON_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
 			return nullptr;
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return new OpenGLVertexArray();
 		}
 	}
