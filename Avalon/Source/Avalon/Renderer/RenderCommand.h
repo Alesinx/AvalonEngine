@@ -1,17 +1,19 @@
 #pragma once
 
-#include "Avalon/Renderer/RendererAPI.h"
+//#include "Avalon/Renderer/RendererAPI.h"
 
-namespace Avalon
-{
-	class RenderCommand 
-	{
-	public:
-		static inline void SetClearColor() { sRendererAPI->SetClearColor(); }
-		static inline void Clear() { sRendererAPI->Clear(); }
-		static inline void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) { sRendererAPI->DrawIndexed(vertexArray); }
+//namespace Avalon
+//{
+	// Moved to Renderer.h
 
-	private:
-		static RendererAPI* sRendererAPI;
-	};
-}
+	//class RenderCommand 
+	//{
+	//public:
+	//	static inline void SetClearColor() { sRendererAPI->SetClearColor(); }
+	//	static inline void Clear() { sRendererAPI->Clear(); }
+	//	static inline void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) { sRendererAPI->DrawIndexed(vertexArray); }
+
+	//private:
+	//	static RendererAPI* sRendererAPI;
+	//};
+//}

@@ -12,6 +12,13 @@ namespace Avalon
 		static void EndScene();
 		static void Submit(const std::shared_ptr<VertexArray> vertexArray);
 
-		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
+		static inline RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
+
+		static inline void SetClearColor() { sRendererAPI->SetClearColor(); }
+		static inline void Clear() { sRendererAPI->Clear(); }
+		static inline void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) { sRendererAPI->DrawIndexed(vertexArray); }
+
+	private:
+		static RendererAPI* sRendererAPI;
 	};
 }

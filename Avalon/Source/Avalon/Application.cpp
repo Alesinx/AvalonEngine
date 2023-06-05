@@ -172,8 +172,8 @@ namespace Avalon
 		//mVertexArray->Bind();
 		//glDrawElements(GL_TRIANGLES, mVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
-		RenderCommand::SetClearColor();
-		RenderCommand::Clear();
+		Renderer::SetClearColor();
+		Renderer::Clear();
 
 		Renderer::BeginScene();
 

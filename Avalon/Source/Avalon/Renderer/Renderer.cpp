@@ -2,9 +2,12 @@
 #include "Renderer.h"
 
 #include "Avalon/Renderer/RenderCommand.h"
+#include "Platform//OpenGL/OpenGLRendererAPI.h"
 
 namespace Avalon
 {
+	RendererAPI* Renderer::sRendererAPI = new OpenGLRendererAPI;
+
 	void Renderer::BeginScene()
 	{
 	}
@@ -17,6 +20,6 @@ namespace Avalon
 	{
 		vertexArray->Bind();
 
-		RenderCommand::DrawIndexed(vertexArray);
+		DrawIndexed(vertexArray);
 	}
 }

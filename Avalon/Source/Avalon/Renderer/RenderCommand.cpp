@@ -3,7 +3,7 @@
 
 #include "Platform/OpenGL/OpenGLRendererAPI.h"
 
-namespace Avalon
-{
-	RendererAPI* RenderCommand::sRendererAPI = new OpenGLRendererAPI;
-}
+//namespace Avalon
+//{
+//	RendererAPI* RenderCommand::sRendererAPI = new OpenGLRendererAPI;
+//}
