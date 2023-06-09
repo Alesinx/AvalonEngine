@@ -1,5 +1,6 @@
 #pragma once
 #include "Avalon/Log/Log.h"
+#include <glm/glm.hpp>
 
 #ifndef AVALON_PLATFORM_WINDOWS
 	#error Avalon only supports Windows
@@ -20,3 +21,8 @@
 #define BIT(x) (1 << x)
 
 #define BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
+// Vectors
+using Vec2 = glm::vec2;
+using Vec3 = glm::vec3;
+using Vec4 = glm::vec4;
