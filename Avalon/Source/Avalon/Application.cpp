@@ -3,6 +3,8 @@
 #include "Avalon/Event/ApplicationEvents.h"
 #include "Avalon/Renderer/Renderer.h"
 
+// Will probably need to be removed in the future
+#include "Platform/OpenGL/OpenGLShader.h"
 #include <glad/glad.h>
 
 namespace Avalon 
@@ -79,7 +81,7 @@ namespace Avalon
 			}
 		)";
 
-		mShader = std::shared_ptr<Shader>(new Shader(vertexSrc, fragmentSrc));
+		mShader = std::shared_ptr<Shader>(Shader::Create(vertexSrc, fragmentSrc));
 
 		/////////////////////////////////////////////////////////////////////////////
 		// mSquareVA ////////////////////////////////////////////////////////////////
@@ -87,20 +89,21 @@ namespace Avalon
 
 		mSquareVA = std::shared_ptr<VertexArray>(VertexArray::Create());
 
-		float squareVertices[2 * 4] = {
-			-0.75f, -0.75f,
-			 0.75f, -0.75f,
-			 0.75f,  0.75f,
-			-0.75f,  0.75f
+		float squareVertices[4 * 4] = {
+			-0.5f,  0.5f,  0.0f,  1.0f,
+			-0.5f, -0.5f,  0.0f,  0.0f,
+			 0.5f, -0.5f,  1.0f,  0.0f,
+			 0.5f,  0.5f,  1.0f,  1.0f
 		};
 
-		std::shared_ptr<VertexBuffer> squareVA = std::shared_ptr<VertexBuffer>(VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
-		squareVA->SetLayout(
+		std::shared_ptr<VertexBuffer> squareVB = std::shared_ptr<VertexBuffer>(VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		squareVB->SetLayout(
 			{
-				{ ShaderDataType::Float2, "a_position" }
+				{ ShaderDataType::Float2, "a_position" },
+				{ ShaderDataType::Float2, "a_TexCoord" }
 			}
 		);
-		mSquareVA->AddVertexBuffer(squareVA);
+		mSquareVA->AddVertexBuffer(squareVB);
 
 		const uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 		std::shared_ptr<IndexBuffer> squareIB = std::shared_ptr<IndexBuffer>(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
@@ -131,7 +134,44 @@ namespace Avalon
 			}
 		)";
 
-		mBlueShader = std::shared_ptr<Shader>(new Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
+		mBlueShader = std::shared_ptr<Shader>(Shader::Create(blueShaderVertexSrc, blueShaderFragmentSrc));
+
+		/////////////////////////////////////////////////////////////////////////////
+		// Texture //////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////
+
+		std::string textureShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec2 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+			out vec2 v_TexCoord;
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = vec4(a_Position, 1.0, 1.0);
+			}
+		)";
+
+		std::string textureShaderFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+			in vec2 v_TexCoord;
+			
+			uniform sampler2D u_Texture;
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		mTextureShader = std::shared_ptr<Shader>(Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+		mTexture = std::shared_ptr<Texture2D>(Texture2D::Create("C:\\dev\\Avalon\\Avalon\\Assets\\Textures\\harold.png"));
+
+		std::shared_ptr<OpenGLShader> oglShader = std::dynamic_pointer_cast<OpenGLShader>(mTextureShader);
+		oglShader->Bind();
+		oglShader->UploadUniformInt("u_Texture", 0);
 	}
 
 	void Application::Run()
@@ -161,27 +201,21 @@ namespace Avalon
 
 	void Application::Render()
 	{
-		//glClearColor(0.1f, 0.1f, 0.1f, 1);
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		//mBlueShader->Bind();
-		//mSquareVA->Bind();
-		//glDrawElements(GL_TRIANGLES, mSquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-
-		//mShader->Bind();
-		//mVertexArray->Bind();
-		//glDrawElements(GL_TRIANGLES, mVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-
 		Renderer::SetClearColor();
 		Renderer::Clear();
 
 		Renderer::BeginScene();
 
-		mBlueShader->Bind();
+		//mBlueShader->Bind();
+		//Renderer::Submit(mSquareVA);
+
+		mTexture->Bind();
+		mTextureShader->Bind();
 		Renderer::Submit(mSquareVA);
 
-		mShader->Bind();
-		Renderer::Submit(mVertexArray);
+		// Render triangle
+		//mShader->Bind();
+		//Renderer::Submit(mVertexArray);
 
 		Renderer::EndScene();
 

@@ -6,6 +6,7 @@
 #include "Avalon/Renderer/Shader.h"
 #include "Avalon/Renderer/Buffer.h"
 #include "Avalon/Renderer/VertexArray.h"
+#include "Avalon/Renderer/Texture.h"
 
 namespace Avalon
 {
@@ -39,6 +40,9 @@ namespace Avalon
 		std::shared_ptr<VertexArray> mVertexArray;
 		std::shared_ptr<Shader> mBlueShader;
 		std::shared_ptr<VertexArray> mSquareVA;
+
+		std::shared_ptr<Texture2D> mTexture;
+		std::shared_ptr<Shader> mTextureShader;
 
 	private:
 		void Gameloop();

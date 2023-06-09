@@ -16,6 +16,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Avalon/ThirdParty/GLFW/include"
 IncludeDir["Glad"] = "Avalon/ThirdParty/Glad/include"
 IncludeDir["ImGui"] = "Avalon/ThirdParty/ImGui"
+IncludeDir["stb_image"] = "Avalon/ThirdParty/stb_image"
 
 group "Dependencies"
     include "Avalon/ThirdParty/GLFW"
@@ -39,7 +40,9 @@ project "Avalon" ---------------------------------------------------------------
     files
     {
         "%{prj.name}/Source/**.h",
-        "%{prj.name}/Source/**.cpp"
+        "%{prj.name}/Source/**.cpp",
+        "%{prj.name}/ThirdParty/stb_image/**.h",
+        "%{prj.name}/ThirdParty/stb_image/**.cpp"
     }
 
     includedirs
@@ -47,7 +50,8 @@ project "Avalon" ---------------------------------------------------------------
         "Avalon/Source",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
-        "%{IncludeDir.ImGui}"
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.stb_image}"
     }
 
     links
