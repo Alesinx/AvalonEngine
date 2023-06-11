@@ -167,7 +167,7 @@ namespace Avalon
 		)";
 
 		mTextureShader = std::shared_ptr<Shader>(Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
-		mTexture = std::shared_ptr<Texture2D>(Texture2D::Create("C:\\dev\\Avalon\\Avalon\\Assets\\Textures\\harold.png"));
+		mTexture = std::shared_ptr<Texture2D>(Texture2D::Create("C:\\Dev\\AvalonEngine\\Avalon\\Assets\\Textures\\Checkerboard.png"));
 
 		std::shared_ptr<OpenGLShader> oglShader = std::dynamic_pointer_cast<OpenGLShader>(mTextureShader);
 		oglShader->Bind();
@@ -206,16 +206,14 @@ namespace Avalon
 
 		Renderer::BeginScene();
 
-		//mBlueShader->Bind();
-		//Renderer::Submit(mSquareVA);
-
 		mTexture->Bind();
-		mTextureShader->Bind();
-		Renderer::Submit(mSquareVA);
+		Renderer::Submit(mTextureShader, mSquareVA);
 
 		// Render triangle
-		//mShader->Bind();
-		//Renderer::Submit(mVertexArray);
+		Renderer::Submit(mShader, mVertexArray);
+
+		// Render blue quad
+		//Renderer::Submit(mBlueShader, mSquareVA);
 
 		Renderer::EndScene();
 

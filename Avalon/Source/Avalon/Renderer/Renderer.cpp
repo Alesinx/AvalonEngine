@@ -3,6 +3,7 @@
 
 #include "Avalon/Renderer/RenderCommand.h"
 #include "Platform//OpenGL/OpenGLRendererAPI.h"
+#include "Platform//OpenGL/OpenGLShader.h"
 
 namespace Avalon
 {
@@ -16,10 +17,12 @@ namespace Avalon
 	{
 	}
 
-	void Renderer::Submit(const std::shared_ptr<VertexArray> vertexArray)
+	void Renderer::Submit(const std::shared_ptr<Shader> shader, const std::shared_ptr<VertexArray>& vertexArray, const Mat4& transform)
 	{
-		vertexArray->Bind();
+		shader->Bind();
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
 
+		vertexArray->Bind();
 		DrawIndexed(vertexArray);
 	}
 }

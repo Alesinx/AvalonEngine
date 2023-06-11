@@ -14,6 +14,7 @@ namespace Avalon
 		virtual void Unbind() const override;
 
 		void UploadUniformInt(const std::string& name, int value);
+		void UploadUniformMat4(const std::string& name, Mat4 value);
 
 	private:
 		uint32_t mRendererID;

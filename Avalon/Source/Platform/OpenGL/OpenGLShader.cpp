@@ -2,6 +2,7 @@
 #include "OpenGLShader.h"
 
 #include <glad/glad.h>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace Avalon
 {
@@ -124,9 +125,16 @@ namespace Avalon
 	{
 		glUseProgram(0);
 	}
+
 	void OpenGLShader::UploadUniformInt(const std::string& name, int value)
 	{
 		GLint location = glGetUniformLocation(mRendererID, name.c_str());
 		glUniform1i(location, value);
+	}
+
+	void OpenGLShader::UploadUniformMat4(const std::string& name, Mat4 matrix)
+	{
+		GLint location = glGetUniformLocation(mRendererID, name.c_str());
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 }
