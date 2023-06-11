@@ -11,7 +11,9 @@ namespace Avalon
 	public:
 		static void BeginScene();
 		static void EndScene();
-		static void Submit(const std::shared_ptr<Shader> shader, const std::shared_ptr<VertexArray>& vertexArray, const Mat4& transform = Mat4(1.0f));
+		static void Submit(const std::shared_ptr<Shader> shader, 
+			const std::shared_ptr<VertexArray>& vertexArray, 
+			const Mat4& transform = Mat4(1.0f));
 
 		static inline RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 

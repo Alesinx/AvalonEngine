@@ -132,7 +132,7 @@ namespace Avalon
 		glUniform1i(location, value);
 	}
 
-	void OpenGLShader::UploadUniformMat4(const std::string& name, Mat4 matrix)
+	void OpenGLShader::UploadUniformMat4(const std::string& name, Mat4 matrix) const
 	{
 		GLint location = glGetUniformLocation(mRendererID, name.c_str());
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));

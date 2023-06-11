@@ -6,6 +6,7 @@
 // Will probably need to be removed in the future
 #include "Platform/OpenGL/OpenGLShader.h"
 #include <glad/glad.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace Avalon 
 {
@@ -24,10 +25,10 @@ namespace Avalon
 		mImguiOverlay->Initialize();
 
 		/////////////////////////////////////////////////////////////////////////////
-		// mVertexArray /////////////////////////////////////////////////////////////
+		// Triangle /////////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////
 
-		mVertexArray = std::shared_ptr<VertexArray>(VertexArray::Create());
+		mTriangleVA = std::shared_ptr<VertexArray>(VertexArray::Create());
 
 		const float vertices[3 * 7] = {
 			// Position  | Color
@@ -36,18 +37,18 @@ namespace Avalon
 			 0.0f,  0.5f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		std::shared_ptr<VertexBuffer> vertexBuffer = std::shared_ptr<VertexBuffer>(VertexBuffer::Create(vertices, sizeof(vertices)));
-		vertexBuffer->SetLayout(
+		std::shared_ptr<VertexBuffer> vb = std::shared_ptr<VertexBuffer>(VertexBuffer::Create(vertices, sizeof(vertices)));
+		vb->SetLayout(
 			{
 				{ ShaderDataType::Float2, "a_position" },
 				{ ShaderDataType::Float4, "a_color"}
 			}
 		);
-		mVertexArray->AddVertexBuffer(vertexBuffer);
+		mTriangleVA->AddVertexBuffer(vb);
 		
 		const uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<IndexBuffer> indexBuffer = std::shared_ptr<IndexBuffer>(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
-		mVertexArray->SetIndexBuffer(indexBuffer);
+		std::shared_ptr<IndexBuffer> ib = std::shared_ptr<IndexBuffer>(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		mTriangleVA->SetIndexBuffer(ib);
 
 		std::string vertexSrc = R"(
 			#version 330 core
@@ -81,7 +82,7 @@ namespace Avalon
 			}
 		)";
 
-		mShader = std::shared_ptr<Shader>(Shader::Create(vertexSrc, fragmentSrc));
+		mTriangleShader = std::shared_ptr<Shader>(Shader::Create(vertexSrc, fragmentSrc));
 
 		/////////////////////////////////////////////////////////////////////////////
 		// mSquareVA ////////////////////////////////////////////////////////////////
@@ -114,12 +115,14 @@ namespace Avalon
 			
 			layout(location = 0) in vec2 a_position;
 
+			uniform mat4 u_Transform;
+
 			out vec2 v_position;
 
 			void main()
 			{
 				v_position = a_position;
-				gl_Position = vec4(a_position, 1.0, 1.0);
+				gl_Position = u_Transform * vec4(a_position, 1.0, 1.0);
 			}
 		)";
 
@@ -169,9 +172,9 @@ namespace Avalon
 		mTextureShader = std::shared_ptr<Shader>(Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
 		mTexture = std::shared_ptr<Texture2D>(Texture2D::Create("C:\\Dev\\AvalonEngine\\Avalon\\Assets\\Textures\\Checkerboard.png"));
 
-		std::shared_ptr<OpenGLShader> oglShader = std::dynamic_pointer_cast<OpenGLShader>(mTextureShader);
-		oglShader->Bind();
-		oglShader->UploadUniformInt("u_Texture", 0);
+		const std::shared_ptr<OpenGLShader> openglTextureShader = std::dynamic_pointer_cast<OpenGLShader>(mTextureShader);
+		openglTextureShader->Bind();
+		openglTextureShader->UploadUniformInt("u_Texture", 0);
 	}
 
 	void Application::Run()
@@ -206,11 +209,23 @@ namespace Avalon
 
 		Renderer::BeginScene();
 
+		Mat4 scale = glm::scale(Mat4(1.0f), Vec3(0.1f));
+		for (int y = 0; y < 20; y++) 
+		{
+			for (int x = 0; x < 20; x++)
+			{
+				Vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
+				Mat4 transform = glm::translate(Mat4(1.0f), pos) * scale;
+				Renderer::Submit(mBlueShader, mSquareVA, transform);
+			}
+		}
+
+		// Render texture
 		mTexture->Bind();
 		Renderer::Submit(mTextureShader, mSquareVA);
 
 		// Render triangle
-		Renderer::Submit(mShader, mVertexArray);
+		Renderer::Submit(mTriangleShader, mTriangleVA);
 
 		// Render blue quad
 		//Renderer::Submit(mBlueShader, mSquareVA);

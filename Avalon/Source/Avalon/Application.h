@@ -36,8 +36,8 @@ namespace Avalon
 
 		std::unique_ptr<ImguiOverlay> mImguiOverlay;
 
-		std::shared_ptr<Shader> mShader;
-		std::shared_ptr<VertexArray> mVertexArray;
+		std::shared_ptr<Shader> mTriangleShader;
+		std::shared_ptr<VertexArray> mTriangleVA;
 		std::shared_ptr<Shader> mBlueShader;
 		std::shared_ptr<VertexArray> mSquareVA;
 
