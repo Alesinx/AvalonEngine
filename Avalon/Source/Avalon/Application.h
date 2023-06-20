@@ -3,10 +3,12 @@
 #include "Avalon/Core.h"
 #include "Avalon/Window.h"
 #include "Avalon/Imgui/ImguiOverlay.h"
+
 #include "Avalon/Renderer/Shader.h"
 #include "Avalon/Renderer/Buffer.h"
 #include "Avalon/Renderer/VertexArray.h"
 #include "Avalon/Renderer/Texture.h"
+#include "Avalon/Renderer/OrthographicCamera.h"
 
 namespace Avalon
 {
@@ -15,6 +17,7 @@ namespace Avalon
 	public:
 		static inline Application& GetInstance() { return *sInstance; }
 
+	public:
 		Application();
 		virtual ~Application() = default;
 
@@ -22,27 +25,23 @@ namespace Avalon
 
 		inline const Window& GetWindow() { return *mWindow; }
 		virtual void ProcessEvent(Event& e);
+		
+	protected:
+		bool mImguiEnabled = true;
 
 	protected:
-		virtual void ProcessInput();
+		virtual void ProcessInput() {}
 		virtual void Update();
-		virtual void Render();
+		virtual void Render(float deltaTime);
 
 	private:
 		static Application* sInstance;
 
+	private:
 		bool mRunning = true;
 		std::unique_ptr<Window> mWindow;
-
 		std::unique_ptr<ImguiOverlay> mImguiOverlay;
-
-		std::shared_ptr<Shader> mTriangleShader;
-		std::shared_ptr<VertexArray> mTriangleVA;
-		std::shared_ptr<Shader> mBlueShader;
-		std::shared_ptr<VertexArray> mSquareVA;
-
-		std::shared_ptr<Texture2D> mTexture;
-		std::shared_ptr<Shader> mTextureShader;
+		float mLastFrameTime = 0.0f;
 
 	private:
 		void Gameloop();

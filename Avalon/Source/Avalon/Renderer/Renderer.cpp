@@ -8,9 +8,11 @@
 namespace Avalon
 {
 	RendererAPI* Renderer::sRendererAPI = new OpenGLRendererAPI;
+	Renderer::SceneData* Renderer::mSceneData = new Renderer::SceneData;
 
-	void Renderer::BeginScene()
+	void Renderer::BeginScene(OrthographicCamera& camera)
 	{
+		mSceneData->ViewProjectionMatrix = camera.GetViewProjecionMatrix();
 	}
 
 	void Renderer::EndScene()
@@ -21,6 +23,7 @@ namespace Avalon
 	{
 		shader->Bind();
 
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection", mSceneData->ViewProjectionMatrix);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
 
 		vertexArray->Bind();

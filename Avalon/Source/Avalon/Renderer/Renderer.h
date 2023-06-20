@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Avalon/Renderer/RenderCommand.h"
+#include "Avalon/Renderer/OrthographicCamera.h"
 #include "Avalon/Renderer/RendererAPI.h"
 #include "Avalon/Renderer/Shader.h"
 
@@ -9,11 +10,11 @@ namespace Avalon
 	class Renderer
 	{
 	public:
-		static void BeginScene();
+		static void BeginScene(OrthographicCamera& camera);
 		static void EndScene();
-		static void Submit(const std::shared_ptr<Shader> shader, 
-			const std::shared_ptr<VertexArray>& vertexArray, 
-			const Mat4& transform = Mat4(1.0f));
+		static void Submit(const std::shared_ptr<Shader> shader,
+		const std::shared_ptr<VertexArray>& vertexArray,
+		const Mat4& transform = Mat4(1.0f));
 
 		static inline RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 
@@ -23,5 +24,12 @@ namespace Avalon
 
 	private:
 		static RendererAPI* sRendererAPI;
+
+		struct SceneData
+		{
+			Mat4 ViewProjectionMatrix;
+		};
+
+		static SceneData* mSceneData;
 	};
 }
