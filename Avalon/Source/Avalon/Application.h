@@ -31,7 +31,7 @@ namespace Avalon
 
 	protected:
 		virtual void ProcessInput() {}
-		virtual void Update();
+		virtual void Update(float deltaTime);
 		virtual void Render(float deltaTime);
 
 	private:

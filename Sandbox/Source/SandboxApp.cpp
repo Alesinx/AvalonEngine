@@ -8,6 +8,7 @@ public:
 	~Sandbox() { }
 
 	void ProcessEvent(Avalon::Event& event) override;
+	void Update(float deltaTime) override;
 	void Render(float deltaTime) override;
 
 	void SetupRendering();
@@ -23,6 +24,10 @@ private:
 	std::shared_ptr<Avalon::Shader> mTextureShader;
 
 	Avalon::OrthographicCamera mCamera;
+	Vec3 mCameraPosition = Vec3(0.0f);
+	float mCameraRotation = 0.0f;
+	float mCameraMoveSpeed = 5.0f;
+	float mCameraRotationSpeed = 180.0f;
 };
 
 Avalon::Application* Avalon::CreateApplication()
@@ -235,12 +240,32 @@ void Sandbox::ProcessEvent(Avalon::Event& event)
 	}
 }
 
+void Sandbox::Update(float deltaTime)
+{
+	Application::Update(deltaTime);
+
+	if (Avalon::Input::IsKeyPressed(AVALON_KEY_D))
+		mCameraPosition.x += mCameraMoveSpeed * deltaTime;
+	else if (Avalon::Input::IsKeyPressed(AVALON_KEY_A))
+		mCameraPosition.x -= mCameraMoveSpeed * deltaTime;
+
+	if(Avalon::Input::IsKeyPressed(AVALON_KEY_W))
+		mCameraPosition.y += mCameraMoveSpeed * deltaTime;
+	else if (Avalon::Input::IsKeyPressed(AVALON_KEY_S))
+		mCameraPosition.y -= mCameraMoveSpeed * deltaTime;
+
+	if (Avalon::Input::IsKeyPressed(AVALON_KEY_Q))
+		mCameraRotation += mCameraRotationSpeed * deltaTime;
+	else if (Avalon::Input::IsKeyPressed(AVALON_KEY_E))
+		mCameraRotation -= mCameraRotationSpeed * deltaTime;
+}
+
 void Sandbox::Render(float deltaTime)
 {
 	Application::Render(deltaTime);
 
-	mCamera.SetPosition({ 0.5f, 0.5f, 0.0f });
-	mCamera.SetRotation(45.0f);
+	mCamera.SetPosition(mCameraPosition);
+	mCamera.SetRotation(mCameraRotation);
 
 	Avalon::Renderer::BeginScene(mCamera);
 

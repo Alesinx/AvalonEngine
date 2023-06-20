@@ -39,7 +39,8 @@ namespace Avalon
 			mLastFrameTime = time;
 
 			ProcessInput();
-			Update();
+
+			Update(deltaTime);
 
 			// Rendering
 			Renderer::SetClearColor();
@@ -54,7 +55,7 @@ namespace Avalon
 		}
 	}
 
-	void Application::Update()
+	void Application::Update(float deltaTime)
 	{
 		mWindow->OnUpdate();
 	}
