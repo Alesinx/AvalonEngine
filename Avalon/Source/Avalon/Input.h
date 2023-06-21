@@ -14,6 +14,10 @@ namespace Avalon
 		inline static float GetMouseY() { return sInstance->GetMouseYImpl(); }
 
 	protected:
+		Input(const Input&) = delete;
+		Input& operator=(const Input&) = delete;
+		Input() = default;
+
 		virtual std::pair<float, float> GetMousePositionImpl() = 0;
 		virtual bool IsMouseButtonPressedImpl(int button) = 0;
 		virtual bool IsKeyPressedImpl(int keycode) = 0;
