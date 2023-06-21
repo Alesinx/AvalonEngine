@@ -20,7 +20,7 @@ private:
 	std::shared_ptr<Avalon::Shader> mBlueShader;
 	std::shared_ptr<Avalon::VertexArray> mSquareVA;
 
-	std::shared_ptr<Avalon::Texture2D> mTexture;
+	std::shared_ptr<Avalon::Texture2D> mTexture, mFishTexture;
 	std::shared_ptr<Avalon::Shader> mTextureShader;
 
 	Avalon::OrthographicCamera mCamera;
@@ -221,6 +221,9 @@ void Sandbox::SetupRendering()
 	//mTexture = std::shared_ptr<Avalon::Texture2D>(Avalon::Texture2D::Create("C:\\Dev\\AvalonEngine\\Avalon\\Assets\\Textures\\Checkerboard.png"));
 	mTexture = std::shared_ptr<Avalon::Texture2D>(Avalon::Texture2D::Create("C:\\dev\\Avalon\\Avalon\\Assets\\Textures\\Checkerboard.png"));
 
+	//mFishTexture = std::shared_ptr<Avalon::Texture2D>(Avalon::Texture2D::Create("C:\\Dev\\AvalonEngine\\Avalon\\Assets\\Textures\\Fish.png"));
+	mFishTexture = std::shared_ptr<Avalon::Texture2D>(Avalon::Texture2D::Create("C:\\dev\\Avalon\\Avalon\\Assets\\Textures\\Fish.png"));
+
 	const std::shared_ptr<Avalon::OpenGLShader> openglTextureShader = std::dynamic_pointer_cast<Avalon::OpenGLShader>(mTextureShader);
 	openglTextureShader->Bind();
 	openglTextureShader->UploadUniformInt("u_Texture", 0);
@@ -282,12 +285,15 @@ void Sandbox::Render(float deltaTime)
 		}
 	}
 
+	// Render triangle
+	//Avalon::Renderer::Submit(mTriangleShader, mTriangleVA);
+
 	// Render texture
 	mTexture->Bind();
 	Avalon::Renderer::Submit(mTextureShader, mSquareVA);
 
-	// Render triangle
-	Avalon::Renderer::Submit(mTriangleShader, mTriangleVA);
+	mFishTexture->Bind();
+	Avalon::Renderer::Submit(mTextureShader, mSquareVA);
 
 	// Render blue quad
 	//Renderer::Submit(mBlueShader, mSquareVA);

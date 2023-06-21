@@ -5,6 +5,12 @@
 
 namespace Avalon
 {
+	void OpenGLRendererAPI::Initialize()
+	{
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
+
 	void OpenGLRendererAPI::SetClearColor()
 	{
 		glClearColor(0.1f, 0.1f, 0.1f, 1);

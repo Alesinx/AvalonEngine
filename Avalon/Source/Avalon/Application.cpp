@@ -23,6 +23,8 @@ namespace Avalon
 
 		mImguiOverlay = std::unique_ptr<ImguiOverlay>();
 		mImguiOverlay->Initialize();
+
+		Renderer::Initialize();
 	}
 
 	void Application::Run()
