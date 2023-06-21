@@ -217,7 +217,9 @@ void Sandbox::SetupRendering()
 		)";
 
 	mTextureShader = std::shared_ptr<Avalon::Shader>(Avalon::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
-	mTexture = std::shared_ptr<Avalon::Texture2D>(Avalon::Texture2D::Create("C:\\Dev\\AvalonEngine\\Avalon\\Assets\\Textures\\Checkerboard.png"));
+
+	//mTexture = std::shared_ptr<Avalon::Texture2D>(Avalon::Texture2D::Create("C:\\Dev\\AvalonEngine\\Avalon\\Assets\\Textures\\Checkerboard.png"));
+	mTexture = std::shared_ptr<Avalon::Texture2D>(Avalon::Texture2D::Create("C:\\dev\\Avalon\\Avalon\\Assets\\Textures\\Checkerboard.png"));
 
 	const std::shared_ptr<Avalon::OpenGLShader> openglTextureShader = std::dynamic_pointer_cast<Avalon::OpenGLShader>(mTextureShader);
 	openglTextureShader->Bind();

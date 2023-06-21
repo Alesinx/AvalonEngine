@@ -64,20 +64,19 @@ namespace Avalon
 		glBindVertexArray(mRendererId);
 		vertexBuffer->Bind();
 
-		uint32_t index = 0;
 		const BufferLayout layout = vertexBuffer->GetLayout();
 		for (const BufferElement& element : layout)
 		{
-			glEnableVertexAttribArray(index);
+			glEnableVertexAttribArray(mVertexBufferIndex);
 			glVertexAttribPointer(
-				index,
+				mVertexBufferIndex,
 				element.GetComponentCount(),
 				ShaderDataTypeToOpenGLBaseType(element.type),
 				element.normalized ? GL_TRUE : GL_FALSE,
 				layout.GetStride(),
 				(const void*)element.offset);
 
-			index++;
+			mVertexBufferIndex++;
 		}
 
 		mVertexBuffers.push_back(vertexBuffer);
