@@ -13,15 +13,16 @@ Avalon::OrthographicCameraController::OrthographicCameraController(float aspectR
 
 void Avalon::OrthographicCameraController::Update(float deltaTime)
 {
+	float offset = mCameraTranslationSpeed * mZoomLevel * deltaTime;
 	if (Avalon::Input::IsKeyPressed(AVALON_KEY_D))
-		mCameraPosition.x += mCameraTranslationSpeed * deltaTime;
+		mCameraPosition.x += offset;
 	else if (Avalon::Input::IsKeyPressed(AVALON_KEY_A))
-		mCameraPosition.x -= mCameraTranslationSpeed * deltaTime;
+		mCameraPosition.x -= offset;
 
 	if (Avalon::Input::IsKeyPressed(AVALON_KEY_W))
-		mCameraPosition.y += mCameraTranslationSpeed * deltaTime;
+		mCameraPosition.y += offset;
 	else if (Avalon::Input::IsKeyPressed(AVALON_KEY_S))
-		mCameraPosition.y -= mCameraTranslationSpeed * deltaTime;
+		mCameraPosition.y -= offset;
 
 	mCamera.SetPosition(mCameraPosition);
 
@@ -34,8 +35,6 @@ void Avalon::OrthographicCameraController::Update(float deltaTime)
 
 		mCamera.SetRotation(mCameraRotation);
 	}
-
-	mCameraTranslationSpeed = mZoomLevel;
 }
 
 void Avalon::OrthographicCameraController::ProcessEvent(Event& e)

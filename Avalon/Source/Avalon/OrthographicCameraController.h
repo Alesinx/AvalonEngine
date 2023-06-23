@@ -30,7 +30,7 @@ namespace Avalon
 
 		Vec3 mCameraPosition = { 0.0f, 0.0f, 0.0f };
 		float mCameraRotation = 0.0f;
-		float mCameraTranslationSpeed = 5.0f;
+		float mCameraTranslationSpeed = 4.0f;
 		float mCameraRotationSpeed = 180.0f;
 	};
 }
