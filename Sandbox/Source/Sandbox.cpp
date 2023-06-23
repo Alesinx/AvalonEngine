@@ -1,34 +1,4 @@
-#include <Avalon.h>
-#include <glm/gtc/matrix_transform.hpp>
-
-class Sandbox : public Avalon::Application
-{
-public:
-	Sandbox() : mCamera(-1.6f, 1.6f, -0.9f, 0.9f) { SetupRendering(); }
-	~Sandbox() { }
-
-	void ProcessEvent(Avalon::Event& event) override;
-	void Update(float deltaTime) override;
-	void Render(float deltaTime) override;
-
-	void SetupRendering();
-
-private:
-	std::shared_ptr<Avalon::Shader> mTriangleShader;
-	std::shared_ptr<Avalon::VertexArray> mTriangleVA;
-
-	std::shared_ptr<Avalon::Shader> mBlueShader;
-	std::shared_ptr<Avalon::VertexArray> mSquareVA;
-
-	std::shared_ptr<Avalon::Texture2D> mTexture, mFishTexture;
-	std::shared_ptr<Avalon::Shader> mTextureShader;
-
-	Avalon::OrthographicCamera mCamera;
-	Vec3 mCameraPosition = Vec3(0.0f);
-	float mCameraRotation = 0.0f;
-	float mCameraMoveSpeed = 5.0f;
-	float mCameraRotationSpeed = 180.0f;
-};
+#include "Sandbox.h"
 
 Avalon::Application* Avalon::CreateApplication()
 {
@@ -61,14 +31,8 @@ Avalon::Application* Avalon::CreateApplication()
 	return new Sandbox();
 }
 
-void Sandbox::SetupRendering()
+void Sandbox::SetupTriangle()
 {
-	mImguiEnabled = false;
-
-	/////////////////////////////////////////////////////////////////////////////
-	// Triangle Setup ///////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////
-
 	mTriangleVA = std::shared_ptr<Avalon::VertexArray>(Avalon::VertexArray::Create());
 
 	const float vertices[3 * 7] = {
@@ -126,11 +90,10 @@ void Sandbox::SetupRendering()
 		)";
 
 	mTriangleShader = std::shared_ptr<Avalon::Shader>(Avalon::Shader::Create(vertexSrc, fragmentSrc));
+}
 
-	/////////////////////////////////////////////////////////////////////////////
-	// mSquareVA ////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////
-
+void Sandbox::SetupGrid()
+{
 	mSquareVA = std::shared_ptr<Avalon::VertexArray>(Avalon::VertexArray::Create());
 
 	float squareVertices[4 * 4] = {
@@ -182,10 +145,10 @@ void Sandbox::SetupRendering()
 		)";
 
 	mBlueShader = std::shared_ptr<Avalon::Shader>(Avalon::Shader::Create(blueShaderVertexSrc, blueShaderFragmentSrc));
+}
 
-	/////////////////////////////////////////////////////////////////////////////
-	// Texture //////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////
+void Sandbox::SetupTextures()
+{
 	mTextureShader = std::shared_ptr<Avalon::Shader>(Avalon::Shader::Create("C:\\dev\\Avalon\\Sandbox\\Asset\\Shaders\\Texture.glsl"));
 
 	//mTexture = std::shared_ptr<Avalon::Texture2D>(Avalon::Texture2D::Create("C:\\Dev\\AvalonEngine\\Avalon\\Assets\\Textures\\Checkerboard.png"));
@@ -199,7 +162,30 @@ void Sandbox::SetupRendering()
 	openglTextureShader->UploadUniformInt("u_Texture", 0);
 }
 
-void Sandbox::ProcessEvent(Avalon::Event& event) 
+void Sandbox::DrawGrid()
+{
+	Mat4 scale = glm::scale(Mat4(1.0f), Vec3(0.1f));
+	for (int y = 0; y < 20; y++)
+	{
+		for (int x = 0; x < 20; x++)
+		{
+			Vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
+			Mat4 transform = glm::translate(Mat4(1.0f), pos) * scale;
+			Avalon::Renderer::Submit(mBlueShader, mSquareVA, transform);
+		}
+	}
+}
+
+Sandbox::Sandbox() : mCamera(-1.6f, 1.6f, -0.9f, 0.9f)
+{
+	mImguiEnabled = false;
+
+	SetupTriangle();
+	SetupGrid();
+	SetupTextures();
+}
+
+void Sandbox::ProcessEvent(Avalon::Event& event)
 {
 	Application::ProcessEvent(event);
 
@@ -244,17 +230,10 @@ void Sandbox::Render(float deltaTime)
 
 	Avalon::Renderer::BeginScene(mCamera);
 
-	//// Draw grid
-	Mat4 scale = glm::scale(Mat4(1.0f), Vec3(0.1f));
-	for (int y = 0; y < 20; y++)
-	{
-		for (int x = 0; x < 20; x++)
-		{
-			Vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
-			Mat4 transform = glm::translate(Mat4(1.0f), pos) * scale;
-			Avalon::Renderer::Submit(mBlueShader, mSquareVA, transform);
-		}
-	}
+	DrawGrid();
+
+	// Render blue quad
+	//Renderer::Submit(mBlueShader, mSquareVA);
 
 	// Render triangle
 	//Avalon::Renderer::Submit(mTriangleShader, mTriangleVA);
@@ -265,9 +244,6 @@ void Sandbox::Render(float deltaTime)
 
 	mFishTexture->Bind();
 	Avalon::Renderer::Submit(mTextureShader, mSquareVA);
-
-	// Render blue quad
-	//Renderer::Submit(mBlueShader, mSquareVA);
 
 	Avalon::Renderer::EndScene();
 }
