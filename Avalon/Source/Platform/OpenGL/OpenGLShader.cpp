@@ -9,7 +9,7 @@ namespace Avalon
 	OpenGLShader::OpenGLShader(const std::string& filepath)
 	{
 		std::string shaderSource = ReadFile(filepath);
-		std::unordered_map<GLenum, std::string> shaderSources = PreProcessShaderFile(shaderSource);
+		std::unordered_map<GLenum, std::string> shaderSources = PreprocessShaderFile(shaderSource);
 		CompileShaderCode(shaderSources);
 	}
 
@@ -69,23 +69,23 @@ namespace Avalon
 		return result;
 	}
 
-	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcessShaderFile(const std::string& source)
+	std::unordered_map<GLenum, std::string> OpenGLShader::PreprocessShaderFile(const std::string& source)
 	{
 		std::unordered_map<GLenum, std::string> shaderSources;
 
 		const char* typeToken = "//@shaderType";
-		size_t pos = source.find(typeToken, 0);
-		while (pos != std::string::npos)
+		size_t nextTypeTokenPos = source.find(typeToken, 0);
+		while (nextTypeTokenPos != std::string::npos)
 		{
 			// Get the type string
-			size_t eol = source.find_first_of("\r\n", pos);
+			size_t eol = source.find_first_of("\r\n", nextTypeTokenPos);
 			if(eol == std::string::npos)
 			{
 				AVALON_CORE_ERROR("Syntax error while processing shader sources");
 				return shaderSources;
 			}
 
-			size_t begin = pos + strlen(typeToken) + 1;
+			size_t begin = nextTypeTokenPos + strlen(typeToken) + 1;
 			std::string typeStr = source.substr(begin, eol - begin);
 
 			GLuint type = DetermineShaderType(typeStr);
@@ -95,10 +95,10 @@ namespace Avalon
 				return shaderSources;
 			}
 
-			// Get the specific shader source code and put it in the unordered map
-			size_t nextLinePos = source.find_first_not_of("\r\n", eol);
-			pos = source.find(typeToken, nextLinePos);
-			shaderSources[DetermineShaderType(typeStr)] = source.substr(nextLinePos, pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
+			nextTypeTokenPos = source.find(typeToken, eol);
+			// Using count = npos will substr until the end of the file
+			size_t count = (nextTypeTokenPos != std::string::npos ? nextTypeTokenPos - eol : std::string::npos);
+			shaderSources[DetermineShaderType(typeStr)] = source.substr(eol, count);
 		}
 
 		return shaderSources;
