@@ -29,7 +29,7 @@ private:
 	std::shared_ptr<Avalon::Texture2D> mTexture, mFishTexture;
 	std::shared_ptr<Avalon::Shader> mTextureShader;
 
-	Avalon::OrthographicCamera mCamera;
+	Avalon::OrthographicCameraController mCameraController;
 	Vec3 mCameraPosition = Vec3(0.0f);
 	float mCameraRotation = 0.0f;
 	float mCameraMoveSpeed = 5.0f;

@@ -16,3 +16,4 @@
 #include "Platform/OpenGL/OpenGLShader.h"
 #include "Avalon/Renderer/VertexArray.h"
 #include "Avalon/Renderer/OrthographicCamera.h"
+#include "Avalon/OrthographicCameraController.h"

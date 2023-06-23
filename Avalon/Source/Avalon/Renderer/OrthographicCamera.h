@@ -7,6 +7,8 @@ namespace Avalon
 	public:
 		OrthographicCamera(float left, float right, float bottom, float top);
 
+		void SetProjection(float left, float right, float bottom, float top);
+
 		inline const Vec3 GetPosition() const { return mPosition; }
 		void SetPosition(const Vec3 position) { mPosition = position; RecalculateViewMatrix(); }
 

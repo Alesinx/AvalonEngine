@@ -176,7 +176,7 @@ void Sandbox::DrawGrid()
 	}
 }
 
-Sandbox::Sandbox() : mCamera(-1.6f, 1.6f, -0.9f, 0.9f)
+Sandbox::Sandbox() : mCameraController(1280.0f / 720.0f)
 {
 	mImguiEnabled = false;
 
@@ -199,36 +199,22 @@ void Sandbox::ProcessEvent(Avalon::Event& event)
 		int keycode = e.GetKeyCode();
 		AVALON_TRACE("keycode {0} : {0}", static_cast<char>(keycode));
 	}
+	
+	mCameraController.ProcessEvent(event);
 }
 
 void Sandbox::Update(float deltaTime)
 {
 	Application::Update(deltaTime);
 
-	if (Avalon::Input::IsKeyPressed(AVALON_KEY_D))
-		mCameraPosition.x += mCameraMoveSpeed * deltaTime;
-	else if (Avalon::Input::IsKeyPressed(AVALON_KEY_A))
-		mCameraPosition.x -= mCameraMoveSpeed * deltaTime;
-
-	if(Avalon::Input::IsKeyPressed(AVALON_KEY_W))
-		mCameraPosition.y += mCameraMoveSpeed * deltaTime;
-	else if (Avalon::Input::IsKeyPressed(AVALON_KEY_S))
-		mCameraPosition.y -= mCameraMoveSpeed * deltaTime;
-
-	if (Avalon::Input::IsKeyPressed(AVALON_KEY_Q))
-		mCameraRotation += mCameraRotationSpeed * deltaTime;
-	else if (Avalon::Input::IsKeyPressed(AVALON_KEY_E))
-		mCameraRotation -= mCameraRotationSpeed * deltaTime;
+	mCameraController.Update(deltaTime);
 }
 
 void Sandbox::Render(float deltaTime)
 {
 	Application::Render(deltaTime);
 
-	mCamera.SetPosition(mCameraPosition);
-	mCamera.SetRotation(mCameraRotation);
-
-	Avalon::Renderer::BeginScene(mCamera);
+	Avalon::Renderer::BeginScene(mCameraController.GetCamera());
 
 	DrawGrid();
 
