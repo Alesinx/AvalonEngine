@@ -2,11 +2,15 @@
 
 #include "Avalon/Renderer/Shader.h"
 
+// TODO: REMOVE!
+typedef unsigned int GLenum;
+
 namespace Avalon
 {
 	class OpenGLShader : public Shader
 	{
 	public:
+		OpenGLShader(const std::string& filepath);
 		OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc);
 		virtual ~OpenGLShader();
 
@@ -15,6 +19,12 @@ namespace Avalon
 
 		void UploadUniformInt(const std::string& name, int value);
 		void UploadUniformMat4(const std::string& name, Mat4 value) const;
+
+	private:
+		std::string ReadFile(const std::string& filepath);
+		std::unordered_map<GLenum, std::string> PreProcessShaderFile(const std::string& source);
+		void CompileShaderCode(std::unordered_map<GLenum, std::string>& shaderSources);
+		GLenum DetermineShaderType(const std::string& type);
 
 	private:
 		uint32_t mRendererID;

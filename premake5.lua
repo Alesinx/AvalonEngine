@@ -115,8 +115,8 @@ project "Sandbox" --------------------------------------------------------------
 
 	includedirs
 	{
-		"Avalon/Source",
-		"Avalon/ThirdParty",
+		"Avalon/Source/",
+		"Avalon/ThirdParty/",
 		"%{IncludeDir.glm}"
 	}
 
