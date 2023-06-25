@@ -72,7 +72,8 @@ namespace Avalon
 		if (e.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize)))
 			return;
 
-		mImguiOverlay->OnEvent(e);
+		if (mImguiEnabled)
+			mImguiOverlay->OnEvent(e);
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
