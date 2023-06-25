@@ -21,8 +21,11 @@ namespace Avalon
 		mWindow = std::unique_ptr<Window>(Window::Create());
 		mWindow->SetEventCallback(BIND_EVENT_FN(Application::ProcessEvent));
 
-		mImguiOverlay = std::unique_ptr<ImguiOverlay>();
-		mImguiOverlay->Initialize();
+		if (mImguiEnabled)
+		{
+			mImguiOverlay = std::unique_ptr<ImguiOverlay>();
+			mImguiOverlay->Initialize();
+		}
 
 		Renderer::Initialize();
 	}
@@ -50,8 +53,10 @@ namespace Avalon
 			Renderer::SetClearColor();
 			Renderer::Clear();
 			Render(deltaTime);
-			if (mImguiEnabled)
+			if (mImguiOverlay)
+			{
 				mImguiOverlay->Render();
+			}
 		}
 	}
 
@@ -72,8 +77,10 @@ namespace Avalon
 		if (e.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize)))
 			return;
 
-		if (mImguiEnabled)
+		if (mImguiOverlay)
+		{
 			mImguiOverlay->OnEvent(e);
+		}
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
