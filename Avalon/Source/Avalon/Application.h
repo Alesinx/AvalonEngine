@@ -39,6 +39,7 @@ namespace Avalon
 
 	private:
 		bool mRunning = true;
+		bool mMinimized = false;
 		std::unique_ptr<Window> mWindow;
 		std::unique_ptr<ImguiOverlay> mImguiOverlay;
 		float mLastFrameTime = 0.0f;
@@ -46,6 +47,7 @@ namespace Avalon
 	private:
 		void Gameloop();
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 	};
 
 	Application* CreateApplication();

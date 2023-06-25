@@ -40,20 +40,18 @@ namespace Avalon
 			float deltaTime = time - mLastFrameTime;
 			mLastFrameTime = time;
 
+			// Input
 			ProcessInput();
 
+			// Simulation
 			Update(deltaTime);
 
 			// Rendering
 			Renderer::SetClearColor();
 			Renderer::Clear();
-
 			Render(deltaTime);
-
 			if (mImguiEnabled)
-			{
 				mImguiOverlay->Render();
-			}
 		}
 	}
 
@@ -68,15 +66,27 @@ namespace Avalon
 
 	void Application::ProcessEvent(Event& e)
 	{
-		if(!e.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose)))
-		{
-			mImguiOverlay->OnEvent(e);
-		}
+		if (e.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose)))
+			return;
+
+		if (e.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize)))
+			return;
+
+		mImguiOverlay->OnEvent(e);
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		mRunning = false;
 		return true;
+	}
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		mMinimized = e.GetWidth() == 0 || e.GetHeight() == 0;
+		if (mMinimized)
+			return false;
+
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+		return false;
 	}
 }
