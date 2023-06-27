@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Avalon/Core.h"
-#include "Avalon/Window.h"
+#include "Avalon/Core/Core.h"
+#include "Avalon/Core/Window.h"
 #include "Avalon/Imgui/ImguiOverlay.h"
 
 #include "Avalon/Renderer/Shader.h"
@@ -27,7 +27,7 @@ namespace Avalon
 		virtual void ProcessEvent(Event& e);
 		
 	protected:
-		bool mOverlayEnabled = true;
+		bool mOverlayEnabled;
 
 	protected:
 		virtual void ProcessInput() {}

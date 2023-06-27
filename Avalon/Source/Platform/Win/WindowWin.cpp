@@ -1,6 +1,6 @@
 #include "AvalonPch.h"
 #include "WindowWin.h"
-#include "Avalon/Core.h"
+#include "Avalon/Core/Core.h"
 #include "Avalon/Log/Log.h"
 #include "Avalon/Event/ApplicationEvents.h"
 #include "Avalon/Event/InputEvents/KeyboardEvents.h"

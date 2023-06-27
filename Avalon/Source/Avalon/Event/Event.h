@@ -1,7 +1,7 @@
 #pragma once
 
 #include "AvalonPch.h"
-#include "Avalon/Core.h"
+#include "Avalon/Core/Core.h"
 
 namespace Avalon
 {

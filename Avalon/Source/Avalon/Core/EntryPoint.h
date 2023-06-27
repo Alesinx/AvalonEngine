@@ -2,7 +2,7 @@
 
 #ifdef AVALON_PLATFORM_WINDOWS
 
-#include "Avalon/Application.h"
+#include "Avalon/Core/Application.h"
 
 extern Avalon::Application* Avalon::CreateApplication();
 

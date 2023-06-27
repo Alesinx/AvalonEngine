@@ -18,7 +18,6 @@ namespace Avalon
 
 		void Initialize();
 		void Render();
-		//void OnEvent(Event& event);
 
 	private:
 		float mTime = 0.f;

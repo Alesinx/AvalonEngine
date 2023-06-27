@@ -1,8 +1,8 @@
 #include "AvalonPch.h"
-#include "Core.h"
+#include "Avalon/Core/Core.h"
 #include "OrthographicCameraController.h"
-#include "Avalon/Input.h"
-#include "Avalon/InputKeys.h"
+#include "Avalon/Input/Input.h"
+#include "Avalon/Input/InputKeys.h"
 
 Avalon::OrthographicCameraController::OrthographicCameraController(float aspectRation, bool rotation) : 
 	mAspectRatio(aspectRation),

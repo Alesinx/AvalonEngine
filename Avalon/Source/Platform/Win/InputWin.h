@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Avalon/Input.h"
+#include "Avalon/Input/Input.h"
 
 namespace Avalon
 {

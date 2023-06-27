@@ -1,6 +1,6 @@
 #include "AvalonPch.h"
 #include "ImguiOverlay.h"
-#include "Avalon/Application.h"
+#include "Avalon/Core/Application.h"
 
 #define IMGUI_IMPL_OPENGL_LOADER_GLAD
 #include "backends/imgui_impl_opengl3.h"

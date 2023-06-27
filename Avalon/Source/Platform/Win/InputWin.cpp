@@ -1,6 +1,6 @@
 #include "AvalonPch.h"
-#include "InputWin.h"
-#include "Avalon/Application.h"
+#include "Platform/Win/InputWin.h"
+#include "Avalon/Core/Application.h"
 
 #include <GLFW/glfw3.h>
 
