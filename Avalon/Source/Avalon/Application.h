@@ -27,7 +27,7 @@ namespace Avalon
 		virtual void ProcessEvent(Event& e);
 		
 	protected:
-		bool mImguiEnabled = true;
+		bool mOverlayEnabled = true;
 
 	protected:
 		virtual void ProcessInput() {}

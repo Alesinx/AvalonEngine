@@ -178,7 +178,7 @@ void Sandbox::DrawGrid()
 
 Sandbox::Sandbox() : mCameraController(1280.0f / 720.0f)
 {
-	mImguiEnabled = false;
+	mOverlayEnabled = true;
 
 	SetupTriangle();
 	SetupGrid();

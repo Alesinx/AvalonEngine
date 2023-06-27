@@ -56,6 +56,7 @@ project "Avalon" ---------------------------------------------------------------
 	includedirs
 	{
 		"Avalon/Source",
+		"Avalon/ThirdParty",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
