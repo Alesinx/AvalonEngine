@@ -14,15 +14,29 @@ Avalon::OrthographicCameraController::OrthographicCameraController(float aspectR
 void Avalon::OrthographicCameraController::Update(float deltaTime)
 {
 	float offset = mCameraTranslationSpeed * mZoomLevel * deltaTime;
+	float rotationRadians = glm::radians(mCameraRotation);
+
 	if (Avalon::Input::IsKeyPressed(AVALON_KEY_D))
-		mCameraPosition.x += offset;
+	{
+		mCameraPosition.x += cos(rotationRadians) * offset;
+		mCameraPosition.y += sin(rotationRadians) * offset;
+	}
 	else if (Avalon::Input::IsKeyPressed(AVALON_KEY_A))
-		mCameraPosition.x -= offset;
+	{
+		mCameraPosition.x -= cos(rotationRadians) * offset;
+		mCameraPosition.y -= sin(rotationRadians) * offset;
+	}
 
 	if (Avalon::Input::IsKeyPressed(AVALON_KEY_W))
-		mCameraPosition.y += offset;
+	{
+		mCameraPosition.x += -sin(rotationRadians) * offset;
+		mCameraPosition.y += cos(rotationRadians) * offset;
+	}
 	else if (Avalon::Input::IsKeyPressed(AVALON_KEY_S))
-		mCameraPosition.y -= offset;
+	{
+		mCameraPosition.x -= -sin(rotationRadians) * offset;
+		mCameraPosition.y -= cos(rotationRadians) * offset;
+	}
 
 	mCamera.SetPosition(mCameraPosition);
 
@@ -32,6 +46,11 @@ void Avalon::OrthographicCameraController::Update(float deltaTime)
 			mCameraRotation += mCameraRotationSpeed * deltaTime;
 		else if (Avalon::Input::IsKeyPressed(AVALON_KEY_E))
 			mCameraRotation -= mCameraRotationSpeed * deltaTime;
+
+		if (mCameraRotation > 180.0f)
+			mCameraRotation -= 360.0f;
+		else if (mCameraRotation <= -180.0f)
+			mCameraRotation += 360.0f;
 
 		mCamera.SetRotation(mCameraRotation);
 	}
