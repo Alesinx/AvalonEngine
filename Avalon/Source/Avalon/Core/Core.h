@@ -11,7 +11,7 @@
 #endif
 
 #ifdef AVALON_ENABLE_ASSERTS
-	//#define AVALON_ASSERT(x, ...) { if(!(x)) { AVALON_LOG_ERROR("Assertion failed: {0}", __VA_ARGS__); __debugbreak(); } } // Uncomment when developing app
+	#define AVALON_ASSERT(x, ...) { if(!(x)) { AVALON_ERROR("Assertion failed: {0}", __VA_ARGS__); __debugbreak(); } }
 	#define AVALON_CORE_ASSERT(x, ...) { if(!(x)) { AVALON_CORE_ERROR("Assertion failed: {0}", __VA_ARGS__); __debugbreak(); } }
 #else
 	#define AVALON_ASSERT(x, ...)

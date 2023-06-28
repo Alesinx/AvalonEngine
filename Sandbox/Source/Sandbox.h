@@ -20,10 +20,8 @@ private:
 	void DrawGrid();
 
 private:
-	std::shared_ptr<Avalon::Shader> mTriangleShader;
 	std::shared_ptr<Avalon::VertexArray> mTriangleVA;
 
-	std::shared_ptr<Avalon::Shader> mBlueShader;
 	std::shared_ptr<Avalon::VertexArray> mSquareVA;
 
 	std::shared_ptr<Avalon::Texture2D> mTexture, mFishTexture;
@@ -34,4 +32,6 @@ private:
 	float mCameraRotation = 0.0f;
 	float mCameraMoveSpeed = 5.0f;
 	float mCameraRotationSpeed = 180.0f;
+
+	Avalon::ShaderLibrary mShaderLibrary;
 };

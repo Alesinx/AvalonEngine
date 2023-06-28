@@ -6,14 +6,16 @@
 
 namespace Avalon
 {
-	OpenGLShader::OpenGLShader(const std::string& filepath)
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& filepath) :
+		mName(name)
 	{
 		std::string shaderSource = ReadFile(filepath);
 		std::unordered_map<GLenum, std::string> shaderSources = PreprocessShaderFile(shaderSource);
 		CompileShaderCode(shaderSources);
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc)
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc) :
+		mName(name)
 	{
 		std::unordered_map<GLenum, std::string> shaderSources;
 		shaderSources[GL_VERTEX_SHADER] = vertexSrc;
@@ -112,7 +114,10 @@ namespace Avalon
 	{
 		const GLuint program = glCreateProgram();
 
-		std::vector<GLenum> shaderIDs(shaderSources.size());
+		AVALON_CORE_ASSERT(shaderSources.size() <= 2, "We only support 2 shaders for now");
+		std::array<GLenum, 2> shaderIDs;
+		int shaderIDsIndex = 0;
+
 		for (std::pair<const GLenum, std::string>& kv : shaderSources)
 		{
 			const GLenum type = kv.first;
@@ -142,7 +147,7 @@ namespace Avalon
 			}
 
 			glAttachShader(program, shader);
-			shaderIDs.push_back(shader);
+			shaderIDs[shaderIDsIndex++] = shader;
 		}
 
 		mRendererID = program;
