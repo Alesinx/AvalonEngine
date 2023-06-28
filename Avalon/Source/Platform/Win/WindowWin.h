@@ -29,7 +29,7 @@ namespace Avalon
 
 	private:
 		GLFWwindow* mGLFWWindow;
-		GraphicsContext* mContext;
+		std::unique_ptr<GraphicsContext> mContext;
 		WindowProperties mWindowProperties;
 	};
 }

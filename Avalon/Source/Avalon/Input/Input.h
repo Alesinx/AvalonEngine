@@ -25,6 +25,6 @@ namespace Avalon
 		virtual float GetMouseYImpl() = 0;
 
 	private:
-		static Input* sInstance;
+		static std::unique_ptr<Input> sInstance;
 	};
 }

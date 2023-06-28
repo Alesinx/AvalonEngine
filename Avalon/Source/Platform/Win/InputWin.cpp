@@ -6,7 +6,7 @@
 
 namespace Avalon
 {
-	Input* Input::sInstance = new InputWin();
+	std::unique_ptr<Input> Input::sInstance = std::make_unique<InputWin>();
 
 	std::pair<float, float> InputWin::GetMousePositionImpl()
 	{

@@ -1,9 +1,12 @@
 [submodule "Avalon/ThirdParty/GLFW"]
 	path = Avalon/ThirdParty/GLFW
 	url = https://github.com/Alesinx/GLFW
+	branch = master
 [submodule "Avalon/ThirdParty/ImGui"]
 	path = Avalon/ThirdParty/ImGui
 	url = https://github.com/Alesinx/imgui
+	branch = docking
 [submodule "Avalon/ThirdParty/glm"]
 	path = Avalon/ThirdParty/glm
 	url = https://github.com/g-truc/glm
+	branch = master

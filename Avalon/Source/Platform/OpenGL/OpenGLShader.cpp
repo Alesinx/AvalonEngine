@@ -74,7 +74,7 @@ namespace Avalon
 		std::unordered_map<GLenum, std::string> shaderSources;
 
 		const char* typeToken = "//@shaderType";
-		size_t nextTypeTokenPos = source.find(typeToken, 0);
+		size_t nextTypeTokenPos = source.find(typeToken, 0); 
 		while (nextTypeTokenPos != std::string::npos)
 		{
 			// Get the type string
@@ -85,7 +85,7 @@ namespace Avalon
 				return shaderSources;
 			}
 
-			size_t begin = nextTypeTokenPos + strlen(typeToken) + 1;
+			size_t begin = nextTypeTokenPos + strlen(typeToken) + 1; //Start of shader type name (after "//@type " keyword)
 			std::string typeStr = source.substr(begin, eol - begin);
 
 			GLuint type = DetermineShaderType(typeStr);
@@ -96,9 +96,13 @@ namespace Avalon
 			}
 
 			nextTypeTokenPos = source.find(typeToken, eol);
-			// Using count = npos will substr until the end of the file
-			size_t count = (nextTypeTokenPos != std::string::npos ? nextTypeTokenPos - eol : std::string::npos);
-			shaderSources[DetermineShaderType(typeStr)] = source.substr(eol, count);
+			std::string shaderCode;
+			if (nextTypeTokenPos != std::string::npos)
+				shaderCode = source.substr(eol, nextTypeTokenPos - eol);
+			else
+				shaderCode = source.substr(eol); // No more shader type definitions, just substring from eol until the end of the file.
+
+			shaderSources[DetermineShaderType(typeStr)] = shaderCode;
 		}
 
 		return shaderSources;
@@ -165,12 +169,16 @@ namespace Avalon
 
 			AVALON_CORE_ERROR("{0}", infoLog.data());
 			AVALON_CORE_ASSERT(false, "Shader link failure");
+
 			return;
 		}
-
-		// Always detach shaders after a successful link.
+		
+		// Always detach and delete shaders after a successful link.
 		for (GLenum id : shaderIDs)
+		{
 			glDetachShader(program, id);
+			glDeleteShader(id);
+		}
 	}
 
 	GLenum OpenGLShader::DetermineShaderType(const std::string& type)

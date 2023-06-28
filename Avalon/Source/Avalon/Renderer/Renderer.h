@@ -35,6 +35,6 @@ namespace Avalon
 			Mat4 ViewProjectionMatrix;
 		};
 
-		static SceneData* mSceneData;
+		static std::unique_ptr<SceneData> sSceneData;
 	};
 }

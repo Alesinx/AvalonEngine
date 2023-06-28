@@ -42,7 +42,7 @@ namespace Avalon
 
 		mGLFWWindow = glfwCreateWindow((int)properties.width, properties.height, properties.title.c_str(), nullptr, nullptr);
 
-		mContext = new OpenGLContext(mGLFWWindow);
+		mContext = std::make_unique<OpenGLContext>(mGLFWWindow);
 		mContext->Init();
 
 		glfwSetWindowUserPointer(mGLFWWindow, &mWindowProperties);
