@@ -7,7 +7,7 @@
 
 namespace Avalon
 {
-	VertexBuffer* VertexBuffer::Create(const float* const vertices, const uint32_t size)
+	std::shared_ptr<VertexBuffer> VertexBuffer::Create(const float* const vertices, const uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -15,14 +15,14 @@ namespace Avalon
 			AVALON_CORE_ASSERT(false, "RendererAPI::None is currently not supported") 
 			return nullptr;
 		case RendererAPI::API::OpenGL:
-			return new OpenGLVertexBuffer(vertices, size);
+			return std::make_shared<OpenGLVertexBuffer>(vertices, size);
 		}
 
 		AVALON_CORE_ASSERT(false, "Unknown RendererAPI");
 		return nullptr;
 	}
 
-	IndexBuffer* IndexBuffer::Create(const uint32_t* const indices, const uint32_t count)
+	std::shared_ptr<IndexBuffer> IndexBuffer::Create(const uint32_t* const indices, const uint32_t count)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -30,7 +30,7 @@ namespace Avalon
 			AVALON_CORE_ASSERT(false, "RendererAPI::None is currently not supported")
 				return nullptr;
 		case RendererAPI::API::OpenGL:
-			return new OpenGLIndexBuffer(indices, count);
+			return std::make_shared<OpenGLIndexBuffer>(indices, count);
 		}
 
 		AVALON_CORE_ASSERT(false, "Unknown RendererAPI");

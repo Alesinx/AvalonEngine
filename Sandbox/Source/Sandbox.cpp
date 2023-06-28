@@ -33,7 +33,7 @@ Avalon::Application* Avalon::CreateApplication()
 
 void Sandbox::SetupTriangle()
 {
-	mTriangleVA = std::shared_ptr<Avalon::VertexArray>(Avalon::VertexArray::Create());
+	mTriangleVA = Avalon::VertexArray::Create();
 
 	const float vertices[3 * 7] = {
 		// Position  | Color
@@ -42,7 +42,7 @@ void Sandbox::SetupTriangle()
 		 0.0f,  0.5f, 0.8f, 0.8f, 0.2f, 1.0f
 	};
 
-	std::shared_ptr<Avalon::VertexBuffer> vb = std::shared_ptr<Avalon::VertexBuffer>(Avalon::VertexBuffer::Create(vertices, sizeof(vertices)));
+	std::shared_ptr<Avalon::VertexBuffer> vb = Avalon::VertexBuffer::Create(vertices, sizeof(vertices));
 	vb->SetLayout(
 		{
 			{ Avalon::ShaderDataType::Float2, "a_position" },
@@ -52,7 +52,7 @@ void Sandbox::SetupTriangle()
 	mTriangleVA->AddVertexBuffer(vb);
 
 	const uint32_t indices[3] = { 0, 1, 2 };
-	std::shared_ptr<Avalon::IndexBuffer> ib = std::shared_ptr<Avalon::IndexBuffer>(Avalon::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+	std::shared_ptr<Avalon::IndexBuffer> ib = Avalon::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 	mTriangleVA->SetIndexBuffer(ib);
 
 	std::string vertexSrc = R"(
@@ -95,7 +95,7 @@ void Sandbox::SetupTriangle()
 
 void Sandbox::SetupGrid()
 {
-	mSquareVA = std::shared_ptr<Avalon::VertexArray>(Avalon::VertexArray::Create());
+	mSquareVA = Avalon::VertexArray::Create();
 
 	float squareVertices[4 * 4] = {
 		-0.5f,  0.5f,  0.0f,  1.0f,
@@ -104,7 +104,7 @@ void Sandbox::SetupGrid()
 		 0.5f,  0.5f,  1.0f,  1.0f
 	};
 
-	std::shared_ptr<Avalon::VertexBuffer> squareVB = std::shared_ptr<Avalon::VertexBuffer>(Avalon::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+	std::shared_ptr<Avalon::VertexBuffer> squareVB = Avalon::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 	squareVB->SetLayout(
 		{
 			{ Avalon::ShaderDataType::Float2, "a_position" },
@@ -114,7 +114,7 @@ void Sandbox::SetupGrid()
 	mSquareVA->AddVertexBuffer(squareVB);
 
 	const uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-	std::shared_ptr<Avalon::IndexBuffer> squareIB = std::shared_ptr<Avalon::IndexBuffer>(Avalon::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+	std::shared_ptr<Avalon::IndexBuffer> squareIB = Avalon::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 	mSquareVA->SetIndexBuffer(squareIB);
 
 	std::string blueShaderVertexSrc = R"(
@@ -153,11 +153,11 @@ void Sandbox::SetupTextures()
 {
 	mTextureShader = mShaderLibrary.Load("Texture", "C:\\dev\\Avalon\\Sandbox\\Asset\\Shaders\\Texture.glsl");
 
-	//mTexture = std::shared_ptr<Avalon::Texture2D>(Avalon::Texture2D::Create("C:\\Dev\\AvalonEngine\\Avalon\\Assets\\Textures\\Checkerboard.png"));
-	mTexture = std::shared_ptr<Avalon::Texture2D>(Avalon::Texture2D::Create("C:\\dev\\Avalon\\Avalon\\Assets\\Textures\\Checkerboard.png"));
-
-	//mFishTexture = std::shared_ptr<Avalon::Texture2D>(Avalon::Texture2D::Create("C:\\Dev\\AvalonEngine\\Avalon\\Assets\\Textures\\Fish.png"));
-	mFishTexture = std::shared_ptr<Avalon::Texture2D>(Avalon::Texture2D::Create("C:\\dev\\Avalon\\Avalon\\Assets\\Textures\\Fish.png"));
+	//mTexture = Avalon::Texture2D::Create("C:\\Dev\\AvalonEngine\\Avalon\\Assets\\Textures\\Checkerboard.png");
+	mTexture = Avalon::Texture2D::Create("C:\\dev\\Avalon\\Avalon\\Assets\\Textures\\Checkerboard.png");
+	
+	//mFishTexture = Avalon::Texture2D::Create("C:\\Dev\\AvalonEngine\\Avalon\\Assets\\Textures\\Fish.png");
+	mFishTexture = Avalon::Texture2D::Create("C:\\dev\\Avalon\\Avalon\\Assets\\Textures\\Fish.png");
 
 	const std::shared_ptr<Avalon::OpenGLShader> openglTextureShader = std::dynamic_pointer_cast<Avalon::OpenGLShader>(mTextureShader);
 	openglTextureShader->Bind();
@@ -227,11 +227,11 @@ void Sandbox::Render(float deltaTime)
 	//Renderer::Submit(mBlueShader, mSquareVA);
 
 	// Render triangle
-	std::shared_ptr<Avalon::Shader> triangleShader = mShaderLibrary.Get("TriangleShader");
-	if (triangleShader)
-		Avalon::Renderer::Submit(triangleShader, mTriangleVA);
-	else
-		AVALON_ERROR("Tried to get triangle shader but it was null");
+	//std::shared_ptr<Avalon::Shader> triangleShader = mShaderLibrary.Get("TriangleShader");
+	//if (triangleShader)
+	//	Avalon::Renderer::Submit(triangleShader, mTriangleVA);
+	//else
+	//	AVALON_ERROR("Tried to get triangle shader but it was null");
 
 	// Render texture
 	mTexture->Bind();

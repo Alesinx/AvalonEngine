@@ -7,7 +7,7 @@
 
 namespace Avalon
 {
-	VertexArray* VertexArray::Create()
+	std::shared_ptr<VertexArray> VertexArray::Create()
 	{
 		switch(Renderer::GetAPI())
 		{
@@ -15,7 +15,10 @@ namespace Avalon
 			AVALON_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
 			return nullptr;
 		case RendererAPI::API::OpenGL:
-			return new OpenGLVertexArray();
+			return std::make_shared<OpenGLVertexArray>();
 		}
+
+		AVALON_CORE_ASSERT(false, "Unknown RendererAPI");
+		return nullptr;
 	}
 }
