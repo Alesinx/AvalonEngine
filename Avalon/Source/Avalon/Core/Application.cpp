@@ -47,19 +47,33 @@ namespace Avalon
 			Update(deltaTime);
 
 			// Rendering
-			Renderer::SetClearColor();
-			Renderer::Clear();
-			Render(deltaTime);
-			if (mOverlayEnabled)
-			{
-				mImguiOverlay->Render();
-			}
+			InternalRender(deltaTime);
 		}
 	}
 
 	void Application::Update(float deltaTime)
 	{
 		mWindow->OnUpdate();
+	}
+
+	void Application::InternalRender(float deltaTime)
+	{
+		Renderer::SetClearColor();
+		Renderer::Clear();
+
+		Render(deltaTime);
+
+		if (mOverlayEnabled)
+		{
+			mImguiOverlay->Begin();
+			ImguiRender();
+			mImguiOverlay->End();
+		}
+	}
+
+	void Application::ImguiRender()
+	{
+		mImguiOverlay->Render();
 	}
 
 	void Application::Render(float deltaTime)
@@ -73,11 +87,6 @@ namespace Avalon
 
 		if (e.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize)))
 			return;
-
-		//if (mImguiOverlay)
-		//{
-		//	mImguiOverlay->OnEvent(e);
-		//}
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
@@ -85,6 +94,7 @@ namespace Avalon
 		mRunning = false;
 		return true;
 	}
+
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
 		mMinimized = e.GetWidth() == 0 || e.GetHeight() == 0;
@@ -93,5 +103,11 @@ namespace Avalon
 
 		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
 		return false;
+	}
+
+	void Application::SetShowImguiDemo(bool show)
+	{
+		if (mImguiOverlay)
+			mImguiOverlay->showDemo = show;
 	}
 }

@@ -21,14 +21,12 @@ namespace Avalon
 		ImGui::StyleColorsDark();
 
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
-
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-
 		//io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
 		//io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
 		
@@ -36,27 +34,41 @@ namespace Avalon
 		Application& app = Application::GetInstance();
 		GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
-
+		
 		ImGui_ImplOpenGL3_Init("#version 410");
+	}
+
+	void ImguiOverlay::Begin()
+	{
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 	}
 
 	void ImguiOverlay::Render()
 	{
+		if (showDemo)
+		{
+			static bool open;
+			ImGui::ShowDemoWindow(&open);
+		}
+	}
+
+	void ImguiOverlay::End()
+	{
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::GetInstance();
 		io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
 
-		//float time = (float)glfwGetTime();
-		//io.DeltaTime = mTime > 0.0f ? (time - mTime) : (1.0f / 60.0f);
-		//mTime = time;
-
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui::NewFrame();
-
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
-
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			GLFWwindow* backup_current_context = glfwGetCurrentContext();
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+			glfwMakeContextCurrent(backup_current_context);
+		}
 	}
 }

@@ -6,16 +6,14 @@
 
 namespace Avalon
 {
-	OpenGLShader::OpenGLShader(const std::string& name, const std::string& filepath) :
-		mName(name)
+	OpenGLShader::OpenGLShader(const std::string& filepath)
 	{
 		std::string shaderSource = ReadFile(filepath);
 		std::unordered_map<GLenum, std::string> shaderSources = PreprocessShaderFile(shaderSource);
 		CompileShaderCode(shaderSources);
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc) :
-		mName(name)
+	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
 		std::unordered_map<GLenum, std::string> shaderSources;
 		shaderSources[GL_VERTEX_SHADER] = vertexSrc;
@@ -42,6 +40,12 @@ namespace Avalon
 	{
 		GLint location = glGetUniformLocation(mRendererID, name.c_str());
 		glUniform1i(location, value);
+	}
+
+	void OpenGLShader::UploadUniformFloat4(const std::string& name, Vec4 value) const
+	{
+		GLint location = glGetUniformLocation(mRendererID, name.c_str());
+		glUniform4f(location, value.x, value.y, value.z, value.w);
 	}
 
 	void OpenGLShader::UploadUniformMat4(const std::string& name, Mat4 matrix) const

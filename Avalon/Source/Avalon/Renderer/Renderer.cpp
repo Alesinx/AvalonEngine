@@ -1,7 +1,7 @@
 #include "AvalonPch.h"
 #include "Renderer.h"
 
-#include "Avalon/Renderer/RenderCommand.h"
+#include "Avalon/Renderer/Renderer2D.h"
 #include "Platform//OpenGL/OpenGLRendererAPI.h"
 #include "Platform//OpenGL/OpenGLShader.h"
 
@@ -9,6 +9,12 @@ namespace Avalon
 {
 	RendererAPI* Renderer::sRendererAPI = new OpenGLRendererAPI;
 	std::unique_ptr<Renderer::SceneData> Renderer::sSceneData = std::make_unique<Renderer::SceneData>();
+
+	void Renderer::Initialize()
+	{
+		sRendererAPI->Initialize();
+		Renderer2D::Init();
+	}
 
 	void Renderer::BeginScene(OrthographicCamera& camera)
 	{

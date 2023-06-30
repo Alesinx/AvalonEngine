@@ -6,7 +6,7 @@
 
 namespace Avalon
 {
-	std::shared_ptr<Shader> Shader::Create(const std::string& name, const std::string& filepath)
+	std::shared_ptr<Shader> Shader::Create(const std::string& filepath)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -14,14 +14,14 @@ namespace Avalon
 			AVALON_CORE_ASSERT(false, "RendererAPI::None is currently not supported");
 			return nullptr;
 		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLShader>(name, filepath);
+			return std::make_shared<OpenGLShader>(filepath);
 		}
 
 		AVALON_CORE_ASSERT(false, "Unknown RendererAPI");
 		return nullptr;
 	}
 
-	std::shared_ptr<Shader> Shader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
+	std::shared_ptr<Shader> Shader::Create(const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -29,7 +29,7 @@ namespace Avalon
 			AVALON_CORE_ASSERT(false, "RendererAPI::None is currently not supported");
 			return nullptr;
 		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLShader>(name, vertexSrc, fragmentSrc);
+			return std::make_shared<OpenGLShader>(vertexSrc, fragmentSrc);
 		}
 
 		AVALON_CORE_ASSERT(false, "Unknown RendererAPI");

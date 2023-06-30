@@ -34,6 +34,10 @@ namespace Avalon
 		virtual void Update(float deltaTime);
 		virtual void Render(float deltaTime);
 
+		virtual void ImguiRender();
+
+		void SetShowImguiDemo(bool show);
+
 	private:
 		static Application* sInstance;
 
@@ -46,6 +50,7 @@ namespace Avalon
 
 	private:
 		void Gameloop();
+		void InternalRender(float deltaTime);
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 	};

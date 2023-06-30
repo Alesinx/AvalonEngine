@@ -2,14 +2,14 @@
 
 #include "AvalonPch.h"
 
-#include "Avalon/Core/EntryPoint.h"
-#include "Avalon/Core/Application.h";
+#include "Avalon/Core/Application.h"
 #include "Avalon/Input/Input.h"
 #include "Avalon/Input/InputKeys.h"
 #include "Avalon/FileIO/FileIO.h"
 #include "Avalon/Log/Log.h"
 
 #include "Avalon/Renderer/Renderer.h"
+#include "Avalon/Renderer/Renderer2D.h"
 #include "Avalon/Renderer/Buffer.h"
 #include "Avalon/Renderer/Shader.h"
 #include "Avalon/Renderer/VertexArray.h"

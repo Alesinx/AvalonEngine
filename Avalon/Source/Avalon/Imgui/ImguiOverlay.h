@@ -11,13 +11,16 @@ namespace Avalon
 	class ImguiOverlay
 	{
 	public:
+		bool showDemo = true;
 
 	public:
 		ImguiOverlay() = default;
 		virtual ~ImguiOverlay() = default;
 
 		void Initialize();
+		void Begin();
 		void Render();
+		void End();
 
 	private:
 		float mTime = 0.f;

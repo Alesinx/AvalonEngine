@@ -10,7 +10,7 @@ namespace Avalon
 	class Renderer
 	{
 	public:
-		static void Initialize() { sRendererAPI->Initialize(); }
+		static void Initialize();
 
 		static inline RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 
