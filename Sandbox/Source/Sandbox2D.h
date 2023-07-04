@@ -21,5 +21,7 @@ private:
 	std::shared_ptr<Avalon::VertexArray> mSquareVA;
 	std::shared_ptr<Avalon::Shader> mFlatColorShader;
 
+	std::shared_ptr<Avalon::Texture2D> mCheckerboardTexture;
+
 	Vec4 mSquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 };

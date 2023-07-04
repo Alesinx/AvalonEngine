@@ -11,6 +11,7 @@ Avalon::Application* Avalon::CreateApplication()
 Sandbox2D::Sandbox2D() :
 	mCameraController(1280.0f / 720.0f)
 {
+	mCheckerboardTexture = Avalon::Texture2D::Create("C:\\dev\\Avalon\\Avalon\\Assets\\Textures\\Checkerboard.png");
 }
 
 void Sandbox2D::Update(float deltaTime)
@@ -25,7 +26,9 @@ void Sandbox2D::Render(float deltaTime)
 	Application::Render(deltaTime);
 	
 	Avalon::Renderer2D::BeginScene(mCameraController.GetCamera());
-	Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.3f, 1.0f });
+	Avalon::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
+	Avalon::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
+	Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, mCheckerboardTexture);
 	Avalon::Renderer2D::EndScene();
 }
 

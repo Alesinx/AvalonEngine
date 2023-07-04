@@ -11,7 +11,7 @@ namespace Avalon
 	class ImguiOverlay
 	{
 	public:
-		bool showDemo = true;
+		bool showDemo = false;
 
 	public:
 		ImguiOverlay() = default;
@@ -24,6 +24,5 @@ namespace Avalon
 
 	private:
 		float mTime = 0.f;
-	};	
+	};
 }
-
