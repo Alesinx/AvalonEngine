@@ -30,5 +30,8 @@ namespace Avalon
 	void OpenGLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
 	{
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+		// Unbind any bound texture, to make possible bugs more evident
+		//glBindTexture(GL_TEXTURE_2D, 0);
 	}
 }
