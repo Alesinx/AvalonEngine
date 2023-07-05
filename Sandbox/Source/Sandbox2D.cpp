@@ -26,8 +26,8 @@ void Sandbox2D::Render(float deltaTime)
 	Application::Render(deltaTime);
 	
 	Avalon::Renderer2D::BeginScene(mCameraController.GetCamera());
-	Avalon::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-	Avalon::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
+	Avalon::Renderer2D::DrawQuad(mSquarePosition, { 0.5f, 0.5f }, mSquareColor);
+	Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.3f, 1.0f });
 	Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, mCheckerboardTexture);
 	Avalon::Renderer2D::EndScene();
 }
@@ -38,6 +38,8 @@ void Sandbox2D::ImguiRender()
 
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(mSquareColor));
+	ImGui::SliderFloat("X", &mSquarePosition.x, -10, 10);
+	ImGui::SliderFloat("Y", &mSquarePosition.y, -10, 10);
 	ImGui::End();
 }
 
