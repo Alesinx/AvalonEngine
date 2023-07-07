@@ -27,7 +27,7 @@ namespace Avalon
 
 
 	private:
-		std::string ReadFile(const std::string& filepath);
+		bool ReadFile(const std::string& filepath, std::string& result);
 		std::unordered_map<GLenum, std::string> PreprocessShaderFile(const std::string& source);
 		void CompileShaderCode(std::unordered_map<GLenum, std::string>& shaderSources);
 		GLenum DetermineShaderType(const std::string& type);

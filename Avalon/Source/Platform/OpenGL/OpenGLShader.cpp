@@ -4,13 +4,23 @@
 #include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <iostream>
+#include <filesystem>
+
 namespace Avalon
 {
 	OpenGLShader::OpenGLShader(const std::string& filepath)
 	{
-		std::string shaderSource = ReadFile(filepath);
-		std::unordered_map<GLenum, std::string> shaderSources = PreprocessShaderFile(shaderSource);
-		CompileShaderCode(shaderSources);
+		std::string shaderSource;
+		if (ReadFile(filepath, shaderSource))
+		{
+			std::unordered_map<GLenum, std::string> shaderSources = PreprocessShaderFile(shaderSource);
+			CompileShaderCode(shaderSources);
+		}
+		else
+		{
+			AVALON_CORE_ERROR("Couldn't create OpenGLShader from file");
+		}
 	}
 
 	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc)
@@ -69,9 +79,11 @@ namespace Avalon
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
-	std::string OpenGLShader::ReadFile(const std::string& filepath)
+	bool OpenGLShader::ReadFile(const std::string& filepath, std::string& result)
 	{
-		std::string result;
+		std::filesystem::path currentPath = std::filesystem::current_path();
+		std::cout << "Current Working Directory: " << currentPath << std::endl;
+
 		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 		if (in)
 		{
@@ -81,13 +93,12 @@ namespace Avalon
 			in.seekg(0, std::ios::beg);
 			in.read(&result[0], result.size());
 			in.close();
-		}
-		else
-		{
-			AVALON_CORE_ERROR("Could not open file '{0}' ", filepath);
+
+			return true;
 		}
 
-		return result;
+		AVALON_CORE_ERROR("Could not open file '{0}' ", filepath);
+		return false;
 	}
 
 	std::unordered_map<GLenum, std::string> OpenGLShader::PreprocessShaderFile(const std::string& source)

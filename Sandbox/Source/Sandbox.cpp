@@ -151,13 +151,11 @@ void Sandbox::SetupGrid()
 
 void Sandbox::SetupTextures()
 {
-	mTextureShader = mShaderLibrary.Load("Texture", "C:\\dev\\Avalon\\Sandbox\\Asset\\Shaders\\Texture.glsl");
+	mTextureShader = mShaderLibrary.Load("Texture", "Assets/Shaders/Texture.glsl");
 
-	//mTexture = Avalon::Texture2D::Create("C:\\Dev\\AvalonEngine\\Avalon\\Assets\\Textures\\Checkerboard.png");
-	mTexture = Avalon::Texture2D::Create("C:\\dev\\Avalon\\Avalon\\Assets\\Textures\\Checkerboard.png");
-	
-	//mFishTexture = Avalon::Texture2D::Create("C:\\Dev\\AvalonEngine\\Avalon\\Assets\\Textures\\Fish.png");
-	mFishTexture = Avalon::Texture2D::Create("C:\\dev\\Avalon\\Avalon\\Assets\\Textures\\Fish.png");
+	mTexture = Avalon::Texture2D::Create("Asset/Textures/Checkerboard.png");
+
+	mFishTexture = Avalon::Texture2D::Create("Assets/Textures/Fish.png");
 
 	const std::shared_ptr<Avalon::OpenGLShader> openglTextureShader = std::dynamic_pointer_cast<Avalon::OpenGLShader>(mTextureShader);
 	openglTextureShader->Bind();

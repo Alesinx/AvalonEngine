@@ -11,7 +11,7 @@ Avalon::Application* Avalon::CreateApplication()
 Sandbox2D::Sandbox2D() :
 	mCameraController(1280.0f / 720.0f)
 {
-	mCheckerboardTexture = Avalon::Texture2D::Create("C:\\dev\\Avalon\\Avalon\\Assets\\Textures\\Checkerboard.png");
+	mCheckerboardTexture = Avalon::Texture2D::Create("Assets/Textures/Checkerboard.png");
 }
 
 void Sandbox2D::Update(float deltaTime)

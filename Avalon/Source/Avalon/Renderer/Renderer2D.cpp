@@ -45,7 +45,7 @@ namespace Avalon
 		uint32_t whiteTextureData = 0xffffffff;
 		sData->WhiteTexture->SetData(&whiteTextureData, sizeof(uint32_t));
 
-		sData->TextureShader = Shader::Create("C:\\dev\\Avalon\\Sandbox\\Asset\\Shaders\\Texture.glsl");
+		sData->TextureShader = Shader::Create("Assets/Shaders/Texture.glsl");
 		sData->TextureShader->Bind();
 		sData->TextureShader->SetInt("u_Texture", 0);
 	}
