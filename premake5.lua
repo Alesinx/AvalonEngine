@@ -96,6 +96,52 @@ project "Avalon" ---------------------------------------------------------------
 		defines "AVALON_DIST"
 		runtime "Release"
 		optimize "On"
+	
+project "AvalonEditor" ------------------------------------------------------------------------
+	location "AvalonEditor"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++20"
+	staticruntime "On"
+
+	targetdir ("Binaries/" .. outputdir .. "/%{prj.name}")
+	objdir ("Intermediate/" .. outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/Source/**.h",
+		"%{prj.name}/Source/**.cpp"
+	}
+
+	includedirs
+	{
+		"Avalon/Source/",
+		"Avalon/ThirdParty/",
+		"%{IncludeDir.glm}"
+	}
+
+	links
+	{
+		"Avalon"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+
+	filter "configurations:Debug"
+		defines "AVALON_DEBUG"
+		runtime "Debug"
+		symbols "On"
+
+	filter "configurations:Release"
+		defines "AVALON_RELEASE"
+		runtime "Release"
+		optimize "On"
+
+	filter "configurations:Dist"
+		defines "AVALON_DIST"
+		runtime "Release"
+		symbols "On"
 
 project "Sandbox" ------------------------------------------------------------------------
 	location "Sandbox"

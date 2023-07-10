@@ -45,7 +45,7 @@ void Sandbox2D::ImguiRender()
 
 void Sandbox2D::ProcessEvent(Avalon::Event& e)
 {
-	Application::ProcessEvent(e);
+	//Application::ProcessEvent(e);
 
-	mCameraController.ProcessEvent(e);
+	//mCameraController.ProcessEvent(e);
 }

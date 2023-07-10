@@ -2,6 +2,8 @@
 
 #include "AvalonPch.h"
 
+#include "Avalon/Core/Core.h"
+
 #include "Avalon/Core/Application.h"
 #include "Avalon/Input/Input.h"
 #include "Avalon/Input/InputKeys.h"

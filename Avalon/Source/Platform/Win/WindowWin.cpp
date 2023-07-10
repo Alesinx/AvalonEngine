@@ -13,9 +13,9 @@ namespace Avalon
 {
 	static bool sGLFWInitialized = false;
 
-	Window* Window::Create(const WindowProperties& properties)
+	std::unique_ptr<Window> Window::Create(const WindowProperties& properties)
 	{
-		return new WindowWin(properties);
+		return std::unique_ptr<Window>(new WindowWin(properties));
 	}
 
 	Avalon::WindowWin::WindowWin(const WindowProperties& properties)

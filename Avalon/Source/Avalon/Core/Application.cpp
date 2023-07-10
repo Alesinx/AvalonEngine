@@ -18,7 +18,7 @@ namespace Avalon
 		AVALON_CORE_ASSERT(!sInstance, "Application already exists");
 		sInstance = this;
 
-		mWindow = std::unique_ptr<Window>(Window::Create());
+		mWindow = Window::Create();
 		mWindow->SetEventCallback(BIND_EVENT_FN(Application::ProcessEvent));
 
 		mImguiOverlay = std::unique_ptr<ImguiOverlay>(new ImguiOverlay());

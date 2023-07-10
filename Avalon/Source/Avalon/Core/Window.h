@@ -34,6 +34,6 @@ namespace Avalon
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSyncEnabled() const = 0;
 
-		static Window* Create(const WindowProperties& props = WindowProperties());
+		static std::unique_ptr<Window> Create(const WindowProperties& props = WindowProperties());
 	};
 }
