@@ -62,7 +62,7 @@ project "Avalon" ---------------------------------------------------------------
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.glm}"
-    }
+	}
 
 	links
 	{
@@ -78,8 +78,7 @@ project "Avalon" ---------------------------------------------------------------
 
 		defines
 		{
-			"AVALON_PLATFORM_WINDOWS",
-			"AVALON_BUILD_DLL",
+			"_CRT_SECURE_NO_WARNINGS",
 			"GLFW_INCLUDE_NONE"
 		}
 
@@ -128,11 +127,6 @@ project "Sandbox" --------------------------------------------------------------
 
 	filter "system:windows"
 		systemversion "latest"
-
-		defines
-		{
-			"AVALON_PLATFORM_WINDOWS"
-		}
 
 	filter "configurations:Debug"
 		defines "AVALON_DEBUG"
