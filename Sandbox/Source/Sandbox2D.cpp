@@ -12,6 +12,11 @@ Sandbox2D::Sandbox2D() :
 	mCameraController(1280.0f / 720.0f)
 {
 	mCheckerboardTexture = Avalon::Texture2D::Create("Assets/Textures/Checkerboard.png");
+
+	Avalon::FramebufferSpecification fbSpec;
+	fbSpec.Width = 1280;
+	fbSpec.Height = 720;
+	mFramebuffer = Avalon::Framebuffer::Create(fbSpec);
 }
 
 void Sandbox2D::Update(float deltaTime)
@@ -24,12 +29,19 @@ void Sandbox2D::Update(float deltaTime)
 void Sandbox2D::Render(float deltaTime)
 {
 	Application::Render(deltaTime);
+
+	mFramebuffer->Bind();
+
+	Avalon::Renderer::SetClearColor();
+	Avalon::Renderer::Clear();
 	
 	Avalon::Renderer2D::BeginScene(mCameraController.GetCamera());
 	Avalon::Renderer2D::DrawQuad(mSquarePosition, { 0.5f, 0.5f }, mSquareColor);
 	Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.3f, 1.0f });
 	Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, mCheckerboardTexture);
 	Avalon::Renderer2D::EndScene();
+
+	mFramebuffer->Unbind();
 }
 
 void Sandbox2D::ImguiRender()
@@ -70,6 +82,8 @@ void Sandbox2D::ImguiRender()
 		// We cannot preserve the docking relationship between an active window and an inactive docking, otherwise 
 		// any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+		// Begin dockspace
 		ImGui::Begin("DockSpace Demo", &dockspaceOpen, window_flags);
 		ImGui::PopStyleVar();
 
@@ -99,11 +113,20 @@ void Sandbox2D::ImguiRender()
 			ImGui::EndMenuBar();
 		}
 
-		ImGui::Begin("Settings");
-		uint32_t textureID = mCheckerboardTexture->GetRendererID();
-		ImGui::Image((void*)textureID, ImVec2{ 256.0f, 256.0f });
+		ImGui::Begin("Viewport");
+		uint32_t viewportTextureID = mFramebuffer->GetColorAttachmentRendererID();
+		uint32_t width = mFramebuffer->GetSpecification().Width;
+		uint32_t height =mFramebuffer->GetSpecification().Height;
+		ImGui::Image((void*)viewportTextureID, ImVec2{ (float)width, (float)height});
 		ImGui::End();
 
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit4("Square Color", glm::value_ptr(mSquareColor));
+		ImGui::SliderFloat("X", &mSquarePosition.x, -10, 10);
+		ImGui::SliderFloat("Y", &mSquarePosition.y, -10, 10);
+		ImGui::End();
+
+		// End docksapce
 		ImGui::End();
 	}
 }

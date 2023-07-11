@@ -58,9 +58,6 @@ namespace Avalon
 
 	void Application::InternalRender(float deltaTime)
 	{
-		Renderer::SetClearColor();
-		Renderer::Clear();
-
 		Render(deltaTime);
 
 		if (mOverlayEnabled)

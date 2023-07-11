@@ -20,6 +20,7 @@ private:
 	// Temp
 	std::shared_ptr<Avalon::VertexArray> mSquareVA;
 	std::shared_ptr<Avalon::Shader> mFlatColorShader;
+	std::shared_ptr<Avalon::Framebuffer> mFramebuffer;
 
 	std::shared_ptr<Avalon::Texture2D> mCheckerboardTexture;
 

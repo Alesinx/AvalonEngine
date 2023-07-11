@@ -14,6 +14,8 @@
 #include "Avalon/Renderer/Renderer2D.h"
 #include "Avalon/Renderer/Buffer.h"
 #include "Avalon/Renderer/Shader.h"
+#include "Avalon/Renderer/Texture.h"
+#include "Avalon/Renderer/Framebuffer.h"
 #include "Avalon/Renderer/VertexArray.h"
 #include "Avalon/Renderer/OrthographicCamera.h"
 #include "Avalon/Renderer/OrthographicCameraController.h"
