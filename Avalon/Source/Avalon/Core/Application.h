@@ -25,6 +25,8 @@ namespace Avalon
 
 		inline const Window& GetWindow() { return *mWindow; }
 		virtual void ProcessEvent(Event& e);
+
+		void Close() { mRunning = false; }
 		
 	protected:
 		bool mOverlayEnabled;
