@@ -7,18 +7,18 @@ namespace Avalon
 {
 	Application* CreateApplication()
 	{
-		AVALON_INFO("Creating 'AvalonEditor' application...");
 		return new AvalonEditor();
 	}
 
 	AvalonEditor::AvalonEditor() :
+		Application("Avalon Editor"),
 		mCameraController(1280.0f / 720.0f)
 	{
 		mCheckerboardTexture = Avalon::Texture2D::Create("Assets/Textures/Checkerboard.png");
 
 		Avalon::FramebufferSpecification fbSpec;
-		fbSpec.Width = 1280;
-		fbSpec.Height = 720;
+		fbSpec.width = 1280;
+		fbSpec.height = 720;
 		mFramebuffer = Avalon::Framebuffer::Create(fbSpec);
 	}
 
@@ -116,17 +116,30 @@ namespace Avalon
 				ImGui::EndMenuBar();
 			}
 
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
 			ImGui::Begin("Viewport");
+			ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+			if(mViewportSize.x != viewportPanelSize.x || mViewportSize.y != viewportPanelSize.y)
+			{
+				mFramebuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
+				mViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
+				mCameraController.Resize(viewportPanelSize.x, viewportPanelSize.y);
+			}
 			uint32_t viewportTextureID = mFramebuffer->GetColorAttachmentRendererID();
-			uint32_t width = mFramebuffer->GetSpecification().Width;
-			uint32_t height = mFramebuffer->GetSpecification().Height;
-			ImGui::Image((void*)viewportTextureID, ImVec2{ (float)width, (float)height });
+			ImGui::Image((void*)viewportTextureID, ImVec2{ (float)mViewportSize.x, (float)mViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 			ImGui::End();
+			ImGui::PopStyleVar();
 
 			ImGui::Begin("Settings");
 			ImGui::ColorEdit4("Square Color", glm::value_ptr(mSquareColor));
 			ImGui::SliderFloat("X", &mSquarePosition.x, -10, 10);
 			ImGui::SliderFloat("Y", &mSquarePosition.y, -10, 10);
+			ImGui::End();
+
+			ImGui::Begin("Scene hierarchy");
+			ImGui::End();
+
+			ImGui::Begin("Console");
 			ImGui::End();
 
 			// End docksapce

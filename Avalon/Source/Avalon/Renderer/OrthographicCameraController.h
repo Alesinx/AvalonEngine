@@ -15,6 +15,8 @@ namespace Avalon
 		void Update(float deltaTime);
 		void ProcessEvent(Event& e);
 
+		void Resize(float width, float height);
+
 		OrthographicCamera& GetCamera() { return mCamera; }
 		const OrthographicCamera& GetCamera() const { return mCamera; }
 

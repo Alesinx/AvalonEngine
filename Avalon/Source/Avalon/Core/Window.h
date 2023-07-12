@@ -9,12 +9,12 @@ namespace Avalon
 	struct WindowProperties
 	{
 		std::string title = "Avalon";
-		unsigned int width = 1280;
-		unsigned int height = 720;
+		uint32_t width = 1280;
+		uint32_t height = 720;
 		bool bVSync = false;
 		std::function<void(Event&)> eventCallback;
 
-		WindowProperties(const std::string& title = "Avalon", unsigned int width = 1280, unsigned int height = 720, bool bVSync = false) :
+		WindowProperties(const std::string& title = "Avalon", uint32_t width = 1280, uint32_t height = 720, bool bVSync = false) :
 			title(title), width(width), height(height), bVSync(bVSync)
 		{}
 	};
@@ -27,8 +27,8 @@ namespace Avalon
 		virtual void OnUpdate() = 0;
 
 		virtual void* GetNativeWindow() const = 0;
-		virtual unsigned int GetWidth() const = 0;
-		virtual unsigned int GetHeight() const = 0;
+		virtual uint32_t GetWidth() const = 0;
+		virtual uint32_t GetHeight() const = 0;
 
 		virtual inline void SetEventCallback(const std::function<void(Event&)>& callback) = 0;
 		virtual void SetVSync(bool enabled) = 0;

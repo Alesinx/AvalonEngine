@@ -64,6 +64,12 @@ void Avalon::OrthographicCameraController::ProcessEvent(Event& e)
 		return;
 }
 
+void Avalon::OrthographicCameraController::Resize(float width, float height)
+{
+	mAspectRatio = width / height;
+	mCamera.SetProjection(-mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel);
+}
+
 bool Avalon::OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
 {
 	mZoomLevel -= e.GetYOffset() * 0.25f;
@@ -74,7 +80,6 @@ bool Avalon::OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e
 
 bool Avalon::OrthographicCameraController::OnWindowResized(WindowResizeEvent& e)
 {
-	mAspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
-	mCamera.SetProjection(-mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel);
+	Resize((float)e.GetWidth(), (float)e.GetHeight());
 	return false;
 }

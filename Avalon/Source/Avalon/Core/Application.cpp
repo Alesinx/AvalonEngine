@@ -13,12 +13,14 @@ namespace Avalon
 {
 	Application* Application::sInstance = nullptr;
 
-	Application::Application()
+	Application::Application(const std::string& name)
 	{
+		AVALON_CORE_INFO("Creating application with name {0}", name);
+
 		AVALON_CORE_ASSERT(!sInstance, "Application already exists");
 		sInstance = this;
 
-		mWindow = Window::Create();
+		mWindow = Window::Create(WindowProperties(name));
 		mWindow->SetEventCallback(BIND_EVENT_FN(Application::ProcessEvent));
 
 		mImguiOverlay = std::unique_ptr<ImguiOverlay>(new ImguiOverlay());

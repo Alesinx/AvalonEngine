@@ -82,7 +82,6 @@ namespace Avalon
 	bool OpenGLShader::ReadFile(const std::string& filepath, std::string& result)
 	{
 		std::filesystem::path currentPath = std::filesystem::current_path();
-		std::cout << "Current Working Directory: " << currentPath << std::endl;
 
 		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 		if (in)

@@ -18,7 +18,7 @@ namespace Avalon
 		static inline Application& GetInstance() { return *sInstance; }
 
 	public:
-		Application();
+		Application(const std::string& name = "Avalon");
 		virtual ~Application() = default;
 
 		void Run();
