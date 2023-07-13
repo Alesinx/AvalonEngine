@@ -33,6 +33,15 @@ namespace Avalon
 	{
 		Application::Render(deltaTime);
 
+		// Doing this here to prevent from ever rendering a black screen on viewport during the frame in which it has been resized
+		Avalon::FramebufferSpecification spec = mFramebuffer->GetSpecification();
+		bool validFramebuffer = mViewportSize.x > 0.0f && mViewportSize.y > 0.0f; // zero sized framebuffer is invalid
+		if (validFramebuffer && (spec.width != mViewportSize.x || spec.height != mViewportSize.y))
+		{
+			mFramebuffer->Resize((uint32_t)mViewportSize.x, (uint32_t)mViewportSize.y);
+			mCameraController.Resize(mViewportSize.x, mViewportSize.y);
+		}
+
 		mFramebuffer->Bind();
 
 		Avalon::Renderer::SetClearColor();
@@ -115,18 +124,16 @@ namespace Avalon
 		// Viewport
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
 		ImGui::Begin("Viewport");
+
 		mViewportFocused = ImGui::IsWindowFocused();
 		mViewportHovered = ImGui::IsWindowHovered();
 		mCameraController.SetPollEvents(mViewportFocused || mViewportHovered);
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-		if (mViewportSize.x != viewportPanelSize.x || mViewportSize.y != viewportPanelSize.y)
-		{
-			mFramebuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
-			mViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
-			mCameraController.Resize(viewportPanelSize.x, viewportPanelSize.y);
-		}
+		mViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 		uint32_t viewportTextureID = mFramebuffer->GetColorAttachmentRendererID();
 		ImGui::Image((void*)viewportTextureID, ImVec2{ (float)mViewportSize.x, (float)mViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+
+
 		ImGui::End();
 		ImGui::PopStyleVar();
 
