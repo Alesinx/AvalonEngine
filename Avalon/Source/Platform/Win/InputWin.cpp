@@ -1,14 +1,12 @@
 #include "AvalonPch.h"
-#include "Platform/Win/InputWin.h"
+#include "Avalon/Input/Input.h"
 #include "Avalon/Core/Application.h"
 
 #include <GLFW/glfw3.h>
 
 namespace Avalon
 {
-	std::unique_ptr<Input> Input::sInstance = std::make_unique<InputWin>();
-
-	std::pair<float, float> InputWin::GetMousePositionImpl()
+	std::pair<float, float> Input::GetMousePosition()
 	{
 		GLFWwindow* window = static_cast<GLFWwindow*>(Application::GetInstance().GetWindow().GetNativeWindow());
 		double xpos, ypos;
@@ -17,29 +15,29 @@ namespace Avalon
 		return { static_cast<float>(xpos), static_cast<float>(ypos) };
 	}
 
-	bool InputWin::IsMouseButtonPressedImpl(int button)
+	bool Input::IsMouseButtonPressed(int button)
 	{
 		GLFWwindow* window = static_cast<GLFWwindow*>(Application::GetInstance().GetWindow().GetNativeWindow());
 		int state = glfwGetMouseButton(window, button);
 		return state == GLFW_PRESS;
 	}
 
-	bool InputWin::IsKeyPressedImpl(int keycode)
+	bool Input::IsKeyPressed(int keycode)
 	{
 		GLFWwindow* window = static_cast<GLFWwindow*>(Application::GetInstance().GetWindow().GetNativeWindow());
 		int state = glfwGetKey(window, keycode);
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 
-	float InputWin::GetMouseXImpl()
+	float Input::GetMouseX()
 	{
-		std::pair<float, float> mousePos = GetMousePositionImpl();
+		std::pair<float, float> mousePos = GetMousePosition();
 		return mousePos.first;
 	}
 
-	float InputWin::GetMouseYImpl()
+	float Input::GetMouseY()
 	{
-		std::pair<float, float> mousePos = GetMousePositionImpl();
+		std::pair<float, float> mousePos = GetMousePosition();
 		return mousePos.second;
 	}
 }

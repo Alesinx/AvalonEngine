@@ -1,27 +1,15 @@
 #include "AvalonPch.h"
 #include "Avalon/Renderer/Renderer2D.h"
 
-#include "Avalon/Renderer/Renderer.h"
-#include "Avalon/Renderer/Buffer.h"
-#include "Avalon/Renderer/VertexArray.h"
-#include "Avalon/Renderer/Shader.h"
-
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Avalon
 {
-	struct Renderer2DStorage
-	{
-		std::shared_ptr<VertexArray> QuadVertexArray;
-		std::shared_ptr<Shader> TextureShader;
-		std::shared_ptr<Texture2D> WhiteTexture;
-	};
-
-	static Renderer2DStorage* sData;
+	std::unique_ptr<Renderer2DStorage> Renderer2D::sData = nullptr;
 
 	void Renderer2D::Init()
 	{
-		sData = new Renderer2DStorage();
+		sData = std::unique_ptr< Renderer2DStorage>(new Renderer2DStorage());
 		sData->QuadVertexArray = VertexArray::Create();
 
 		const float squareVertices[5 * 4] = {
@@ -52,7 +40,6 @@ namespace Avalon
 
 	void Renderer2D::Shutdown()
 	{
-		delete sData;
 	}
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
@@ -70,9 +57,9 @@ namespace Avalon
 		DrawQuad({position.x, position.y, 0.0f}, size, color);
 	}
 
-	void Renderer2D::DrawQuad(const Vec2& position, const Vec2& size, const std::shared_ptr<Texture2D>& texture)
+	void Renderer2D::DrawQuad(const Vec2& position, const Vec2& size, const std::shared_ptr<Texture2D>& texture, const Vec4& tintColor)
 	{
-		DrawQuad({ position.x , position.y, 0.0f }, size, texture);
+		DrawQuad({ position.x , position.y, 0.0f }, size, texture, tintColor);
 	}
 
 	void Renderer2D::DrawQuad(const Vec3& position, const Vec2& size, const Vec4& color)
@@ -87,13 +74,13 @@ namespace Avalon
 		Renderer::DrawIndexed(sData->QuadVertexArray);
 	}
 
-	void Renderer2D::DrawQuad(const Vec3& position, const Vec2& size, const std::shared_ptr<Texture2D>& texture)
+	void Renderer2D::DrawQuad(const Vec3& position, const Vec2& size, const std::shared_ptr<Texture2D>& texture, const Vec4& tintColor)
 	{
 		texture->Bind();
 
 		const Mat4 transform = glm::translate(Mat4(1.0f), position) * glm::scale(Mat4(1.0f), { size.x, size.y, 1.0f });
 		sData->TextureShader->SetMat4("u_Transform", transform);
-		sData->TextureShader->SetFloat4("u_Color", glm::vec4(0.5f));
+		sData->TextureShader->SetFloat4("u_Color", tintColor);
 
 		sData->QuadVertexArray->Bind();
 		Renderer::DrawIndexed(sData->QuadVertexArray);
