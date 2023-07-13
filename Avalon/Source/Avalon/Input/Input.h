@@ -7,7 +7,7 @@ namespace Avalon
 	class Input
 	{
 	public:
-		static std::pair<float, float> GetMousePosition();
+		static Vec2 GetMousePosition();
 		static bool IsMouseButtonPressed(int button);
 		static bool IsKeyPressed(int keycode);
 		static float GetMouseX();

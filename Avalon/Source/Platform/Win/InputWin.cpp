@@ -6,7 +6,7 @@
 
 namespace Avalon
 {
-	std::pair<float, float> Input::GetMousePosition()
+	Vec2 Input::GetMousePosition()
 	{
 		GLFWwindow* window = static_cast<GLFWwindow*>(Application::GetInstance().GetWindow().GetNativeWindow());
 		double xpos, ypos;
@@ -31,13 +31,13 @@ namespace Avalon
 
 	float Input::GetMouseX()
 	{
-		std::pair<float, float> mousePos = GetMousePosition();
-		return mousePos.first;
+		Vec2 mousePos = GetMousePosition();
+		return mousePos.x;
 	}
 
 	float Input::GetMouseY()
 	{
-		std::pair<float, float> mousePos = GetMousePosition();
-		return mousePos.second;
+		Vec2 mousePos = GetMousePosition();
+		return mousePos.y;
 	}
 }
