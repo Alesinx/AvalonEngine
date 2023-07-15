@@ -13,46 +13,46 @@ Avalon::OrthographicCameraController::OrthographicCameraController(float aspectR
 
 void Avalon::OrthographicCameraController::Update(float deltaTime)
 {
-	float offset = mCameraTranslationSpeed * mZoomLevel * deltaTime;
-	float rotationRadians = glm::radians(mCameraRotation);
-
-	if (Avalon::Input::IsKeyPressed(AVALON_KEY_D))
+	if (mPollEvents)
 	{
-		mCameraPosition.x += cos(rotationRadians) * offset;
-		mCameraPosition.y += sin(rotationRadians) * offset;
-	}
-	else if (Avalon::Input::IsKeyPressed(AVALON_KEY_A))
-	{
-		mCameraPosition.x -= cos(rotationRadians) * offset;
-		mCameraPosition.y -= sin(rotationRadians) * offset;
-	}
+		if (Avalon::Input::IsKeyPressed(AVALON_KEY_D))
+		{
+			mCameraPosition.x += cos(glm::radians(mCameraRotation)) * mCameraTranslationSpeed * mZoomLevel * deltaTime;
+			mCameraPosition.y += sin(glm::radians(mCameraRotation)) * mCameraTranslationSpeed * mZoomLevel * deltaTime;;
+		}
+		else if (Avalon::Input::IsKeyPressed(AVALON_KEY_A))
+		{
+			mCameraPosition.x -= cos(glm::radians(mCameraRotation)) * mCameraTranslationSpeed * mZoomLevel * deltaTime;;
+			mCameraPosition.y -= sin(glm::radians(mCameraRotation)) * mCameraTranslationSpeed * mZoomLevel * deltaTime;;
+		}
 
-	if (Avalon::Input::IsKeyPressed(AVALON_KEY_W))
-	{
-		mCameraPosition.x += -sin(rotationRadians) * offset;
-		mCameraPosition.y += cos(rotationRadians) * offset;
-	}
-	else if (Avalon::Input::IsKeyPressed(AVALON_KEY_S))
-	{
-		mCameraPosition.x -= -sin(rotationRadians) * offset;
-		mCameraPosition.y -= cos(rotationRadians) * offset;
-	}
+		if (Avalon::Input::IsKeyPressed(AVALON_KEY_W))
+		{
+			mCameraPosition.x += -sin(glm::radians(mCameraRotation)) * mCameraTranslationSpeed * mZoomLevel * deltaTime;;
+			mCameraPosition.y += cos(glm::radians(mCameraRotation)) * mCameraTranslationSpeed * mZoomLevel * deltaTime;;
+		}
+		else if (Avalon::Input::IsKeyPressed(AVALON_KEY_S))
+		{
+			mCameraPosition.x -= -sin(glm::radians(mCameraRotation)) * mCameraTranslationSpeed * mZoomLevel * deltaTime;;
+			mCameraPosition.y -= cos(glm::radians(mCameraRotation)) * mCameraTranslationSpeed * mZoomLevel * deltaTime;;
+		}
 
-	mCamera.SetPosition(mCameraPosition);
+		mCamera.SetPosition(mCameraPosition);
 
-	if (mRotation)
-	{
-		if (Avalon::Input::IsKeyPressed(AVALON_KEY_Q))
-			mCameraRotation += mCameraRotationSpeed * deltaTime;
-		else if (Avalon::Input::IsKeyPressed(AVALON_KEY_E))
-			mCameraRotation -= mCameraRotationSpeed * deltaTime;
+		if (mRotation)
+		{
+			if (Avalon::Input::IsKeyPressed(AVALON_KEY_Q))
+				mCameraRotation += mCameraRotationSpeed * deltaTime;
+			else if (Avalon::Input::IsKeyPressed(AVALON_KEY_E))
+				mCameraRotation -= mCameraRotationSpeed * deltaTime;
 
-		if (mCameraRotation > 180.0f)
-			mCameraRotation -= 360.0f;
-		else if (mCameraRotation <= -180.0f)
-			mCameraRotation += 360.0f;
+			if (mCameraRotation > 180.0f)
+				mCameraRotation -= 360.0f;
+			else if (mCameraRotation <= -180.0f)
+				mCameraRotation += 360.0f;
 
-		mCamera.SetRotation(mCameraRotation);
+			mCamera.SetRotation(mCameraRotation);
+		}
 	}
 }
 

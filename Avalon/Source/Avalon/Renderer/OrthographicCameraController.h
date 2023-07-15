@@ -19,6 +19,7 @@ namespace Avalon
 
 		OrthographicCamera& GetCamera() { return mCamera; }
 		const OrthographicCamera& GetCamera() const { return mCamera; }
+		void SetPollEvents(bool pollEvents) { mPollEvents = pollEvents; }
 
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& e);
@@ -34,5 +35,7 @@ namespace Avalon
 		float mCameraRotation = 0.0f;
 		float mCameraTranslationSpeed = 4.0f;
 		float mCameraRotationSpeed = 180.0f;
+
+		bool mPollEvents = true;
 	};
 }
