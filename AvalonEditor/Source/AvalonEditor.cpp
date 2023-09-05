@@ -20,6 +20,18 @@ namespace Avalon
 		fbSpec.width = 1280;
 		fbSpec.height = 720;
 		mFramebuffer = Avalon::Framebuffer::Create(fbSpec);
+
+		entity1 = std::unique_ptr<Avalon::Entity>(new Avalon::Entity({ 0.f, 0.f, -0.3f }));
+		entity2 = std::unique_ptr<Avalon::Entity>(new Avalon::Entity({ 0.f, 0.f, -0.4f }));
+		entity3 = std::unique_ptr<Avalon::Entity>(new Avalon::Entity({ 0.f, 0.f, -0.5f }));
+
+		quadComponent1 = std::unique_ptr<Avalon::QuadComponent>(new Avalon::QuadComponent());
+		quadComponent2 = std::unique_ptr<Avalon::QuadComponent>(new Avalon::QuadComponent());
+		quadComponent3 = std::unique_ptr<Avalon::QuadComponent>(new Avalon::QuadComponent());
+
+		entity1->AddComponent(quadComponent1.get());
+		entity2->AddComponent(quadComponent2.get());
+		entity3->AddComponent(quadComponent3.get());
 	}
 
 	void AvalonEditor::Update(float deltaTime)
@@ -48,9 +60,12 @@ namespace Avalon
 		Avalon::Renderer::Clear();
 
 		Avalon::Renderer2D::BeginScene(mCameraController.GetCamera());
-		Avalon::Renderer2D::DrawQuad(mSquarePosition, { 0.5f, 0.5f }, mSquareColor);
+		//entity1->Render();
 		Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-		Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, mCheckerboardTexture, Vec4(0.5f));
+		Avalon::Renderer2D::DrawQuad(mSquarePosition, { 0.5f, 0.5f }, mSquareColor);
+		//Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, mCheckerboardTexture, Vec4(0.5f));
+		//entity2->Render();
+		//entity3->Render();
 		Avalon::Renderer2D::EndScene();
 
 		mFramebuffer->Unbind();

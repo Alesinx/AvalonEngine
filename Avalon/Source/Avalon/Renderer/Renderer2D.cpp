@@ -9,7 +9,7 @@ namespace Avalon
 
 	void Renderer2D::Init()
 	{
-		sData = std::unique_ptr< Renderer2DStorage>(new Renderer2DStorage());
+		sData = std::unique_ptr<Renderer2DStorage>(new Renderer2DStorage());
 		sData->QuadVertexArray = VertexArray::Create();
 
 		const float squareVertices[5 * 4] = {
