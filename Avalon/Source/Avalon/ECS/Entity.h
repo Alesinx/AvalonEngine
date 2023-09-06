@@ -19,10 +19,14 @@ namespace Avalon
 		Entity(Vec3 position = Vec3(0), Vec2 rotation = Vec2(0), Vec2 scale = Vec2(1)) :
 			mTransform(position, rotation, scale)
 		{}
+		virtual ~Entity() {}
 
 		const Transform& GetTransform() const { return mTransform; }
+		void SetTransform(Transform transform) { mTransform = transform; }
 
-		void Render() const;
+		virtual void Initialize();
+		virtual void Update(float deltaTime);
+		virtual void Render(float deltaTime) const;
 
 		void AddComponent(Component* component);
 

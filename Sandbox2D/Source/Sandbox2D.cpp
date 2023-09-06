@@ -44,9 +44,9 @@ void Sandbox2D::Render(float deltaTime)
 	Avalon::Renderer2D::DrawQuad(mSquarePosition, { 0.5f, 0.5f }, mSquareColor);
 	Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.3f, 1.0f });
 	Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, mCheckerboardTexture, Vec4(0.5f));
-	entity1->Render();
-	entity2->Render();
-	entity3->Render();
+	entity1->Render(deltaTime);
+	entity2->Render(deltaTime);
+	entity3->Render(deltaTime);
 	Avalon::Renderer2D::EndScene();
 }
 

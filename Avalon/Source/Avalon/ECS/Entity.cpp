@@ -3,11 +3,27 @@
 
 namespace Avalon
 {
-	void Entity::Render() const
+	void Entity::Initialize()
 	{
 		for (Component* rc : mComponents)
 		{
-			rc->Render();
+			rc->Initialize();
+		}
+	}
+
+	void Entity::Update(float deltaTime)
+	{
+		for (Component* rc : mComponents)
+		{
+			rc->Update(deltaTime);
+		}
+	}
+
+	void Entity::Render(float deltaTime) const
+	{
+		for (Component* rc : mComponents)
+		{
+			rc->Render(deltaTime);
 		}
 	}
 
