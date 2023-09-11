@@ -1,35 +1,30 @@
 #include "AvalonPch.h"
-#include "Entity.h"
+#include "Avalon/ECS/Entity.h"
+#include "Avalon/Scene/Scene.h"
 
 namespace Avalon
 {
 	void Entity::Initialize()
 	{
-		for (Component* rc : mComponents)
+		for (const auto& component : components)
 		{
-			rc->Initialize();
+			component->Initialize();
 		}
 	}
 
 	void Entity::Update(float deltaTime)
 	{
-		for (Component* rc : mComponents)
+		for (const auto& component : components)
 		{
-			rc->Update(deltaTime);
+			component->Update(deltaTime);
 		}
 	}
 
 	void Entity::Render(float deltaTime) const
 	{
-		for (Component* rc : mComponents)
+		for (const auto& component : components)
 		{
-			rc->Render(deltaTime);
+			component->Render(deltaTime);
 		}
-	}
-
-	void Entity::AddComponent(Component* component)
-	{
-		component->SetOwner(this);
-		mComponents.push_back(component);
 	}
 }

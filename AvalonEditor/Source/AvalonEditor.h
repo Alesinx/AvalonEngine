@@ -24,15 +24,7 @@ namespace Avalon
 
 		std::shared_ptr<Texture2D> mCheckerboardTexture;
 
-		std::unique_ptr<Avalon::Entity> entity1;
-		std::unique_ptr<Avalon::Entity> entity2;
-		std::unique_ptr<Avalon::Entity> entity3;
-
-		std::unique_ptr<Avalon::QuadComponent> quadComponent1;
-		std::unique_ptr<Avalon::QuadComponent> quadComponent2;
-		std::unique_ptr<Avalon::QuadComponent> quadComponent3;
-
-		std::unique_ptr<Avalon::VerticalMovementComponent> vmComp;
+		std::unique_ptr<Avalon::ExampleScene> exampleScene;
 
 		Vec4 mSquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 		Vec3 mSquarePosition = { 0.0f, 0.0f, 0.1f };

@@ -19,7 +19,7 @@ namespace Avalon
 	{
 		Vec3 ownerPos = mOwningEntity->GetTransform().position;
 		Vec2 ownerScale = mOwningEntity->GetTransform().scale;
-		Renderer2D::DrawQuad(ownerPos, ownerScale, color);
+		Renderer2D::DrawQuad(ownerPos, ownerScale * size, color);
 	}
 
 	void VerticalMovementComponent::Initialize()
@@ -41,5 +41,9 @@ namespace Avalon
 		Vec2 originalRotation = mOwningEntity->GetTransform().rotation;
 		Vec2 originalScale = mOwningEntity->GetTransform().scale;
 		mOwningEntity->SetTransform(Transform(currentPosition, originalRotation, originalScale));
+	}
+
+	void VerticalMovementComponent::Render(float deltaTime)
+	{
 	}
 }

@@ -25,4 +25,6 @@
 #include "Avalon/ECS/Entity.h"
 #include "Avalon/ECS/Component.h"
 
+#include "Avalon/Scene/Scene.h"
+
 #include "Platform/OpenGL/OpenGLShader.h"
