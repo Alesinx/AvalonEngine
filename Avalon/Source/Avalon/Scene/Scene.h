@@ -10,10 +10,12 @@ namespace Avalon
 		Scene() = default;
 		virtual ~Scene() = default;
 
-		virtual void Initialize() {}
-		virtual void Update(float deltaTime) {}
-		virtual void Render(float deltaTime) {}
+		virtual void Initialize();
+		virtual void Update(float deltaTime);
+		virtual void Render(float deltaTime);
 
+	protected:
+		std::vector<std::unique_ptr<Entity>> entities;
 	};
 
 	class ExampleScene : public Scene
@@ -21,26 +23,13 @@ namespace Avalon
 	public:
 		void Initialize() override
 		{
+			auto& entity = entities.emplace_back(new Entity());
+			entity->CreateComponent<QuadComponent>(Vec3(0.1f));
+			entity->CreateComponent<QuadComponent>(Vec3(1.f), Vec4(0.8f));
+			entity->CreateComponent<VerticalMovementComponent>();
 
-			entity1 = std::unique_ptr<Entity>(new Entity());
-			entity1->CreateComponent<QuadComponent>(Vec3(0.1f));
-			entity1->CreateComponent<QuadComponent>(Vec3(1.f), Vec4(0.8f));
-			entity1->CreateComponent<VerticalMovementComponent>();
-			entity1->Initialize();
+			Scene::Initialize();
 		}
-
-		void Update(float deltaTime) override
-		{
-			entity1->Update(deltaTime);
-		}
-
-		void Render(float deltaTime) override
-		{
-			entity1->Render(deltaTime);
-		}
-
-	private:
-		std::unique_ptr<Avalon::Entity> entity1;
 	};
 }
 
