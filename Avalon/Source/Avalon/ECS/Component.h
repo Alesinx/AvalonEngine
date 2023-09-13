@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Avalon/Core/Core.h"
+#include "Avalon/Renderer/Texture.h"
 
 namespace Avalon
 {
@@ -12,7 +13,7 @@ namespace Avalon
 	public:
 		Component() { mOwningEntity = nullptr; }
 		Component(Entity* const owner) : mOwningEntity(owner) {}
-		virtual ~Component() {}
+		virtual ~Component() = default;
 
 		virtual void SetOwner(Entity* const owner) { mOwningEntity = owner; }
 
@@ -28,26 +29,40 @@ namespace Avalon
 	{
 	public:
 		QuadComponent(Entity* const owner = nullptr, Vec2 size = Vec2(1), Vec4 color = Vec4(1)) : Component(owner), size(size), color(color) {}
-		virtual ~QuadComponent() {}
+		virtual ~QuadComponent() = default;
 
-		virtual void Initialize() override;
-		virtual void Update(float deltaTime) override;
-		virtual void Render(float deltaTime) override;
+		void Initialize() override;
+		void Update(float deltaTime) override;
+		void Render(float deltaTime) override;
 
-	public:
+	protected:
 		Vec2 size;
 		Vec4 color;
+	};
+
+	class SpriteComponent : public Component
+	{
+	public:
+		SpriteComponent(Entity* const owner = nullptr) : Component(owner) {}
+		virtual ~SpriteComponent() = default;
+
+		void Initialize() override;
+		void Update(float deltaTime) override;
+		void Render(float deltaTime) override;
+
+	protected:
+		std::shared_ptr<Texture2D> texture2D = nullptr;
 	};
 
 	class VerticalMovementComponent : public Component
 	{
 	public:
 		VerticalMovementComponent(Entity* const owner = nullptr, int maxOffset = 1.f, float speed = 1.f) : Component(owner), maxOffset(maxOffset), speed(speed) {}
-		virtual ~VerticalMovementComponent() {}
+		virtual ~VerticalMovementComponent() = default;
 
-		virtual void Initialize();
-		virtual void Update(float deltaTime) override;
-		virtual void Render(float deltaTime) override;
+		void Initialize() override;
+		void Update(float deltaTime) override;
+		void Render(float deltaTime) override;
 
 	public:
 		float maxOffset = 1.f;

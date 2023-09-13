@@ -15,6 +15,7 @@ namespace Avalon
 		mCameraController(1280.0f / 720.0f)
 	{
 		mCheckerboardTexture = Avalon::Texture2D::Create("Assets/Textures/Checkerboard.png");
+		mFishTexture = Avalon::Texture2D::Create("Assets/Textures/Fish.png");
 
 		Avalon::FramebufferSpecification fbSpec;
 		fbSpec.width = 1280;
@@ -53,10 +54,10 @@ namespace Avalon
 		Avalon::Renderer::Clear();
 
 		Avalon::Renderer2D::BeginScene(mCameraController.GetCamera());
-		//Avalon::Renderer2D::DrawQuad({ 0.f, 0.f, 0.f}, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-		//Avalon::Renderer2D::DrawQuad(mSquarePosition, { 0.5f, 0.5f }, mSquareColor);
+		Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, Vec2(1), mFishTexture);
+		//Avalon::Renderer2D::DrawQuad(mSquarePosition, Vec2(0.5), mSquareColor);
+		Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.5f }, { 10.0f, 10.0f }, mCheckerboardTexture, Vec4(0.5f));
 		exampleScene->Render(deltaTime);
-		Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -1.f }, { 10.0f, 10.0f }, mCheckerboardTexture, Vec4(0.5f));
 		Avalon::Renderer2D::EndScene();
 
 		mFramebuffer->Unbind();
@@ -139,7 +140,6 @@ namespace Avalon
 		uint32_t viewportTextureID = mFramebuffer->GetColorAttachmentRendererID();
 		ImGui::Image((void*)viewportTextureID, ImVec2{ (float)mViewportSize.x, (float)mViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
-
 		ImGui::End();
 		ImGui::PopStyleVar();
 
@@ -165,7 +165,7 @@ namespace Avalon
 	{
 		Application::ProcessEvent(e);
 
-		if(mViewportFocused || mViewportHovered)
+		if (mViewportFocused || mViewportHovered)
 		{
 			mCameraController.ProcessEvent(e);
 		}

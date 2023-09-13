@@ -24,8 +24,8 @@ namespace Avalon
 		void Initialize() override
 		{
 			auto& entity = entities.emplace_back(new Entity());
-			entity->CreateComponent<QuadComponent>(Vec3(0.1f));
-			entity->CreateComponent<QuadComponent>(Vec3(1.f), Vec4(0.8f));
+			//entity->CreateComponent<QuadComponent>();
+			entity->CreateComponent<SpriteComponent>();
 			entity->CreateComponent<VerticalMovementComponent>();
 
 			Scene::Initialize();

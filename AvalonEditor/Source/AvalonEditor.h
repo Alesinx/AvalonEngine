@@ -23,6 +23,7 @@ namespace Avalon
 		std::shared_ptr<Framebuffer> mFramebuffer;
 
 		std::shared_ptr<Texture2D> mCheckerboardTexture;
+		std::shared_ptr<Texture2D> mFishTexture;
 
 		std::unique_ptr<Avalon::ExampleScene> exampleScene;
 
