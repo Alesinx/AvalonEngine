@@ -42,17 +42,18 @@ namespace Avalon
 	class VerticalMovementComponent : public Component
 	{
 	public:
-		VerticalMovementComponent(Entity* const owner = nullptr, int maxOffset = 1.f, float speed = 1.f) : Component(owner), maxOffset(maxOffset), speed(speed) {}
+		VerticalMovementComponent(Entity* const owner = nullptr, int initialOffset = 0.f, int maxOffset = 1.f, float speed = 1.f) : 
+			Component(owner), offset(initialOffset), maxOffset(maxOffset), speed(speed) {}
 		virtual ~VerticalMovementComponent() = default;
 
 		void Initialize() override;
 		void Update(float deltaTime) override;
 		void Render(float deltaTime) override;
 
-	public:
+	protected:
+		float offset;
 		float maxOffset = 1.f;
 		float speed = 1.f;
-	private:
 		int direction = 1;
 		Vec3 originalPosition = { 0.f, 0.f, 0.f };
 	};

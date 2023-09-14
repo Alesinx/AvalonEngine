@@ -29,15 +29,14 @@ namespace Avalon
 
 	void VerticalMovementComponent::Update(float deltaTime)
 	{
-		Vec3 currentPosition = mOwningEntity->GetTransform().position;
-		currentPosition.y += direction * speed * deltaTime;
-		float offset = glm::abs(currentPosition.y - originalPosition.y);
-		if (offset > maxOffset)
+		offset += direction * speed * deltaTime;
+		if (glm::abs(offset) >= maxOffset)
 		{
-			currentPosition.y = direction * maxOffset;
+			offset = direction * maxOffset;
 			direction *= -1;
 		}
 
+		Vec3 currentPosition = originalPosition + Vec3(0.f, offset, 0.f);
 		Vec2 originalRotation = mOwningEntity->GetTransform().rotation;
 		Vec2 originalScale = mOwningEntity->GetTransform().scale;
 		mOwningEntity->SetTransform(Transform(currentPosition, originalRotation, originalScale));

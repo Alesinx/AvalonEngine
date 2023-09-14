@@ -54,10 +54,10 @@ namespace Avalon
 		Avalon::Renderer::Clear();
 
 		Avalon::Renderer2D::BeginScene(mCameraController.GetCamera());
-		Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, Vec2(1), mFishTexture);
-		//Avalon::Renderer2D::DrawQuad(mSquarePosition, Vec2(0.5), mSquareColor);
-		Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.5f }, { 10.0f, 10.0f }, mCheckerboardTexture, Vec4(0.5f));
+		//Avalon::Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.0f }, Vec2(1), mFishTexture);
+		Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.99f }, { 10.0f, 10.0f }, mCheckerboardTexture, Vec4(0.5f));
 		exampleScene->Render(deltaTime);
+		Avalon::Renderer2D::DrawQuad(mImguiPosition, Vec2(1), mFishTexture);
 		Avalon::Renderer2D::EndScene();
 
 		mFramebuffer->Unbind();
@@ -146,8 +146,9 @@ namespace Avalon
 		// Settings
 		ImGui::Begin("Settings");
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(mSquareColor));
-		ImGui::SliderFloat("X", &mSquarePosition.x, -10, 10);
-		ImGui::SliderFloat("Y", &mSquarePosition.y, -10, 10);
+		ImGui::SliderFloat("X", &mImguiPosition.x, -2, 2);
+		ImGui::SliderFloat("Y", &mImguiPosition.y, -2, 2);
+		ImGui::SliderFloat("Z", &mImguiPosition.z, -1, 1);
 		ImGui::End();
 
 		// Hierarchy
