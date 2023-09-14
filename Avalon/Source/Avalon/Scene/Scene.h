@@ -1,6 +1,7 @@
 #pragma once
 #include "Avalon/ECS/Entity.h"
-#include "Avalon/ECS/Component.h"
+#include "Avalon/ECS/Components/Component.h"
+#include "Avalon/ECS/Components/SpriteComponent.h"
 
 namespace Avalon
 {

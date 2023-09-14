@@ -22,22 +22,6 @@ namespace Avalon
 		Renderer2D::DrawQuad(ownerPos, ownerScale * size, color);
 	}
 
-	void SpriteComponent::Initialize()
-	{
-		texture2D = Avalon::Texture2D::Create("Assets/Textures/Fish.png");
-	}
-
-	void SpriteComponent::Update(float deltaTime)
-	{
-	}
-
-	void SpriteComponent::Render(float deltaTime)
-	{
-		Vec3 ownerPos = mOwningEntity->GetTransform().position;
-		Vec2 ownerScale = mOwningEntity->GetTransform().scale;
-		Renderer2D::DrawQuad(ownerPos, ownerScale, texture2D);
-	}
-
 	void VerticalMovementComponent::Initialize()
 	{
 		originalPosition = mOwningEntity->GetTransform().position;

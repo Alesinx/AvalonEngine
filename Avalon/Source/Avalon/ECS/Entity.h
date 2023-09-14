@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Avalon/ECS/Component.h"
+#include "Avalon/ECS/Components/Component.h"
 
 namespace Avalon
 {

@@ -23,7 +23,7 @@
 #include "Avalon/Renderer/OrthographicCameraController.h"
 
 #include "Avalon/ECS/Entity.h"
-#include "Avalon/ECS/Component.h"
+#include "Avalon/ECS/Components/Component.h"
 
 #include "Avalon/Scene/Scene.h"
 

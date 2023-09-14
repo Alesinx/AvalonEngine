@@ -6,7 +6,6 @@
 namespace Avalon
 {
 	class Entity;
-	struct Transform;
 
 	class Component
 	{
@@ -38,20 +37,6 @@ namespace Avalon
 	protected:
 		Vec2 size;
 		Vec4 color;
-	};
-
-	class SpriteComponent : public Component
-	{
-	public:
-		SpriteComponent(Entity* const owner = nullptr) : Component(owner) {}
-		virtual ~SpriteComponent() = default;
-
-		void Initialize() override;
-		void Update(float deltaTime) override;
-		void Render(float deltaTime) override;
-
-	protected:
-		std::shared_ptr<Texture2D> texture2D = nullptr;
 	};
 
 	class VerticalMovementComponent : public Component
