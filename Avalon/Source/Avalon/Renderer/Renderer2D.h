@@ -31,7 +31,10 @@ namespace Avalon
 		static void DrawQuad(const Vec3& position, const Vec2& size, const Vec4& color);
 		static void DrawQuad(const Vec3& position, const Vec2& size, const std::shared_ptr<Texture2D>& texture, const Vec4& tintColor = Vec4(1.0f));
 
+		static void SetAlphaThreshold(float newValue) { alphaThreshold = newValue; }
+
 	private:
 		static std::unique_ptr<Renderer2DStorage> sData;
+		static float alphaThreshold;
 	};
 }

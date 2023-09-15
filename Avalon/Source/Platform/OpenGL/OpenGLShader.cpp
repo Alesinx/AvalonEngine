@@ -51,6 +51,11 @@ namespace Avalon
 		UploadUniformInt(name, value);
 	}
 
+	void OpenGLShader::SetFloat(const std::string& name, float value)
+	{
+		UploadUniformFloat(name, value);
+	}
+
 	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value)
 	{
 		UploadUniformFloat4(name, value);
@@ -65,6 +70,12 @@ namespace Avalon
 	{
 		GLint location = glGetUniformLocation(mRendererID, name.c_str());
 		glUniform1i(location, value);
+	}
+
+	void OpenGLShader::UploadUniformFloat(const std::string& name, float value)
+	{
+		GLint location = glGetUniformLocation(mRendererID, name.c_str());
+		glUniform1f(location, value);
 	}
 
 	void OpenGLShader::UploadUniformFloat4(const std::string& name, Vec4 value) const

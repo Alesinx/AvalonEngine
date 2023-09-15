@@ -6,6 +6,7 @@
 namespace Avalon
 {
 	std::unique_ptr<Renderer2DStorage> Renderer2D::sData = nullptr;
+	float Renderer2D::alphaThreshold = 0.5f;
 
 	void Renderer2D::Init()
 	{
@@ -46,6 +47,7 @@ namespace Avalon
 	{
 		sData->TextureShader->Bind();
 		sData->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjecionMatrix());
+		sData->TextureShader->SetFloat("u_AlphaTreshold", alphaThreshold);
 	}
 
 	void Renderer2D::EndScene()
