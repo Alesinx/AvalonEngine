@@ -12,6 +12,8 @@
 
 #include "Avalon/Log/Log.h"
 
+#include "Avalon/Time/Time.h"
+
 #include "Avalon/Renderer/Renderer.h"
 #include "Avalon/Renderer/Renderer2D.h"
 #include "Avalon/Renderer/Buffer.h"

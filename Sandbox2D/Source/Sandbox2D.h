@@ -11,7 +11,7 @@ public:
 
 	void Update(float deltaTime) override;
 	void Render(float deltaTime) override;
-	void ImguiRender() override;
+	void ImguiRender(float deltaTime) override;
 	void ProcessEvent(Avalon::Event& e) override;
 
 private:

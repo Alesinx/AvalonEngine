@@ -24,8 +24,6 @@ namespace Avalon
 
 		exampleScene = std::unique_ptr<Avalon::ExampleScene>(new ExampleScene());
 		exampleScene->Initialize();
-
-		SetShowImguiDemo(false);
 	}
 
 	void AvalonEditor::Update(float deltaTime)
@@ -35,6 +33,13 @@ namespace Avalon
 		mCameraController.Update(deltaTime);
 
 		exampleScene->Update(deltaTime);
+
+		float currentTime = Avalon::Time::GetCurrentTime();
+		if (currentTime - lastInfoUpdateTime > timeBetweenInfoUpdates)
+		{
+			fpsCounter = (1 / deltaTime);
+			lastInfoUpdateTime = currentTime;
+		}
 	}
 
 	void AvalonEditor::Render(float deltaTime)
@@ -64,9 +69,9 @@ namespace Avalon
 		mFramebuffer->Unbind();
 	}
 
-	void AvalonEditor::ImguiRender()
+	void AvalonEditor::ImguiRender(float deltaTime)
 	{
-		Application::ImguiRender();
+		mImguiOverlay->Render();
 
 		static bool dockspaceOpen = true;
 		static bool opt_fullscreen_persistant = true;
@@ -156,12 +161,27 @@ namespace Avalon
 		ImGui::Begin("Settings");
 		if (ImGui::TreeNode("Rendering"))
 		{
+			ImGui::Checkbox("Enable VSync", mWindow->GetEnableVSyncPtr());
+
 			ImGui::Text("Alpha threshold");
 			ImGui::SameLine();
-			ImGui::InputFloat("##value", GetRenderer2DAlphaThreshold());
+			ImGui::InputFloat("##value", &Avalon::Renderer2D::alphaThreshold);
 			
 			ImGui::TreePop();
 		}
+		if (ImGui::TreeNode("ImGui"))
+		{
+			ImGui::Checkbox("Show demo window", &mImguiOverlay->showDemo);
+			ImGui::TreePop();
+		}
+		ImGui::End();
+
+		ImGui::Begin("Info");
+		ImGui::Text("Refresh rate:");
+		ImGui::SameLine();
+		ImGui::InputFloat("##value", &timeBetweenInfoUpdates);
+
+		ImGui::Text("fps: %g", fpsCounter);
 		ImGui::End();
 
 		// Hierarchy

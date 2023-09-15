@@ -31,8 +31,8 @@ namespace Avalon
 		virtual uint32_t GetHeight() const = 0;
 
 		virtual inline void SetEventCallback(const std::function<void(Event&)>& callback) = 0;
-		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSyncEnabled() const = 0;
+		virtual bool* GetEnableVSyncPtr() = 0;
 
 		static std::unique_ptr<Window> Create(const WindowProperties& props = WindowProperties());
 	};

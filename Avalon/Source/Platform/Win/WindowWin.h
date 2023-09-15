@@ -19,8 +19,8 @@ namespace Avalon
 		unsigned int GetHeight() const override { return mWindowProperties.height; }
 
 		inline void SetEventCallback(const std::function<void(Event&)>& callback) override { mWindowProperties.eventCallback = callback; }
-		void SetVSync(bool enabled) override;
 		bool IsVSyncEnabled() const override { return mWindowProperties.bVSync; }
+		bool* GetEnableVSyncPtr() override { return &mWindowProperties.bVSync; }
 
 	private:
 		void Init(const WindowProperties& properties);

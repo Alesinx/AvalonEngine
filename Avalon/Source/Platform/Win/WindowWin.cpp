@@ -47,7 +47,6 @@ namespace Avalon
 
 		glfwSetWindowUserPointer(mGLFWWindow, &mWindowProperties);
 		SetGLFWCallbacks();
-		SetVSync(true);
 	}
 
 	void Avalon::WindowWin::Shutdown()
@@ -59,16 +58,11 @@ namespace Avalon
 	{
 		glfwPollEvents();
 		mContext->SwapBuffers();
-	}
 
-	void WindowWin::SetVSync(bool enabled)
-	{
-		if (enabled)
+		if (mWindowProperties.bVSync)
 			glfwSwapInterval(1);
 		else
 			glfwSwapInterval(0);
-
-		mWindowProperties.bVSync = enabled;
 	}
 
 	void WindowWin::SetGLFWCallbacks()

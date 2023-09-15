@@ -37,19 +37,18 @@ namespace Avalon
 		virtual void Update(float deltaTime);
 		virtual void Render(float deltaTime);
 
-		virtual void ImguiRender();
-
-		void SetShowImguiDemo(bool show);
-		float* GetRenderer2DAlphaThreshold() { return &Renderer2D::alphaThreshold; }
+		virtual void ImguiRender(float deltaTime) = 0;
 
 	private:
 		static Application* sInstance;
 
-	private:
-		bool mRunning = true;
-		bool mMinimized = false;
+	protected:
 		std::unique_ptr<Window> mWindow;
 		std::unique_ptr<ImguiOverlay> mImguiOverlay;
+		bool minimized = false;
+
+	private:
+		bool mRunning = true;
 		float mLastFrameTime = 0.0f;
 
 	private:

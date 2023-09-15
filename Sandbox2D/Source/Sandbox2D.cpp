@@ -36,10 +36,8 @@ void Sandbox2D::Render(float deltaTime)
 	Avalon::Renderer2D::EndScene();
 }
 
-void Sandbox2D::ImguiRender()
+void Sandbox2D::ImguiRender(float deltaTime)
 {
-	Application::ImguiRender();
-
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(mSquareColor));
 	ImGui::SliderFloat("X", &mImguiPosition.x, -10, 10);

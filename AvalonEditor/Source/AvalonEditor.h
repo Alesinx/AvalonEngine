@@ -11,7 +11,7 @@ namespace Avalon
 
 		void Update(float deltaTime) override;
 		void Render(float deltaTime) override;
-		void ImguiRender() override;
+		void ImguiRender(float deltaTime) override;
 		void ProcessEvent(Event& e) override;
 
 	private:
@@ -33,5 +33,10 @@ namespace Avalon
 
 		bool mViewportFocused;
 		bool mViewportHovered;
+
+		float timeBetweenInfoUpdates = 1.0f;
+
+		float fpsCounter = 0.0f;
+		float lastInfoUpdateTime = 0.0f;
 	};
 }

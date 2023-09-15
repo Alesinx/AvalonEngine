@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Avalon/Event/ApplicationEvents.h"
 #include "Avalon/Renderer/Renderer.h"
+#include "Avalon/Time/Time.h"
 
 // Will probably need to be removed in the future
 #include <glfw/glfw3.h>
@@ -38,7 +39,7 @@ namespace Avalon
 	{
 		while (mRunning)
 		{
-			float time = (float)glfwGetTime();
+			float time = Time::GetCurrentTime();
 			float deltaTime = time - mLastFrameTime;
 			mLastFrameTime = time;
 
@@ -65,14 +66,9 @@ namespace Avalon
 		if (mOverlayEnabled)
 		{
 			mImguiOverlay->Begin();
-			ImguiRender();
+			ImguiRender(deltaTime);
 			mImguiOverlay->End();
 		}
-	}
-
-	void Application::ImguiRender()
-	{
-		mImguiOverlay->Render();
 	}
 
 	void Application::Render(float deltaTime)
@@ -96,17 +92,13 @@ namespace Avalon
 
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
-		mMinimized = e.GetWidth() == 0 || e.GetHeight() == 0;
-		if (mMinimized)
+		minimized = e.GetWidth() == 0 || e.GetHeight() == 0;
+		if (minimized)
+		{
 			return false;
+		}
 
 		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
 		return false;
-	}
-
-	void Application::SetShowImguiDemo(bool show)
-	{
-		if (mImguiOverlay)
-			mImguiOverlay->showDemo = show;
 	}
 }

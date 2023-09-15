@@ -22,6 +22,9 @@ namespace Avalon
 	class Renderer2D
 	{
 	public:
+		static float alphaThreshold;
+
+	public:
 		static void Init();
 		static void Shutdown();
 
@@ -37,8 +40,5 @@ namespace Avalon
 
 	private:
 		static std::unique_ptr<Renderer2DStorage> sData;
-		static float alphaThreshold;
-
-		friend class Application;
 	};
 }
