@@ -10,6 +10,8 @@
 
 namespace Avalon
 {
+	class Application;
+	 
 	struct Renderer2DStorage
 	{
 		std::shared_ptr<VertexArray> QuadVertexArray;
@@ -36,5 +38,7 @@ namespace Avalon
 	private:
 		static std::unique_ptr<Renderer2DStorage> sData;
 		static float alphaThreshold;
+
+		friend class Application;
 	};
 }

@@ -24,14 +24,14 @@ namespace Avalon
 	public:
 		void Initialize() override
 		{
+			// Creating entity2 (and therefore rendered) before entity1 but placed in front to test alpha testing
+			auto& entity2 = entities.emplace_back(new Entity(Vec3(Vec2(0.f), 0.5f)));
+			entity2->CreateComponent<SpriteComponent>();
+			entity2->CreateComponent<VerticalMovementComponent>(1.f);
 
 			auto& entity1 = entities.emplace_back(new Entity());
 			entity1->CreateComponent<SpriteComponent>();
 			entity1->CreateComponent<VerticalMovementComponent>(0.f);
-
-			//auto& entity2 = entities.emplace_back(new Entity(Vec3(0.2f, 0.f, 0.f)));
-			//entity2->CreateComponent<SpriteComponent>();
-			//entity2->CreateComponent<VerticalMovementComponent>(1.f);
 
 			Scene::Initialize();
 		}

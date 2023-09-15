@@ -24,6 +24,8 @@ namespace Avalon
 
 		exampleScene = std::unique_ptr<Avalon::ExampleScene>(new ExampleScene());
 		exampleScene->Initialize();
+
+		SetShowImguiDemo(false);
 	}
 
 	void AvalonEditor::Update(float deltaTime)
@@ -54,10 +56,9 @@ namespace Avalon
 		Avalon::Renderer::Clear();
 
 		Avalon::Renderer2D::BeginScene(mCameraController.GetCamera());
-		//Avalon::Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.0f }, Vec2(1), mFishTexture);
 		Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.999999f }, { 10.0f, 10.0f }, mCheckerboardTexture, Vec4(Vec3(0.5f), 1.f));
-		exampleScene->Render(deltaTime);
 		Avalon::Renderer2D::DrawQuad(mImguiPosition, Vec2(1), Vec4(1.f));
+		exampleScene->Render(deltaTime);
 		Avalon::Renderer2D::EndScene();
 
 		mFramebuffer->Unbind();
@@ -144,11 +145,23 @@ namespace Avalon
 		ImGui::PopStyleVar();
 
 		// Settings
-		ImGui::Begin("Settings");
+		ImGui::Begin("Inspector");
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(mSquareColor));
 		ImGui::SliderFloat("X", &mImguiPosition.x, -2, 2);
 		ImGui::SliderFloat("Y", &mImguiPosition.y, -2, 2);
-		ImGui::SliderFloat("Z", &mImguiPosition.z, -0.999f, +0.999f);
+		ImGui::SliderFloat("Z", &mImguiPosition.z, -0.999f, 0.999f);
+		ImGui::End();
+
+		// Settings
+		ImGui::Begin("Settings");
+		if (ImGui::TreeNode("Rendering"))
+		{
+			ImGui::Text("Alpha threshold");
+			ImGui::SameLine();
+			ImGui::InputFloat("##value", GetRenderer2DAlphaThreshold());
+			
+			ImGui::TreePop();
+		}
 		ImGui::End();
 
 		// Hierarchy

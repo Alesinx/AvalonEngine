@@ -28,7 +28,7 @@ namespace Avalon
 		std::unique_ptr<Avalon::ExampleScene> exampleScene;
 
 		Vec4 mSquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
-		Vec3 mImguiPosition = { 0.0f, 0.0f, 0.1f };
+		Vec3 mImguiPosition = { 0.0f, 0.0f, -0.1f };
 		Vec2 mViewportSize = { 0.0f, 0.0f };
 
 		bool mViewportFocused;

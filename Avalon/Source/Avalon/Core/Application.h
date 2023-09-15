@@ -4,6 +4,7 @@
 #include "Avalon/Core/Window.h"
 #include "Avalon/Imgui/ImguiOverlay.h"
 
+#include "Avalon/Renderer/Renderer2D.h"
 #include "Avalon/Renderer/Shader.h"
 #include "Avalon/Renderer/Buffer.h"
 #include "Avalon/Renderer/VertexArray.h"
@@ -39,6 +40,7 @@ namespace Avalon
 		virtual void ImguiRender();
 
 		void SetShowImguiDemo(bool show);
+		float* GetRenderer2DAlphaThreshold() { return &Renderer2D::alphaThreshold; }
 
 	private:
 		static Application* sInstance;

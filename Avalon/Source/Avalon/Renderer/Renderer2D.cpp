@@ -47,7 +47,7 @@ namespace Avalon
 	{
 		sData->TextureShader->Bind();
 		sData->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjecionMatrix());
-		sData->TextureShader->SetFloat("u_AlphaTreshold", alphaThreshold);
+		sData->TextureShader->SetFloat("u_AlphaThreshold", alphaThreshold);
 	}
 
 	void Renderer2D::EndScene()
