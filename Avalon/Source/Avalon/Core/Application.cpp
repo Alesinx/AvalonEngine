@@ -37,6 +37,8 @@ namespace Avalon
 
 	void Application::Gameloop()
 	{
+		mLastFrameTime = Time::GetCurrentTime();
+
 		while (mRunning)
 		{
 			float time = Time::GetCurrentTime();

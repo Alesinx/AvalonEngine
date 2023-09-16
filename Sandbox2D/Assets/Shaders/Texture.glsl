@@ -32,6 +32,6 @@ void main()
 {
 	color = texture(u_Texture, v_TexCoord) * u_Color;
 
-    if(color.a < u_AlphaThreshold)
-        discard;
+	if(color.a < u_AlphaThreshold)
+		discard;
 }

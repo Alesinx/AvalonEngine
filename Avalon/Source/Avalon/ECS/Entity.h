@@ -19,8 +19,8 @@ namespace Avalon
 	class Entity
 	{
 	public:
-		Entity(Vec3 position = Vec3(0), Vec2 rotation = Vec2(0), Vec2 scale = Vec2(1)) :
-			transform(position, rotation, scale)
+		Entity(std::string name = "", Vec3 position = Vec3(0), Vec2 rotation = Vec2(0), Vec2 scale = Vec2(1)) :
+			name(name), transform(position, rotation, scale)
 		{}
 		virtual ~Entity() {}
 
@@ -31,6 +31,8 @@ namespace Avalon
 		virtual void Update(float deltaTime);
 		virtual void Render(float deltaTime) const;
 
+		std::string GetName() { return name; }
+
 		template <DerivedFromComponent T, typename... Args>
 		void CreateComponent(Args... args)
 		{
@@ -39,7 +41,8 @@ namespace Avalon
 			components.push_back(std::move(newComp));
 		}
 
-	private:
+	protected:
+		std::string name;
 		Transform transform;
 		std::vector<std::unique_ptr<Component>> components;
 	};
