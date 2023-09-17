@@ -9,7 +9,9 @@ namespace Avalon
 	class SpriteComponent : public Component
 	{
 	public:
-		SpriteComponent(Entity* const owner = nullptr) : Component(owner) {}
+		SpriteComponent(Entity* const owner = nullptr, std::string texturePath = "Assets/Textures/Fish.png", Vec4 tintColor = Vec4(1.f)) : 
+			Component(owner), texturePath(texturePath), tintColor(tintColor) 
+		{}
 		virtual ~SpriteComponent() = default;
 
 		void Initialize() override;
@@ -18,6 +20,8 @@ namespace Avalon
 
 	protected:
 		std::shared_ptr<Texture2D> texture2D = nullptr;
+		std::string texturePath;
+		Vec4 tintColor;
 	};
 }
 

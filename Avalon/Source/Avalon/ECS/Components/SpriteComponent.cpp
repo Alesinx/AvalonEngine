@@ -8,7 +8,7 @@ namespace Avalon
 {
 	void SpriteComponent::Initialize()
 	{
-		texture2D = Avalon::Texture2D::Create("Assets/Textures/Fish.png");
+		texture2D = Avalon::Texture2D::Create(texturePath);
 	}
 
 	void SpriteComponent::Update(float deltaTime)
@@ -19,6 +19,6 @@ namespace Avalon
 	{
 		Vec3 ownerPos = mOwningEntity->GetTransform().position;
 		Vec2 ownerScale = mOwningEntity->GetTransform().scale;
-		Renderer2D::DrawQuad(ownerPos, ownerScale, texture2D);
+		Renderer2D::DrawQuad(ownerPos, ownerScale, texture2D, tintColor);
 	}
 }

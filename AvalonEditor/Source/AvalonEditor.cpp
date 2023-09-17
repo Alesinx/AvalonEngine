@@ -62,8 +62,8 @@ namespace Avalon
 
 		Avalon::Renderer2D::BeginScene(mCameraController.GetCamera());
 		Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.999999f }, { 10.0f, 10.0f }, mCheckerboardTexture, Vec4(Vec3(0.5f), 1.f));
-		Avalon::Renderer2D::DrawQuad(mImguiPosition, Vec2(1), Vec4(1.f));
 		exampleScene->Render(deltaTime);
+		Avalon::Renderer2D::DrawQuad(mImguiPosition, Vec2(1), Vec4(1.f));
 		Avalon::Renderer2D::EndScene();
 
 		mFramebuffer->Unbind();
