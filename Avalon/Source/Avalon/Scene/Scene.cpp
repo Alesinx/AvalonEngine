@@ -1,26 +1,30 @@
 #include "AvalonPch.h"
 #include "Scene.h"
+#include <yaml-cpp/yaml.h>
 
-void Avalon::Scene::Initialize()
+namespace Avalon
 {
-	for (const auto& entity : entities)
+	void Scene::Initialize()
 	{
-		entity->Initialize();
+		for (const auto& entity : entities)
+		{
+			entity->Initialize();
+		}
 	}
-}
 
-void Avalon::Scene::Update(float deltaTime)
-{
-	for (const auto& entity : entities)
+	void Scene::Update(float deltaTime)
 	{
-		entity->Update(deltaTime);
+		for (const auto& entity : entities)
+		{
+			entity->Update(deltaTime);
+		}
 	}
-}
 
-void Avalon::Scene::Render(float deltaTime)
-{
-	for (const auto& entity : entities)
+	void Scene::Render(float deltaTime)
 	{
-		entity->Render(deltaTime);
+		for (const auto& entity : entities)
+		{
+			entity->Render(deltaTime);
+		}
 	}
 }

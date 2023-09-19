@@ -1,6 +1,6 @@
 workspace "Avalon"
 	architecture "x64"
-	startproject "Sandbox2D"
+	startproject "AvalonEditor"
 
 	configurations
 	{
@@ -23,11 +23,13 @@ IncludeDir["Glad"] = "Avalon/ThirdParty/Glad/include"
 IncludeDir["ImGui"] = "Avalon/ThirdParty/ImGui"
 IncludeDir["stb_image"] = "Avalon/ThirdParty/stb_image"
 IncludeDir["glm"] = "Avalon/ThirdParty/glm"
+IncludeDir["yaml_cpp"] = "Avalon/ThirdParty/yaml_cpp/include"
 
 group "Dependencies"
 	include "Avalon/ThirdParty/GLFW"
 	include "Avalon/ThirdParty/Glad"
 	include "Avalon/ThirdParty/ImGui"
+	include "Avalon/ThirdParty/yaml_cpp"
 group ""
 
 project "Avalon" -------------------------------------------------------------------------
@@ -56,12 +58,12 @@ project "Avalon" ---------------------------------------------------------------
 	includedirs
 	{
 		"Avalon/Source",
-		"Avalon/ThirdParty",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.yaml_cpp}"
 	}
 
 	links
@@ -69,6 +71,7 @@ project "Avalon" ---------------------------------------------------------------
 		"GLFW",
 		"Glad",
 		"ImGui",
+		"yaml_cpp",
 		"opengl32.lib"
 	}
 
@@ -86,15 +89,18 @@ project "Avalon" ---------------------------------------------------------------
 		defines "AVALON_DEBUG"
 		runtime "Debug"
 		symbols "On"
+		optimize "Off"
 
 	filter "configurations:Release"
 		defines "AVALON_RELEASE"
 		runtime "Release"
+		symbols "On"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "AVALON_DIST"
 		runtime "Release"
+		symbols "Off"
 		optimize "On"
 
 project "AvalonEditor" ------------------------------------------------------------------------
@@ -132,16 +138,19 @@ project "AvalonEditor" ---------------------------------------------------------
 		defines "AVALON_DEBUG"
 		runtime "Debug"
 		symbols "On"
+		optimize "Off"
 
 	filter "configurations:Release"
 		defines "AVALON_RELEASE"
 		runtime "Release"
+		symbols "On"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "AVALON_DIST"
 		runtime "Release"
-		symbols "On"
+		symbols "Off"
+		optimize "On"
 
 project "Sandbox2D" ------------------------------------------------------------------------
 	location "Sandbox2D"
@@ -178,13 +187,16 @@ project "Sandbox2D" ------------------------------------------------------------
 		defines "AVALON_DEBUG"
 		runtime "Debug"
 		symbols "On"
+		optimize "Off"
 
 	filter "configurations:Release"
 		defines "AVALON_RELEASE"
 		runtime "Release"
+		symbols "On"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "AVALON_DIST"
 		runtime "Release"
-		symbols "On"
+		symbols "Off"
+		optimize "On"

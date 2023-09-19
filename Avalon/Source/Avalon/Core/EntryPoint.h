@@ -8,6 +8,7 @@ extern Avalon::Application* Avalon::CreateApplication();
 
 int main(int argc, char** argv)
 {
+
 	Avalon::Application* app = Avalon::CreateApplication();
 	app->Run();
 	delete app;

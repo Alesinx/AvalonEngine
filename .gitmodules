@@ -10,3 +10,6 @@
 	path = Avalon/ThirdParty/glm
 	url = https://github.com/g-truc/glm
 	branch = master
+[submodule "Avalon/ThirdParty/yaml_cpp"]
+	path = Avalon/ThirdParty/yaml_cpp
+	url = https://github.com/Alesinx/yaml-cpp
