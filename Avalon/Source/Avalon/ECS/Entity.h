@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Avalon/ECS/Components/Component.h"
+#include "Avalon/ECS/Components/TransformComponent.h"
 
 namespace YAML
 {
@@ -9,19 +10,6 @@ namespace YAML
 
 namespace Avalon
 {
-	class Transform
-	{
-	public:
-		Transform(Vec3 position, Vec2 rotation, Vec2 scale) : position(position), rotation(rotation), scale(scale) {}
-
-		Vec3 position = Vec3(0);
-		Vec2 rotation = Vec2(0);
-		Vec2 scale = Vec2(1);
-
-		void Serialize(YAML::Emitter& out);
-		void Deserialize();
-	};
-
 	template <typename T>
 	concept DerivedFromComponent = std::is_base_of<Component, T>::value;
 
@@ -29,12 +17,12 @@ namespace Avalon
 	{
 	public:
 		Entity(std::string name = "", Vec3 position = Vec3(0), Vec2 rotation = Vec2(0), Vec2 scale = Vec2(1)) :
-			name(name), transform(position, rotation, scale)
+			name(name), transformComponent(this, position, rotation, scale)
 		{}
 		virtual ~Entity() {}
 
-		const Transform& GetTransform() const { return transform; }
-		void SetTransform(Transform newTransform) { this->transform = newTransform; }
+		const TransformComponent& GetTransform() const { return transformComponent; }
+		void SetTransform(Vec3 position, Vec2 rotation, Vec2 scale) { this->transformComponent.position = position; this->transformComponent.rotation = rotation; this->transformComponent.scale = scale; }
 
 		virtual void Initialize();
 		virtual void Update(float deltaTime);
@@ -54,7 +42,7 @@ namespace Avalon
 		}
 
 	protected:
-		Transform transform;
+		TransformComponent transformComponent;
 
 	public:
 		std::string id;

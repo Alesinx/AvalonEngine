@@ -1,10 +1,15 @@
-#pragma once
-
-#include <glm/glm.hpp>
-#include <yaml-cpp/yaml.h>
+#include "AvalonPch.h"
+#include "Avalon/ECS/Components/CustomSerializationOperators.h"
 
 namespace Avalon
 {
+	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec2& v)
+	{
+		out << YAML::Flow;
+		out << YAML::BeginSeq << v.x << v.y << YAML::EndSeq;
+		return out;
+	}
+
 	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec3& v)
 	{
 		out << YAML::Flow;

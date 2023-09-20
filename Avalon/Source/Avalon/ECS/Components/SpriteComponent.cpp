@@ -2,7 +2,8 @@
 #include "Avalon/ECS/Components/SpriteComponent.h"
 #include "Avalon/ECS/Entity.h"
 #include "Avalon/Renderer/Renderer2D.h"
-#include "Avalon/ECS/Components/CustomSerializationOperators.h"
+
+#include "Avalon/ECS/Components/CustomTypeSerializationOperators.h"
 
 #include <yaml-cpp/yaml.h>
 

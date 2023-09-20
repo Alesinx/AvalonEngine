@@ -24,7 +24,7 @@ namespace Avalon
 		Vec3 currentPosition = originalPosition + Vec3(0.f, offset, 0.f);
 		Vec2 originalRotation = mOwningEntity->GetTransform().rotation;
 		Vec2 originalScale = mOwningEntity->GetTransform().scale;
-		mOwningEntity->SetTransform(Transform(currentPosition, originalRotation, originalScale));
+		mOwningEntity->SetTransform(currentPosition, originalRotation, originalScale);
 	}
 
 	void VerticalMovementComponent::Serialize(YAML::Emitter& out)

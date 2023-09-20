@@ -5,6 +5,10 @@ Scene:
         id: ""
         name: entity2
         Components:
+          - TransformComponent:
+              positon: [0.5, 0, 0.5]
+              rotation: [-431602080, -431602080]
+              scale: [1, 1]
           - SpriteComponent:
               texturePath: Assets/Textures/Fish.png
               tintColor: [0.699999988, 1, 1, 1]
@@ -16,6 +20,10 @@ Scene:
         id: ""
         name: entity1
         Components:
+          - TransformComponent:
+              positon: [0, 0, 0]
+              rotation: [-431602080, -431602080]
+              scale: [1, 1]
           - SpriteComponent:
               texturePath: Assets/Textures/Fish.png
               tintColor: [1, 1, 1, 1]

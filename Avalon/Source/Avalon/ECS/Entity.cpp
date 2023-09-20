@@ -41,6 +41,8 @@ namespace Avalon
 
         out << YAML::Key << "Components" << YAML::Value << YAML::BeginSeq;
 
+		transformComponent.Serialize(out);
+
         for (const auto& component : components)
         {
             component->Serialize(out);
@@ -54,15 +56,6 @@ namespace Avalon
 	}
 
 	void Entity::Deserialize()
-	{
-	}
-
-	void Transform::Serialize(YAML::Emitter& out)
-	{
-
-	}
-
-	void Transform::Deserialize()
 	{
 	}
 }
