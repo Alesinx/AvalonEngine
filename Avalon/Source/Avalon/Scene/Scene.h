@@ -2,6 +2,7 @@
 #include "Avalon/ECS/Entity.h"
 #include "Avalon/ECS/Components/Component.h"
 #include "Avalon/ECS/Components/SpriteComponent.h"
+#include "Avalon/ECS/Components/VerticalMovementComponent.h"
 
 namespace Avalon
 {

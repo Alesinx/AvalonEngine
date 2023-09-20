@@ -1,7 +1,6 @@
 #include "AvalonPch.h"
-#include "Avalon/ECS/Entity.h"
 #include "Avalon/ECS/Components/SpriteComponent.h"
-#include "Avalon/ECS/Components/Component.h"
+#include "Avalon/ECS/Entity.h"
 #include "Avalon/Renderer/Renderer2D.h"
 
 #include <yaml-cpp/yaml.h>
