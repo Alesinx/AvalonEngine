@@ -3,6 +3,11 @@
 #include "Avalon/Core/Core.h"
 #include "Avalon/Renderer/Texture.h"
 
+namespace YAML
+{
+	class Emitter;
+}
+
 namespace Avalon
 {
 	class Entity;
@@ -10,8 +15,7 @@ namespace Avalon
 	class Component
 	{
 	public:
-		Component() { mOwningEntity = nullptr; }
-		Component(Entity* const owner) : mOwningEntity(owner) {}
+		Component(Entity* const owner = nullptr) : mOwningEntity(owner) {}
 		virtual ~Component() = default;
 
 		virtual void SetOwner(Entity* const owner) { mOwningEntity = owner; }
@@ -19,6 +23,7 @@ namespace Avalon
 		virtual void Initialize() = 0;
 		virtual void Update(float deltaTime) = 0;
 		virtual void Render(float deltaTime) = 0;
+		virtual void Serialize(YAML::Emitter& out) = 0;
 
 	protected:
 		Entity* mOwningEntity;
@@ -31,8 +36,10 @@ namespace Avalon
 		virtual ~QuadComponent() = default;
 
 		void Initialize() override;
-		void Update(float deltaTime) override;
+		void Update(float deltaTime) override {}
 		void Render(float deltaTime) override;
+
+		void Serialize(YAML::Emitter& out) override;
 
 	protected:
 		Vec2 size;
@@ -48,7 +55,8 @@ namespace Avalon
 
 		void Initialize() override;
 		void Update(float deltaTime) override;
-		void Render(float deltaTime) override;
+		void Render(float deltaTime) {}
+		void Serialize(YAML::Emitter& out) override;
 
 	protected:
 		float offset;

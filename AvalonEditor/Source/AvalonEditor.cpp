@@ -24,6 +24,7 @@ namespace Avalon
 
 		exampleScene = std::unique_ptr<Avalon::ExampleScene>(new ExampleScene());
 		exampleScene->Initialize();
+		exampleScene->Serialize("Assets/Scenes/ExampleScene.yaml");
 	}
 
 	void AvalonEditor::Update(float deltaTime)

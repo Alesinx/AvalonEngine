@@ -1,0 +1,25 @@
+Scene:
+  Name: Untitled scene
+  Entities:
+    - Entity:
+        id: ""
+        name: entity2
+        Components:
+          - SpriteComponent:
+              texturePath: Assets/Textures/Fish.png
+              tintColor: "{0.7f, 1.0f, 1.0f, 1.0f}"
+          - VerticalMovementComponent:
+              initialOffset: 1
+              maxOffset: 1
+              speed: 1
+    - Entity:
+        id: ""
+        name: entity1
+        Components:
+          - SpriteComponent:
+              texturePath: Assets/Textures/Fish.png
+              tintColor: "{0.7f, 1.0f, 1.0f, 1.0f}"
+          - VerticalMovementComponent:
+              initialOffset: 0
+              maxOffset: 1
+              speed: 1

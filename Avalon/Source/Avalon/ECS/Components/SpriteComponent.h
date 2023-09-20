@@ -18,6 +18,8 @@ namespace Avalon
 		void Update(float deltaTime) override;
 		void Render(float deltaTime) override;
 
+		void Serialize(YAML::Emitter& out) override;
+
 	protected:
 		std::shared_ptr<Texture2D> texture2D = nullptr;
 		std::string texturePath;

@@ -2,15 +2,24 @@
 
 #include "Avalon/ECS/Components/Component.h"
 
+namespace YAML
+{
+	class Emitter;
+}
+
 namespace Avalon
 {
-	struct Transform
+	class Transform
 	{
+	public:
 		Transform(Vec3 position, Vec2 rotation, Vec2 scale) : position(position), rotation(rotation), scale(scale) {}
 
 		Vec3 position = Vec3(0);
 		Vec2 rotation = Vec2(0);
 		Vec2 scale = Vec2(1);
+
+		void Serialize(YAML::Emitter& out);
+		void Deserialize();
 	};
 
 	template <typename T>
@@ -31,6 +40,9 @@ namespace Avalon
 		virtual void Update(float deltaTime);
 		virtual void Render(float deltaTime) const;
 
+		virtual void Serialize(YAML::Emitter& out);
+		virtual void Deserialize();
+
 		std::string GetName() { return name; }
 
 		template <DerivedFromComponent T, typename... Args>
@@ -42,8 +54,11 @@ namespace Avalon
 		}
 
 	protected:
-		std::string name;
 		Transform transform;
+
+	public:
+		std::string id;
+		std::string name;
 		std::vector<std::unique_ptr<Component>> components;
 	};
 }

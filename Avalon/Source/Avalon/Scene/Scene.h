@@ -8,14 +8,17 @@ namespace Avalon
 	class Scene
 	{
 	public:
-		Scene() = default;
+		Scene(const std::string& name = "Untitled scene") : name(name) {}
 		virtual ~Scene() = default;
 
 		virtual void Initialize();
 		virtual void Update(float deltaTime);
 		virtual void Render(float deltaTime);
+		virtual void Serialize(const std::string& path);
+		virtual void Deserialize();
 
 	protected:
+		std::string name;
 		std::vector<std::unique_ptr<Entity>> entities;
 	};
 
