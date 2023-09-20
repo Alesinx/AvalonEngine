@@ -2,6 +2,7 @@
 #include "Avalon/ECS/Components/SpriteComponent.h"
 #include "Avalon/ECS/Entity.h"
 #include "Avalon/Renderer/Renderer2D.h"
+#include "Avalon/ECS/Components/CustomSerializationOperators.h"
 
 #include <yaml-cpp/yaml.h>
 
@@ -30,7 +31,7 @@ namespace Avalon
 		out << YAML::Key << "SpriteComponent" << YAML::Value << YAML::BeginMap;
 
 		out << YAML::Key << "texturePath" << YAML::Value << texturePath;
-		out << YAML::Key << "tintColor" << YAML::Value << "{0.7f, 1.0f, 1.0f, 1.0f}";
+		out << YAML::Key << "tintColor" << YAML::Value << tintColor;
 
 		out << YAML::EndMap; // SpriteComponent
 

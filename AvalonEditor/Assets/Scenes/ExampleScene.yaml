@@ -7,7 +7,7 @@ Scene:
         Components:
           - SpriteComponent:
               texturePath: Assets/Textures/Fish.png
-              tintColor: "{0.7f, 1.0f, 1.0f, 1.0f}"
+              tintColor: [0.699999988, 1, 1, 1]
           - VerticalMovementComponent:
               initialOffset: 1
               maxOffset: 1
@@ -18,7 +18,7 @@ Scene:
         Components:
           - SpriteComponent:
               texturePath: Assets/Textures/Fish.png
-              tintColor: "{0.7f, 1.0f, 1.0f, 1.0f}"
+              tintColor: [1, 1, 1, 1]
           - VerticalMovementComponent:
               initialOffset: 0
               maxOffset: 1

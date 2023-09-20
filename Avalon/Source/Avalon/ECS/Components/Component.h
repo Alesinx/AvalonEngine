@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Avalon/Core/Core.h"
 #include "Avalon/Renderer/Texture.h"
 

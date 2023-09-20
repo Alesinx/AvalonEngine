@@ -123,7 +123,8 @@ project "AvalonEditor" ---------------------------------------------------------
 	{
 		"Avalon/Source/",
 		"Avalon/ThirdParty/",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.yaml_cpp}"
 	}
 
 	links
@@ -172,7 +173,8 @@ project "Sandbox2D" ------------------------------------------------------------
 	{
 		"Avalon/Source/",
 		"Avalon/ThirdParty/",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.yaml_cpp}"
 	}
 
 	links
