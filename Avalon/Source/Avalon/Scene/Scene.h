@@ -1,8 +1,5 @@
 #pragma once
 #include "Avalon/ECS/Entity.h"
-#include "Avalon/ECS/Components/Component.h"
-#include "Avalon/ECS/Components/SpriteComponent.h"
-#include "Avalon/ECS/Components/VerticalMovementComponent.h"
 
 namespace Avalon
 {
@@ -16,7 +13,14 @@ namespace Avalon
 		virtual void Update(float deltaTime);
 		virtual void Render(float deltaTime);
 		virtual void Serialize(const std::string& path);
-		virtual void Deserialize();
+		virtual bool Deserialize(const std::string filePath);
+
+		static std::shared_ptr<Scene> CreateScene(const std::string& filePath)
+		{
+			std::shared_ptr<Scene> newScene = std::make_shared<Scene>();
+			newScene->Deserialize(filePath);
+			return newScene;
+		}
 
 	protected:
 		std::string name;
@@ -26,19 +30,7 @@ namespace Avalon
 	class ExampleScene : public Scene
 	{
 	public:
-		void Initialize() override
-		{
-			// Creating entity2 (and therefore rendered) before entity1 but placed in front to test alpha testing
-			auto& entity2 = entities.emplace_back(new Entity("entity2", Vec3(0.5f, 0.f, 0.5f)));
-			entity2->CreateComponent<SpriteComponent>("Assets/Textures/Fish.png", Vec4(0.7f, 1.f, 1.f, 1.f));
-			entity2->CreateComponent<VerticalMovementComponent>(1.f);
-
-			auto& entity1 = entities.emplace_back(new Entity("entity1"));
-			entity1->CreateComponent<SpriteComponent>();
-			entity1->CreateComponent<VerticalMovementComponent>(0.f);
-
-			Scene::Initialize();
-		}
+		void Initialize() override;
 	};
 }
 

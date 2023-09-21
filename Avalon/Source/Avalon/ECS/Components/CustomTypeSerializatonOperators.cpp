@@ -1,5 +1,5 @@
 #include "AvalonPch.h"
-#include "Avalon/ECS/Components/CustomSerializationOperators.h"
+#include "Avalon/ECS/Components/CustomTypeSerializationOperators.h"
 
 namespace Avalon
 {

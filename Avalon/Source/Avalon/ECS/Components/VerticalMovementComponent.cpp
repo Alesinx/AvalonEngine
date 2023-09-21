@@ -14,14 +14,14 @@ namespace Avalon
 
 	void VerticalMovementComponent::Update(float deltaTime)
 	{
-		offset += direction * speed * deltaTime;
-		if (glm::abs(offset) >= maxOffset)
+		currentOffset += direction * speed * deltaTime;
+		if (glm::abs(currentOffset) >= maxOffset)
 		{
-			offset = direction * maxOffset;
+			currentOffset = direction * maxOffset;
 			direction *= -1;
 		}
 
-		Vec3 currentPosition = originalPosition + Vec3(0.f, offset, 0.f);
+		Vec3 currentPosition = originalPosition + Vec3(0.f, currentOffset, 0.f);
 		Vec2 originalRotation = mOwningEntity->GetTransform().rotation;
 		Vec2 originalScale = mOwningEntity->GetTransform().scale;
 		mOwningEntity->SetTransform(currentPosition, originalRotation, originalScale);
@@ -33,7 +33,8 @@ namespace Avalon
 
 		out << YAML::Key << "VerticalMovementComponent" << YAML::Value << YAML::BeginMap;
 
-		out << YAML::Key << "initialOffset" << YAML::Value << offset;
+		out << YAML::Key << "movingDown" << YAML::Value << (direction == 1);
+		out << YAML::Key << "initialOffset" << YAML::Value << initialOffset;
 		out << YAML::Key << "maxOffset" << YAML::Value << maxOffset;
 		out << YAML::Key << "speed" << YAML::Value << speed;
 

@@ -16,8 +16,8 @@ namespace Avalon
 	class Entity
 	{
 	public:
-		Entity(std::string name = "", Vec3 position = Vec3(0), Vec2 rotation = Vec2(0), Vec2 scale = Vec2(1)) :
-			name(name), transformComponent(this, position, rotation, scale)
+		Entity(uint64_t id = 0, std::string name = "", Vec3 position = Vec3(0), Vec2 rotation = Vec2(0), Vec2 scale = Vec2(1)) :
+			id(id), name(name), transformComponent(this, position, rotation, scale)
 		{}
 		virtual ~Entity() {}
 
@@ -45,7 +45,7 @@ namespace Avalon
 		TransformComponent transformComponent;
 
 	public:
-		std::string id;
+		std::uint64_t id;
 		std::string name;
 		std::vector<std::unique_ptr<Component>> components;
 	};

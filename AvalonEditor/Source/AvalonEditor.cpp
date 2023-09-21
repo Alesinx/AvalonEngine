@@ -22,9 +22,8 @@ namespace Avalon
 		fbSpec.height = 720;
 		mFramebuffer = Avalon::Framebuffer::Create(fbSpec);
 
-		exampleScene = std::unique_ptr<Avalon::ExampleScene>(new ExampleScene());
-		exampleScene->Initialize();
-		exampleScene->Serialize("Assets/Scenes/ExampleScene.yaml");
+		scene = Scene::CreateScene("Assets/Scenes/ExampleScene.yaml");
+		scene->Initialize();
 	}
 
 	void AvalonEditor::Update(float deltaTime)
@@ -33,7 +32,7 @@ namespace Avalon
 
 		mCameraController.Update(deltaTime);
 
-		exampleScene->Update(deltaTime);
+		scene->Update(deltaTime);
 
 		float currentTime = Avalon::Time::GetCurrentTime();
 		if (currentTime - lastInfoUpdateTime > timeBetweenInfoUpdates)
@@ -63,7 +62,7 @@ namespace Avalon
 
 		Avalon::Renderer2D::BeginScene(mCameraController.GetCamera());
 		Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.999999f }, { 10.0f, 10.0f }, mCheckerboardTexture, Vec4(Vec3(0.5f), 1.f));
-		exampleScene->Render(deltaTime);
+		scene->Render(deltaTime);
 		Avalon::Renderer2D::DrawQuad(mImguiPosition, Vec2(1), Vec4(1.f));
 		Avalon::Renderer2D::EndScene();
 

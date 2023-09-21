@@ -2,8 +2,8 @@ Scene:
   Name: Untitled scene
   Entities:
     - Entity:
-        id: ""
-        name: entity2
+        id: 1
+        name: entity1
         Components:
           - TransformComponent:
               positon: [0.5, 0, 0.5]
@@ -13,12 +13,13 @@ Scene:
               texturePath: Assets/Textures/Fish.png
               tintColor: [0.699999988, 1, 1, 1]
           - VerticalMovementComponent:
-              initialOffset: 1
+              movingDown: true
+              initialOffset: 0
               maxOffset: 1
               speed: 1
     - Entity:
-        id: ""
-        name: entity1
+        id: 2
+        name: entity2
         Components:
           - TransformComponent:
               positon: [0, 0, 0]
@@ -28,6 +29,7 @@ Scene:
               texturePath: Assets/Textures/Fish.png
               tintColor: [1, 1, 1, 1]
           - VerticalMovementComponent:
+              movingDown: true
               initialOffset: 0
               maxOffset: 1
               speed: 1
