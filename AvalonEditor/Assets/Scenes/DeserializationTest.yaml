@@ -1,12 +1,12 @@
 Scene:
-  Name: Untitled scene
+  Name: (de)serializationTest
   Entities:
     - Entity:
         id: 1
         name: entity1
         Components:
           - TransformComponent:
-              positon: [0.5, 0, 0.5]
+              position: [0.5, 0, 0.5]
               rotation: [-431602080, -431602080]
               scale: [1, 1]
           - SpriteComponent:
@@ -22,7 +22,7 @@ Scene:
         name: entity2
         Components:
           - TransformComponent:
-              positon: [0, 0, 0]
+              position: [0, 0, 0]
               rotation: [-431602080, -431602080]
               scale: [1, 1]
           - SpriteComponent:
@@ -30,6 +30,6 @@ Scene:
               tintColor: [1, 1, 1, 1]
           - VerticalMovementComponent:
               movingDown: true
-              initialOffset: 0
+              initialOffset: 1
               maxOffset: 1
               speed: 1

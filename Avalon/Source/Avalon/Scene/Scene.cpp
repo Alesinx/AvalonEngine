@@ -22,7 +22,7 @@ namespace YAML {
 
 		static bool decode(const Node& node, glm::vec2& rhs)
 		{
-			if (!node.IsSequence() || node.size() != 3)
+			if (!node.IsSequence() || node.size() != 2)
 				return false;
 
 			rhs.x = node[0].as<float>();
@@ -143,57 +143,63 @@ namespace Avalon
 		if (!data["Scene"])
 			return false;
 
-		std::string sceneName = data["Scene"].as<std::string>();
+		YAML::Node sceneNode = data["Scene"];
+		std::string sceneName = sceneNode["Name"].as<std::string>();
 		AVALON_CORE_TRACE("Deserializing scene '{0}'", sceneName);
 		this->name = sceneName;
 
-		YAML::Node entitiesNode = data["Entities"];
+		YAML::Node entitiesNode = sceneNode["Entities"];
 		if (entitiesNode)
 		{
-			for (YAML::Node entityNode : entitiesNode)
+			for (YAML::Node entityNodeIterator : entitiesNode)
 			{
+				YAML::Node entityNode = entityNodeIterator["Entity"];
+
 				// Move into Entity::Deserialize() or Entity(YAML::Node entityNode)
-;				int id = entityNode["id"].as<int>();
+;				uint64_t id = entityNode["id"].as<uint64_t>();
 				std::string name = entityNode["name"].as<std::string>();
 
 				AVALON_CORE_TRACE("Deserializing entity: ID = {0}, name = {1}", id, name);
 
 				std::unique_ptr<Entity>& entity = entities.emplace_back(new Entity(id, name));
 
-				YAML::Node componentsNode = data["Components"];
-				for (YAML::Node componentNode : componentsNode)
+				YAML::Node componentsNode = entityNode["Components"];
+				if (componentsNode)
 				{
-					if(data["TransformComponent"])
+					for (YAML::Node componentNodeIterator : componentsNode)
 					{
-						// Move into TransformComponent::Deserialize() or TransformComponent(YAML::Node transformComponentNode)
-						YAML::Node transformComponentNode = data["TransformComponent"];
-						Vec3 position = transformComponentNode["Translation"].as<glm::vec3>();
-						Vec2 rotation = transformComponentNode["Rotation"].as<glm::vec2>();
-						Vec2 scale = transformComponentNode["Scale"].as<glm::vec2>();
-						entity->SetTransform(position, rotation, scale);
-					}
-					else if (data["SpriteComponent"])
-					{
-						YAML::Node spriteComponentNode = data["SpriteComponent"];
-						std::string texturePath = spriteComponentNode["texturePath"].as<std::string>();
-						Vec4 tintColor = spriteComponentNode["tintColor"].as<glm::vec4>();
-						entity->CreateComponent<SpriteComponent>(texturePath, tintColor);
-					}
-					else if (data["QuadComponent"])
-					{
-						YAML::Node quadComponent = data["QuadComponent"];
-						Vec2 size = quadComponent["size"].as<glm::vec2>();
-						Vec4 color = quadComponent["color"].as<glm::vec4>();
-						entity->CreateComponent<QuadComponent>(size, color);
-					}
-					else if (data["VerticalMovementComponent"])
-					{
-						YAML::Node verticalMovementComponent = data["VerticalMovementComponent"];
-						float movingDown = verticalMovementComponent["movingDown"].as<bool>();
-						float initialOffset = verticalMovementComponent["initialOffset"].as<float>();
-						float maxOffset = verticalMovementComponent["maxOffset"].as<float>();
-						float speed = verticalMovementComponent["speed"].as<float>();
-						entity->CreateComponent<VerticalMovementComponent>(movingDown, initialOffset, maxOffset, speed);
+						if (componentNodeIterator["TransformComponent"])
+						{
+							// Move into TransformComponent::Deserialize() or TransformComponent(YAML::Node transformComponentNode)
+							YAML::Node transformComponentNode = componentNodeIterator["TransformComponent"];
+							Vec3 position = transformComponentNode["position"].as<glm::vec3>();
+							Vec2 rotation = transformComponentNode["rotation"].as<glm::vec2>();
+							Vec2 scale = transformComponentNode["scale"].as<glm::vec2>();
+							entity->SetTransform(position, rotation, scale);
+						}
+						else if (componentNodeIterator["SpriteComponent"])
+						{
+							YAML::Node spriteComponentNode = componentNodeIterator["SpriteComponent"];
+							std::string texturePath = spriteComponentNode["texturePath"].as<std::string>();
+							Vec4 tintColor = spriteComponentNode["tintColor"].as<glm::vec4>();
+							entity->CreateComponent<SpriteComponent>(texturePath, tintColor);
+						}
+						else if (componentNodeIterator["QuadComponent"])
+						{
+							YAML::Node quadComponent = componentNodeIterator["QuadComponent"];
+							Vec2 size = quadComponent["size"].as<glm::vec2>();
+							Vec4 color = quadComponent["color"].as<glm::vec4>();
+							entity->CreateComponent<QuadComponent>(size, color);
+						}
+						else if (componentNodeIterator["VerticalMovementComponent"])
+						{
+							YAML::Node verticalMovementComponent = componentNodeIterator["VerticalMovementComponent"];
+							float movingDown = verticalMovementComponent["movingDown"].as<bool>();
+							float initialOffset = verticalMovementComponent["initialOffset"].as<float>();
+							float maxOffset = verticalMovementComponent["maxOffset"].as<float>();
+							float speed = verticalMovementComponent["speed"].as<float>();
+							entity->CreateComponent<VerticalMovementComponent>(movingDown, initialOffset, maxOffset, speed);
+						}
 					}
 				}
 			}

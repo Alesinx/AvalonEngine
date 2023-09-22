@@ -25,7 +25,7 @@ namespace Avalon
 
 		out << YAML::Key << "TransformComponent" << YAML::Value << YAML::BeginMap;
 
-		out << YAML::Key << "positon" << YAML::Value << position;
+		out << YAML::Key << "position" << YAML::Value << position;
 		out << YAML::Key << "rotation" << YAML::Value << rotation;
 		out << YAML::Key << "scale" << YAML::Value << scale;
 
