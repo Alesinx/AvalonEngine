@@ -7,11 +7,11 @@ Scene:
         Components:
           - TransformComponent:
               position: [0.5, 0, 0.5]
-              rotation: [-431602080, -431602080]
+              rotation: [0, 0]
               scale: [1, 1]
           - SpriteComponent:
               texturePath: Assets/Textures/Fish.png
-              tintColor: [0.699999988, 1, 1, 1]
+              tintColor: [0.7, 1, 1, 1]
           - VerticalMovementComponent:
               movingDown: true
               initialOffset: 0
@@ -23,7 +23,7 @@ Scene:
         Components:
           - TransformComponent:
               position: [0, 0, 0]
-              rotation: [-431602080, -431602080]
+              rotation: [0, 0]
               scale: [1, 1]
           - SpriteComponent:
               texturePath: Assets/Textures/Fish.png

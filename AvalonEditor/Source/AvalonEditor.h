@@ -25,8 +25,6 @@ namespace Avalon
 		std::shared_ptr<Texture2D> mCheckerboardTexture;
 		std::shared_ptr<Texture2D> mFishTexture;
 
-		std::shared_ptr<Avalon::Scene> scene;
-
 		Vec4 mSquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 		Vec3 mImguiPosition = { 0.0f, 0.0f, -0.1f };
 		Vec2 mViewportSize = { 0.0f, 0.0f };

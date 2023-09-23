@@ -2,7 +2,6 @@
 #include "TransformComponent.h"
 
 #include "Avalon/ECS/Components/CustomTypeSerializationOperators.h"
-
 #include <yaml-cpp/yaml.h>
 
 namespace Avalon
@@ -32,5 +31,12 @@ namespace Avalon
 		out << YAML::EndMap; // TransformComponent
 
 		out << YAML::EndMap;
+	}
+
+	void TransformComponent::Deserialize(YAML::Node transformComponentNode)
+	{
+		position = transformComponentNode["position"].as<glm::vec3>();
+		rotation = transformComponentNode["rotation"].as<glm::vec2>();
+		scale = transformComponentNode["scale"].as<glm::vec2>();
 	}
 }

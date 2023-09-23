@@ -6,18 +6,26 @@
 namespace YAML
 {
 	class Emitter;
+	class Node;
 }
 
 namespace Avalon
 {
+	class Scene;
+
 	template <typename T>
 	concept DerivedFromComponent = std::is_base_of<Component, T>::value;
 
 	class Entity
 	{
 	public:
-		Entity(uint64_t id = 0, std::string name = "", Vec3 position = Vec3(0), Vec2 rotation = Vec2(0), Vec2 scale = Vec2(1)) :
-			id(id), name(name), transformComponent(this, position, rotation, scale)
+		std::uint64_t id;
+		std::string name;
+		std::vector<std::unique_ptr<Component>> components;
+
+	public:
+		Entity(Scene* scene, uint64_t id = 0, std::string name = "", Vec3 position = Vec3(0), Vec2 rotation = Vec2(0), Vec2 scale = Vec2(1)) :
+			scene(scene), id(id), name(name), transformComponent(this, position, rotation, scale)
 		{}
 		virtual ~Entity() {}
 
@@ -29,24 +37,23 @@ namespace Avalon
 		virtual void Render(float deltaTime) const;
 
 		virtual void Serialize(YAML::Emitter& out);
-		virtual void Deserialize();
+		virtual bool Deserialize(YAML::Node entityNode);
 
 		std::string GetName() { return name; }
 
 		template <DerivedFromComponent T, typename... Args>
-		void CreateComponent(Args... args)
+		T& CreateComponent(Args... args)
 		{
-			auto newComp = std::make_unique<T>(this, args...);
+			auto& newComp = components.emplace_back(std::make_unique<T>(args...));
 			newComp->SetOwner(this);
-			components.push_back(std::move(newComp));
+			return *dynamic_cast<T*>(newComp.get());
 		}
 
 	protected:
+		Scene* scene;
 		TransformComponent transformComponent;
 
-	public:
-		std::uint64_t id;
-		std::string name;
-		std::vector<std::unique_ptr<Component>> components;
+	protected:
+		static std::shared_ptr<Scene> GetCurrentScene();
 	};
 }

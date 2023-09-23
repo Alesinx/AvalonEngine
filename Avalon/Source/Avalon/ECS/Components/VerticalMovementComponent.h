@@ -15,6 +15,7 @@ namespace Avalon
 		void Update(float deltaTime) override;
 		void Render(float deltaTime) {}
 		void Serialize(YAML::Emitter& out) override;
+		void Deserialize(YAML::Node verticalMovementComponentNode) override;
 
 	protected:
 		float initialOffset;

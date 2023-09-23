@@ -9,6 +9,7 @@ namespace Avalon
 {
 	void VerticalMovementComponent::Initialize()
 	{
+		currentOffset = initialOffset;
 		originalPosition = mOwningEntity->GetTransform().position;
 	}
 
@@ -41,5 +42,13 @@ namespace Avalon
 		out << YAML::EndMap; // VerticalMovementComponent
 
 		out << YAML::EndMap;
+	}
+
+	void VerticalMovementComponent::Deserialize(YAML::Node verticalMovementComponentNode)
+	{
+		direction = verticalMovementComponentNode["movingDown"].as<bool>()? 1 : -1;
+		initialOffset = verticalMovementComponentNode["initialOffset"].as<float>();
+		maxOffset = verticalMovementComponentNode["maxOffset"].as<float>();
+		speed = verticalMovementComponentNode["speed"].as<float>();
 	}
 }

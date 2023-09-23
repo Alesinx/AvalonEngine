@@ -77,6 +77,13 @@ namespace Avalon
 	{
 	}
 
+	std::shared_ptr<Scene>& Application::CreateScene(const std::string& serializedScenePath)
+	{
+		scene = std::make_shared<Scene>();
+		scene->Deserialize(serializedScenePath);
+		return scene;
+	}
+
 	void Application::ProcessEvent(Event& e)
 	{
 		if (e.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose)))

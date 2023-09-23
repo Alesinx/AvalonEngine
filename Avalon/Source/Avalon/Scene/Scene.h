@@ -1,6 +1,11 @@
 #pragma once
 #include "Avalon/ECS/Entity.h"
 
+namespace YAML
+{
+	class Node;
+}
+
 namespace Avalon
 {
 	class Scene
@@ -15,22 +20,11 @@ namespace Avalon
 		virtual void Serialize(const std::string& path);
 		virtual bool Deserialize(const std::string filePath);
 
-		static std::shared_ptr<Scene> CreateScene(const std::string& filePath)
-		{
-			std::shared_ptr<Scene> newScene = std::make_shared<Scene>();
-			newScene->Deserialize(filePath);
-			return newScene;
-		}
+		virtual std::unique_ptr<Entity>& CreateAndAddEntity(YAML::Node entityNode);
 
 	protected:
 		std::string name;
 		std::vector<std::unique_ptr<Entity>> entities;
-	};
-
-	class ExampleScene : public Scene
-	{
-	public:
-		void Initialize() override;
 	};
 }
 

@@ -13,8 +13,8 @@ namespace Avalon
 		Vec2 scale;
 
 	public:
-		TransformComponent(Entity* const owner = nullptr, Vec3 position = Vec3(0.f), Vec2 rotaiton = Vec2(0.f), Vec2 scale = Vec2(1.f)) :
-			Component(owner), position(position), rotation(rotation), scale(scale) 
+		TransformComponent(Entity* const owner = nullptr, Vec3 position = Vec3(0.f), Vec2 rotation = Vec2(0.f), Vec2 scale = Vec2(1.f)) :
+			Component(owner), position(position), rotation(rotation), scale(scale)
 		{}
 		virtual ~TransformComponent() = default;
 
@@ -22,6 +22,7 @@ namespace Avalon
 		void Update(float deltaTime) override;
 		void Render(float deltaTime) override;
 		void Serialize(YAML::Emitter& out) override;
+		void Deserialize(YAML::Node entityNode) override;
 	};
 }
 

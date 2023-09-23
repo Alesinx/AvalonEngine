@@ -5,6 +5,7 @@
 namespace YAML
 {
 	class Emitter;
+	class Node;
 }
 
 namespace Avalon
@@ -23,6 +24,7 @@ namespace Avalon
 		virtual void Update(float deltaTime) = 0;
 		virtual void Render(float deltaTime) = 0;
 		virtual void Serialize(YAML::Emitter& out) = 0;
+		virtual void Deserialize(YAML::Node componentNode) = 0;
 
 	protected:
 		Entity* mOwningEntity;

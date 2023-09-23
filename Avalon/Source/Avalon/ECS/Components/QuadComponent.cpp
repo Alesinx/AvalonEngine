@@ -3,6 +3,7 @@
 #include "Avalon/ECS/Entity.h"
 #include "Avalon/Renderer/Renderer2D.h"
 
+#include "Avalon/ECS/Components/CustomTypeSerializationOperators.h"
 #include <yaml-cpp/yaml.h>
 
 namespace Avalon
@@ -30,5 +31,11 @@ namespace Avalon
 		out << YAML::EndMap; // QuadComponent
 
 		out << YAML::EndMap;
+	}
+
+	void QuadComponent::Deserialize(YAML::Node quadComponentNode)
+	{
+		size = quadComponentNode["size"].as<glm::vec2>();
+		color = quadComponentNode["color"].as<glm::vec4>();
 	}
 }
