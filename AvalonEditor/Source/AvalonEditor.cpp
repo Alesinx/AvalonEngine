@@ -22,8 +22,10 @@ namespace Avalon
 		fbSpec.height = 720;
 		mFramebuffer = Avalon::Framebuffer::Create(fbSpec);
 
-		CreateScene("Assets/Scenes/DeserializationTest.yaml");
-		scene->Serialize("Assets/Scenes/SerializationTest.yaml");
+		scene = std::make_shared<BenchmarkScene>();
+		//CreateScene("Assets/Scenes/DeserializationTest.yaml");
+		//scene->Serialize("Assets/Scenes/SerializationTest.yaml");
+
 		scene->Initialize();
 	}
 
