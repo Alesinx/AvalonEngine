@@ -30,7 +30,11 @@ namespace Avalon
 		virtual ~Entity() {}
 
 		const TransformComponent& GetTransform() const { return transformComponent; }
+		const Vec3 GetPosition() const { return transformComponent.position; }
+
 		void SetTransform(Vec3 position, Vec2 rotation, Vec2 scale) { this->transformComponent.position = position; this->transformComponent.rotation = rotation; this->transformComponent.scale = scale; }
+		void SetPosition(Vec3 position) { this->transformComponent.position = position; }
+		void SetPosition(Vec2 position) { this->transformComponent.position = Vec3(position, this->transformComponent.position.z); }
 
 		virtual void Initialize();
 		virtual void Update(float deltaTime);

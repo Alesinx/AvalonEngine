@@ -1,0 +1,16 @@
+Scene:
+  Name: MovementTest
+  Entities:
+    - Entity:
+        id: 1
+        name: entity1
+        Components:
+          - TransformComponent:
+              position: [0.5, 0, 0.5]
+              rotation: [0, 0]
+              scale: [1, 1]
+          - SpriteComponent:
+              texturePath: Assets/Textures/Fish.png
+              tintColor: [1, 1, 1, 1]
+          - InputComponent:
+              speed: 1.5

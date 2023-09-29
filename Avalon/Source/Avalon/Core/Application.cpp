@@ -49,16 +49,19 @@ namespace Avalon
 			ProcessInput();
 
 			// Simulation
-			Update(deltaTime);
+			InternalUpdate(deltaTime);
 
 			// Rendering
 			InternalRender(deltaTime);
 		}
 	}
 
+	void Application::EditorUpdate(float deltaTime)
+	{
+	}
+
 	void Application::Update(float deltaTime)
 	{
-		mWindow->OnUpdate();
 	}
 
 	void Application::InternalRender(float deltaTime)
@@ -70,6 +73,20 @@ namespace Avalon
 			mImguiOverlay->Begin();
 			ImguiRender(deltaTime);
 			mImguiOverlay->End();
+		}
+	}
+
+	void Application::InternalUpdate(float deltaTime)
+	{
+		mWindow->OnUpdate();
+
+		if(InEditMode)
+		{
+			EditorUpdate(deltaTime);
+		}
+		else
+		{
+			Update(deltaTime);
 		}
 	}
 

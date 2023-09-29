@@ -3,6 +3,7 @@
 #include "Avalon/Scene/Scene.h"
 #include "Avalon/Core/Application.h"
 #include "Avalon/ECS/Components/SpriteComponent.h"
+#include "Avalon/ECS/Components/InputComponent.h"
 #include "Avalon/ECS/Components/VerticalMovementComponent.h"
 #include "Avalon/ECS/Components/QuadComponent.h"
 
@@ -88,6 +89,11 @@ namespace Avalon
 				{
 					QuadComponent& quadComp = this->CreateComponent<QuadComponent>();
 					quadComp.Deserialize(componentNodeIterator["QuadComponent"]);
+				}
+				else if (componentNodeIterator["InputComponent"])
+				{
+					InputComponent& inputComp = this->CreateComponent<InputComponent>();
+					inputComp.Deserialize(componentNodeIterator["InputComponent"]);
 				}
 				else if (componentNodeIterator["VerticalMovementComponent"])
 				{

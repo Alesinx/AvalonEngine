@@ -22,7 +22,7 @@ namespace Avalon
 		void Update(float deltaTime) override;
 		void Render(float deltaTime) override;
 		void Serialize(YAML::Emitter& out) override;
-		void Deserialize(YAML::Node entityNode) override;
+		void Deserialize(const YAML::Node& entityNode) override;
 	};
 }
 

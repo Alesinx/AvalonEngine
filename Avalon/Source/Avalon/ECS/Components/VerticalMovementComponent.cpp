@@ -44,7 +44,7 @@ namespace Avalon
 		out << YAML::EndMap;
 	}
 
-	void VerticalMovementComponent::Deserialize(YAML::Node verticalMovementComponentNode)
+	void VerticalMovementComponent::Deserialize(const YAML::Node& verticalMovementComponentNode)
 	{
 		direction = verticalMovementComponentNode["movingDown"].as<bool>()? 1 : -1;
 		initialOffset = verticalMovementComponentNode["initialOffset"].as<float>();

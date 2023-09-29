@@ -14,7 +14,7 @@ namespace Avalon
 		void Render(float deltaTime) override;
 
 		void Serialize(YAML::Emitter& out) override;
-		void Deserialize(YAML::Node quadComponentNode) override;
+		void Deserialize(const YAML::Node& quadComponentNode) override;
 
 	protected:
 		Vec2 size;

@@ -19,7 +19,7 @@ namespace Avalon
 		void Render(float deltaTime) override;
 
 		void Serialize(YAML::Emitter& out) override;
-		void Deserialize(YAML::Node spriteComponentNode) override;
+		void Deserialize(const YAML::Node& spriteComponentNode) override;
 
 	protected:
 		std::shared_ptr<Texture2D> texture2D = nullptr;

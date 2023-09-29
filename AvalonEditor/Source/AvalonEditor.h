@@ -9,13 +9,17 @@ namespace Avalon
 		AvalonEditor();
 		virtual ~AvalonEditor() = default;
 
+		void EditorUpdate(float deltaTime) override;
 		void Update(float deltaTime) override;
 		void Render(float deltaTime) override;
 		void ImguiRender(float deltaTime) override;
 		void ProcessEvent(Event& e) override;
 
 	private:
-		OrthographicCameraController mCameraController;
+		void UpdateInfo(float deltaTime);
+
+	private:
+		OrthographicCameraController editorCameraController;
 
 		// Temp
 		std::shared_ptr<VertexArray> mSquareVA;

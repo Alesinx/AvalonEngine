@@ -12,7 +12,7 @@ namespace Avalon
 
 	AvalonEditor::AvalonEditor() :
 		Application("Avalon Editor"),
-		mCameraController(1280.0f / 720.0f)
+		editorCameraController(1280.0f / 720.0f)
 	{
 		mCheckerboardTexture = Avalon::Texture2D::Create("Assets/Textures/Checkerboard.png");
 		mFishTexture = Avalon::Texture2D::Create("Assets/Textures/Fish.png");
@@ -22,27 +22,38 @@ namespace Avalon
 		fbSpec.height = 720;
 		mFramebuffer = Avalon::Framebuffer::Create(fbSpec);
 
-		scene = std::make_shared<BenchmarkScene>();
+		//////////////////////////////////////////////////////////
+		// Benchmark Scene
+		//scene = std::make_shared<BenchmarkScene>();
+
+		//////////////////////////////////////////////////////////
+		// (De)serialize Scene
 		//CreateScene("Assets/Scenes/DeserializationTest.yaml");
 		//scene->Serialize("Assets/Scenes/SerializationTest.yaml");
 
+		//////////////////////////////////////////////////////////
+		// MovementTest Scene
+		CreateScene("Assets/Scenes/MovementTest.yaml");
+
+		InEditMode = false;
+
 		scene->Initialize();
+	}
+
+	void AvalonEditor::EditorUpdate(float deltaTime)
+	{
+		Application::EditorUpdate(deltaTime);
+
+		editorCameraController.Update(deltaTime);
+		UpdateInfo(deltaTime);
 	}
 
 	void AvalonEditor::Update(float deltaTime)
 	{
 		Application::Update(deltaTime);
 
-		mCameraController.Update(deltaTime);
-
 		scene->Update(deltaTime);
-
-		float currentTime = Avalon::Time::GetCurrentTime();
-		if (currentTime - lastInfoUpdateTime > timeBetweenInfoUpdates)
-		{
-			fpsCounter = (1 / deltaTime);
-			lastInfoUpdateTime = currentTime;
-		}
+		UpdateInfo(deltaTime);
 	}
 
 	void AvalonEditor::Render(float deltaTime)
@@ -55,7 +66,7 @@ namespace Avalon
 		if (validFramebuffer && (spec.width != mViewportSize.x || spec.height != mViewportSize.y))
 		{
 			mFramebuffer->Resize((uint32_t)mViewportSize.x, (uint32_t)mViewportSize.y);
-			mCameraController.Resize(mViewportSize.x, mViewportSize.y);
+			editorCameraController.Resize(mViewportSize.x, mViewportSize.y);
 		}
 
 		mFramebuffer->Bind();
@@ -63,7 +74,7 @@ namespace Avalon
 		Avalon::Renderer::SetClearColor();
 		Avalon::Renderer::Clear();
 
-		Avalon::Renderer2D::BeginScene(mCameraController.GetCamera());
+		Avalon::Renderer2D::BeginScene(editorCameraController.GetCamera());
 		Avalon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.999999f }, { 10.0f, 10.0f }, mCheckerboardTexture, Vec4(Vec3(0.5f), 1.f));
 		scene->Render(deltaTime);
 		Avalon::Renderer2D::DrawQuad(mImguiPosition, Vec2(1), Vec4(1.f));
@@ -143,7 +154,7 @@ namespace Avalon
 
 		mViewportFocused = ImGui::IsWindowFocused();
 		mViewportHovered = ImGui::IsWindowHovered();
-		mCameraController.SetPollEvents(mViewportFocused || mViewportHovered);
+		editorCameraController.SetPollEvents(mViewportFocused || mViewportHovered);
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		mViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 		uint32_t viewportTextureID = mFramebuffer->GetColorAttachmentRendererID();
@@ -204,7 +215,17 @@ namespace Avalon
 
 		if (mViewportFocused || mViewportHovered)
 		{
-			mCameraController.ProcessEvent(e);
+			editorCameraController.ProcessEvent(e);
+		}
+	}
+
+	void AvalonEditor::UpdateInfo(float deltaTime)
+	{
+		float currentTime = Avalon::Time::GetCurrentTime();
+		if (currentTime - lastInfoUpdateTime > timeBetweenInfoUpdates)
+		{
+			fpsCounter = (1 / deltaTime);
+			lastInfoUpdateTime = currentTime;
 		}
 	}
 }

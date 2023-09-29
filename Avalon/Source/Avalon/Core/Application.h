@@ -36,6 +36,7 @@ namespace Avalon
 
 	protected:
 		virtual void ProcessInput() {}
+		virtual void EditorUpdate(float deltaTime);
 		virtual void Update(float deltaTime);
 		virtual void Render(float deltaTime);
 
@@ -51,6 +52,7 @@ namespace Avalon
 		std::unique_ptr<ImguiOverlay> mImguiOverlay;
 		std::shared_ptr<Scene> scene;
 		bool minimized = false;
+		bool InEditMode = false;
 
 	private:
 		bool mRunning = true;
@@ -59,6 +61,7 @@ namespace Avalon
 	private:
 		void Gameloop();
 		void InternalRender(float deltaTime);
+		void InternalUpdate(float deltaTime);
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 	};

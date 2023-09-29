@@ -20,11 +20,11 @@ namespace Avalon
 
 		virtual void SetOwner(Entity* const owner) { mOwningEntity = owner; }
 
-		virtual void Initialize() = 0;
-		virtual void Update(float deltaTime) = 0;
-		virtual void Render(float deltaTime) = 0;
-		virtual void Serialize(YAML::Emitter& out) = 0;
-		virtual void Deserialize(YAML::Node componentNode) = 0;
+		virtual void Initialize(){}
+		virtual void Update(float deltaTime){}
+		virtual void Render(float deltaTime){}
+		virtual void Serialize(YAML::Emitter& out){}
+		virtual void Deserialize(const YAML::Node& componentNode){}
 
 	protected:
 		Entity* mOwningEntity;

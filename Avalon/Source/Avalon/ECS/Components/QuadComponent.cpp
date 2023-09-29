@@ -33,7 +33,7 @@ namespace Avalon
 		out << YAML::EndMap;
 	}
 
-	void QuadComponent::Deserialize(YAML::Node quadComponentNode)
+	void QuadComponent::Deserialize(const YAML::Node& quadComponentNode)
 	{
 		size = quadComponentNode["size"].as<glm::vec2>();
 		color = quadComponentNode["color"].as<glm::vec4>();

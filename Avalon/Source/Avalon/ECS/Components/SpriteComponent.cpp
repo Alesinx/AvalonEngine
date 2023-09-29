@@ -39,7 +39,7 @@ namespace Avalon
 		out << YAML::EndMap;
 	}
 
-	void SpriteComponent::Deserialize(YAML::Node spriteComponentNode)
+	void SpriteComponent::Deserialize(const YAML::Node& spriteComponentNode)
 	{
 		texturePath = spriteComponentNode["texturePath"].as<std::string>();
 		tintColor = spriteComponentNode["tintColor"].as<glm::vec4>();

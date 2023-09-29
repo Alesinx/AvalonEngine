@@ -33,7 +33,7 @@ namespace Avalon
 		out << YAML::EndMap;
 	}
 
-	void TransformComponent::Deserialize(YAML::Node transformComponentNode)
+	void TransformComponent::Deserialize(const YAML::Node& transformComponentNode)
 	{
 		position = transformComponentNode["position"].as<glm::vec3>();
 		rotation = transformComponentNode["rotation"].as<glm::vec2>();
