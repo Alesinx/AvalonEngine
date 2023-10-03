@@ -56,10 +56,6 @@ namespace Avalon
 		}
 	}
 
-	void Application::EditorUpdate(float deltaTime)
-	{
-	}
-
 	void Application::Update(float deltaTime)
 	{
 	}
@@ -80,14 +76,7 @@ namespace Avalon
 	{
 		mWindow->OnUpdate();
 
-		if(InEditMode)
-		{
-			EditorUpdate(deltaTime);
-		}
-		else
-		{
-			Update(deltaTime);
-		}
+		Update(deltaTime);
 	}
 
 	void Application::Render(float deltaTime)

@@ -14,6 +14,8 @@ namespace Avalon
 		Application("Avalon Editor"),
 		editorCameraController(1280.0f / 720.0f)
 	{
+		editorPlayIcon = Texture2D::Create("Resources/Icons/PlayButton.png");
+		editorStopIcon = Texture2D::Create("Resources/Icons/StopButton.png");
 		mCheckerboardTexture = Avalon::Texture2D::Create("Assets/Textures/Checkerboard.png");
 		mFishTexture = Avalon::Texture2D::Create("Assets/Textures/Fish.png");
 
@@ -35,16 +37,18 @@ namespace Avalon
 		// MovementTest Scene
 		CreateScene("Assets/Scenes/MovementTest.yaml");
 
-		InEditMode = false;
-
 		scene->Initialize();
 	}
 
 	void AvalonEditor::EditorUpdate(float deltaTime)
 	{
-		Application::EditorUpdate(deltaTime);
-
 		editorCameraController.Update(deltaTime);
+		UpdateInfo(deltaTime);
+	}
+
+	void AvalonEditor::RuntimeUpdate(float deltaTime)
+	{
+		scene->Update(deltaTime);
 		UpdateInfo(deltaTime);
 	}
 
@@ -52,8 +56,14 @@ namespace Avalon
 	{
 		Application::Update(deltaTime);
 
-		scene->Update(deltaTime);
-		UpdateInfo(deltaTime);
+		if (state == EditorState::Edit || state == EditorState::Pause)
+		{
+			EditorUpdate(deltaTime);
+		}
+		else
+		{
+			RuntimeUpdate(deltaTime);
+		}
 	}
 
 	void AvalonEditor::Render(float deltaTime)
@@ -148,10 +158,8 @@ namespace Avalon
 			ImGui::EndMenuBar();
 		}
 
-		// Viewport
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
 		ImGui::Begin("Viewport");
-
 		mViewportFocused = ImGui::IsWindowFocused();
 		mViewportHovered = ImGui::IsWindowHovered();
 		editorCameraController.SetPollEvents(mViewportFocused || mViewportHovered);
@@ -159,17 +167,17 @@ namespace Avalon
 		mViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 		uint32_t viewportTextureID = mFramebuffer->GetColorAttachmentRendererID();
 		ImGui::Image((void*)viewportTextureID, ImVec2{ (float)mViewportSize.x, (float)mViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-
-		ImGui::End();
+		ImGui::End(); // Viewport
 		ImGui::PopStyleVar();
 
-		// Settings
-		ImGui::Begin("Inspector");
+		RenderToolbar();
+
+		ImGui::Begin("Entity inspector");
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(mSquareColor));
 		ImGui::SliderFloat("X", &mImguiPosition.x, -2, 2);
 		ImGui::SliderFloat("Y", &mImguiPosition.y, -2, 2);
 		ImGui::SliderFloat("Z", &mImguiPosition.z, -0.999f, 0.999f);
-		ImGui::End();
+		ImGui::End(); // Entity inspector
 
 		// Settings
 		ImGui::Begin("Settings");
@@ -188,7 +196,7 @@ namespace Avalon
 			ImGui::Checkbox("Show demo window", &mImguiOverlay->showDemo);
 			ImGui::TreePop();
 		}
-		ImGui::End();
+		ImGui::End(); // Settings
 
 		ImGui::Begin("Info");
 		ImGui::Text("Refresh rate:");
@@ -196,15 +204,13 @@ namespace Avalon
 		ImGui::InputFloat("##value", &timeBetweenInfoUpdates);
 
 		ImGui::Text("fps: %g", fpsCounter);
-		ImGui::End();
+		ImGui::End(); // Info
 
-		// Hierarchy
 		ImGui::Begin("Scene hierarchy");
-		ImGui::End();
+		ImGui::End(); // Scene hierarchy
 
-		// Console
 		ImGui::Begin("Console");
-		ImGui::End();
+		ImGui::End(); // Console
 
 		ImGui::End(); // Dockspace
 	}
@@ -227,5 +233,36 @@ namespace Avalon
 			fpsCounter = (1 / deltaTime);
 			lastInfoUpdateTime = currentTime;
 		}
+	}
+
+	void AvalonEditor::OnEditorPlay()
+	{
+		state = EditorState::Play;
+	}	
+
+	void AvalonEditor::OnEditorStop()
+	{
+		state = EditorState::Edit;
+	}
+
+	void AvalonEditor::RenderToolbar()
+	{
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 2));
+		ImGui::PushStyleVar(ImGuiStyleVar_ItemInnerSpacing, ImVec2(0, 0));
+
+		ImGui::Begin("##toolbar", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+		float size = ImGui::GetWindowHeight() - 4.0f;
+		std::shared_ptr<Texture2D>& icon = state == EditorState::Edit ? editorPlayIcon : editorStopIcon;
+		ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
+		if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0))
+		{
+			if (state == EditorState::Edit)
+				OnEditorPlay();
+			else if (state == EditorState::Play)
+				OnEditorStop();
+		}
+		ImGui::End(); //toolbar
+
+		ImGui::PopStyleVar(2);
 	}
 }

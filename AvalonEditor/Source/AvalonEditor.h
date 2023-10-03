@@ -3,20 +3,32 @@
 
 namespace Avalon
 {
+	enum class EditorState
+	{
+		Edit = 0,
+		Play = 1,
+		Pause = 2
+	};
+
 	class AvalonEditor : public Application
 	{
 	public:
 		AvalonEditor();
 		virtual ~AvalonEditor() = default;
 
-		void EditorUpdate(float deltaTime) override;
 		void Update(float deltaTime) override;
 		void Render(float deltaTime) override;
 		void ImguiRender(float deltaTime) override;
 		void ProcessEvent(Event& e) override;
 
+		void EditorUpdate(float deltaTime);
+		void RuntimeUpdate(float deltaTime);
+
 	private:
 		void UpdateInfo(float deltaTime);
+		void OnEditorPlay();
+		void OnEditorStop();
+		void RenderToolbar();
 
 	private:
 		OrthographicCameraController editorCameraController;
@@ -40,5 +52,10 @@ namespace Avalon
 
 		float fpsCounter = 0.0f;
 		float lastInfoUpdateTime = 0.0f;
+
+		EditorState state = EditorState::Edit;
+
+		std::shared_ptr<Texture2D> editorPlayIcon;
+		std::shared_ptr<Texture2D> editorStopIcon;
 	};
 }
