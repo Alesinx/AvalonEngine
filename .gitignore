@@ -5,7 +5,6 @@ Intermediate/
 
 # Files
 *.user
-imgui.ini
 
 # Visual Studio files and folder
 **.sln
